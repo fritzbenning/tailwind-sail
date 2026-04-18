@@ -1,0 +1,24 @@
+.class-token-input {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	margin: 0;
+	padding: 4px 6px;
+	font-family: var(--vscode-editor-font-family);
+	font-size: 0.85em;
+	color: var(--vscode-foreground);
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	outline: none;
+}
+.class-token-input:hover,
+.class-row--editable .class-row-line:hover .class-token-input,
+.class-token-input:focus {
+	color: var(--vscode-input-foreground);
+	background: var(--vscode-input-background);
+	border-color: var(--vscode-input-border, var(--vscode-widget-border));
+}
+.class-token-input:focus {
+	border-color: var(--vscode-focusBorder);
+}

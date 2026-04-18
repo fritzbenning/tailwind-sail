@@ -1,0 +1,68 @@
+.sail-class-search-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	min-width: 0;
+}
+.sail-class-search-input {
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	min-width: 0;
+	margin: 0;
+	padding: 4px 6px;
+	font-family: var(--vscode-editor-font-family);
+	font-size: 0.85em;
+	line-height: 1.35;
+	color: var(--vscode-input-foreground);
+	background: var(--vscode-input-background);
+	border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
+	border-radius: 2px;
+	outline: none;
+}
+.sail-class-search-input:focus {
+	border-color: var(--vscode-focusBorder);
+}
+.sail-class-search-clear-wrap {
+	flex: 0 0 auto;
+	align-self: stretch;
+	display: flex;
+	min-width: 0;
+	min-height: 0;
+	aspect-ratio: 1 / 1;
+	width: auto;
+}
+.sail-class-search-clear-wrap[hidden] {
+	display: none !important;
+}
+.sail-class-search-clear {
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: 2px;
+	background: transparent;
+	cursor: pointer;
+	opacity: 0.75;
+	outline: none;
+}
+.sail-class-search-clear:hover {
+	opacity: 1;
+}
+.sail-class-search-clear:focus-visible {
+	opacity: 1;
+	box-shadow: 0 0 0 1px var(--vscode-focusBorder);
+}
+.sail-class-search-clear svg {
+	display: block;
+	width: 14px;
+	height: 14px;
+	color: var(--vscode-icon-foreground, var(--vscode-foreground));
+}

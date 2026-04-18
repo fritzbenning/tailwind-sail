@@ -1,0 +1,82 @@
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+body {
+	box-sizing: border-box;
+	font-family: var(--vscode-font-family);
+	font-size: var(--vscode-font-size);
+	color: var(--vscode-foreground);
+	background: var(--vscode-sideBar-background);
+	padding: 10px 0;
+	margin: 0;
+	height: 100%;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border-right: 1px solid var(--vscode-sideBar-border, var(--vscode-widget-border));
+}
+#parsed-classes {
+	--sail-panel-inline-pad: 8px;
+	box-sizing: border-box;
+	flex: 1 1 auto;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+#parsed-classes > .sail-message-box {
+	flex-shrink: 0;
+	margin-left: var(--sail-panel-inline-pad);
+	margin-right: var(--sail-panel-inline-pad);
+}
+/* Match workbench scrollbars via theme colors (Firefox). */
+* {
+	scrollbar-width: normal;
+	scrollbar-color: var(--vscode-scrollbarSlider-background, rgba(121, 121, 121, 0.4))
+		var(--vscode-sideBar-background);
+}
+/* Chromium / Electron webview */
+*::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+*::-webkit-scrollbar-track {
+	background: var(--vscode-sideBar-background);
+}
+*::-webkit-scrollbar-thumb {
+	background: var(--vscode-scrollbarSlider-background, rgba(121, 121, 121, 0.4));
+	border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb:hover {
+	background: var(
+		--vscode-scrollbarSlider-hoverBackground,
+		var(--vscode-scrollbarSlider-background)
+	);
+}
+*::-webkit-scrollbar-thumb:active {
+	background: var(
+		--vscode-scrollbarSlider-activeBackground,
+		var(--vscode-scrollbarSlider-hoverBackground, var(--vscode-scrollbarSlider-background))
+	);
+}
+h1 {
+	font-size: 1.05em;
+	margin: 0 0 10px 0;
+	font-weight: 600;
+}
+.section {
+	margin-bottom: 12px;
+}
+.label {
+	opacity: 0.85;
+	font-size: 0.85em;
+	margin-bottom: 4px;
+}
+.empty {
+	border: 1px dashed var(--vscode-widget-border);
+	padding: 10px;
+	border-radius: 4px;
+	color: var(--vscode-descriptionForeground);
+}

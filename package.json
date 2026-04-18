@@ -1,0 +1,84 @@
+{
+  "name": "sail",
+  "displayName": "Sail",
+  "description": "the missing sail for Tailwind",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sail",
+          "title": "Sail",
+          "icon": "media/sail-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "sail": [
+        {
+          "id": "sail.sidebar",
+          "name": "Sail",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "sail.showSidebar",
+        "title": "Sail: Show Sidebar",
+        "category": "Sail"
+      },
+      {
+        "command": "sail.refresh",
+        "title": "Sail: Refresh",
+        "category": "Sail"
+      }
+    ],
+    "configuration": {
+      "title": "Sail",
+      "properties": {
+        "sail.updateDebounceMs": {
+          "type": "number",
+          "default": 20,
+          "minimum": 0,
+          "markdownDescription": "Delay in milliseconds before Sail re-runs string detection and Tailwind parsing after cursor or document changes. Lower values feel snappier; higher values reduce work while typing."
+        },
+        "sail.highlightActiveString": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Underline the string literal in the active editor that Sail’s sidebar is showing Tailwind info for."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "postinstall": "npm install --prefix webview-ui",
+    "vscode:prepublish": "npm run compile",
+    "compile": "npm run compile:webview && tsc -p ./",
+    "compile:webview": "npm run build --prefix webview-ui",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.105.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.56.1",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}

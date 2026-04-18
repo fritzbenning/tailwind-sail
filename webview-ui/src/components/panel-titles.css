@@ -1,0 +1,14 @@
+.sail-panel-title {
+	font-size: 0.7em;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	margin: 0 0px 6px 0px;
+	color: var(--vscode-descriptionForeground);
+}
+.sail-filter-section .sail-panel-title {
+	margin-bottom: 8px;
+}
+.sail-add-class-section .sail-panel-title {
+	margin-bottom: 10px;
+}
