@@ -1,4 +1,4 @@
-import { VARIANT_IDS, CONTAINER_BASE_FILTER_VALUE, classifyVariantModifier, } from '@ext/filter';
+import { VARIANT_IDS, classifyVariantModifier, } from '@ext/filter';
 import { splitTailwindClassVariants } from '@ext/variants/splitTailwindClassVariants';
 export function emptyVariantFilterState() {
     const o = {};
@@ -25,7 +25,7 @@ function shouldStripVariantModifier(sel, dimension, key) {
     if (dimension === 'breakpoints' && sel === 'base') {
         return false;
     }
-    if (dimension === 'container' && sel === CONTAINER_BASE_FILTER_VALUE) {
+    if (dimension === 'container' && sel === 'base') {
         return false;
     }
     return sel === key;
@@ -109,7 +109,7 @@ export function rowMatchesVariantFilters(item, variantEff, panel) {
             }
             continue;
         }
-        if (dim === 'container' && sel === CONTAINER_BASE_FILTER_VALUE) {
+        if (dim === 'container' && sel === 'base') {
             if (arr.length !== 0) {
                 return false;
             }

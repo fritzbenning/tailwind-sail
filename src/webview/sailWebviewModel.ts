@@ -3,7 +3,6 @@ import type { ParsedTailwindClass } from '../tailwind/parse/types';
 import { UTILITY_CATEGORIES } from '../tailwind/filter/categories';
 import { classifyTailwindUtility } from '../tailwind/filter/classify/classifyTailwindUtility';
 import {
-	CONTAINER_BASE_FILTER_VALUE,
 	VARIANT_FILTER_ROW_DIMENSIONS,
 	getVariantBuckets,
 	getVariantLabel,
@@ -51,7 +50,7 @@ function buildVariantRows(presentKeys: Record<FilterDimensionId, Set<string>>): 
 		if (
 			(dim === 'state' && keys.length === 1 && keys[0] === 'idle') ||
 			(dim === 'breakpoints' && keys.length === 1 && keys[0] === 'base') ||
-			(dim === 'container' && keys.length === 1 && keys[0] === CONTAINER_BASE_FILTER_VALUE) ||
+			(dim === 'container' && keys.length === 1 && keys[0] === 'base') ||
 			(dim === 'theme' && keys.length === 1 && keys[0] === 'light')
 		) {
 			continue;
@@ -120,7 +119,7 @@ export function buildSailWebviewViewModel(snapshot: SailEditorSnapshot): SailWeb
 		presentKeys.breakpoints.add('base');
 	}
 	if (offerContainerBaseChip) {
-		presentKeys.container.add(CONTAINER_BASE_FILTER_VALUE);
+		presentKeys.container.add('base');
 	}
 
 	const variantRows = buildVariantRows(presentKeys);

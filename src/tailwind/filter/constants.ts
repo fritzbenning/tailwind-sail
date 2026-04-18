@@ -123,11 +123,6 @@ export const INTERACTION_EXACT = new Set([
 ]);
 
 /**
- * Container filter chip: only classes with no `@` container-query variant.
- */
-export const CONTAINER_BASE_FILTER_VALUE = 'base';
-
-/**
  * Sidebar toolbar row order (subset of dimensions). Rows with no matching classes are hidden.
  */
 export const VARIANT_FILTER_ROW_DIMENSIONS = [

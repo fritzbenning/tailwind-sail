@@ -1,9 +1,4 @@
-import {
-	VARIANT_IDS,
-	CONTAINER_BASE_FILTER_VALUE,
-	classifyVariantModifier,
-	type FilterDimensionId,
-} from '@ext/filter';
+import { VARIANT_IDS, classifyVariantModifier, type FilterDimensionId } from '@ext/filter';
 import { splitTailwindClassVariants } from '@ext/variants/splitTailwindClassVariants';
 import type { SailWebviewClassItem, SailWebviewPanelModel } from '@sail/protocol';
 
@@ -45,7 +40,7 @@ function shouldStripVariantModifier(sel: string, dimension: FilterDimensionId, k
 	if (dimension === 'breakpoints' && sel === 'base') {
 		return false;
 	}
-	if (dimension === 'container' && sel === CONTAINER_BASE_FILTER_VALUE) {
+	if (dimension === 'container' && sel === 'base') {
 		return false;
 	}
 	return sel === key;
@@ -140,7 +135,7 @@ export function rowMatchesVariantFilters(
 			}
 			continue;
 		}
-		if (dim === 'container' && sel === CONTAINER_BASE_FILTER_VALUE) {
+		if (dim === 'container' && sel === 'base') {
 			if (arr.length !== 0) {
 				return false;
 			}

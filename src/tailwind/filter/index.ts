@@ -1,4 +1,4 @@
-export { CONTAINER_BASE_FILTER_VALUE, VARIANT_FILTER_ROW_DIMENSIONS } from './constants';
+export { VARIANT_FILTER_ROW_DIMENSIONS } from './constants';
 export { VARIANT_IDS, VARIANTS, type FilterDimensionId } from './variants';
 export { getVariantBuckets } from './buckets/getVariantBuckets';
 export { classifyVariantModifier, type ClassifiedVariant } from './classify/classifyVariantModifier';

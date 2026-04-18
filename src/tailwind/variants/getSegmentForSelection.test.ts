@@ -1,6 +1,5 @@
 import * as assert from 'assert';
 import { getSegmentForSelection } from './getSegmentForSelection';
-import { CONTAINER_BASE_FILTER_VALUE } from '../filter';
 
 suite('getSegmentForSelection', () => {
 	test('returns null for all', () => {
@@ -10,21 +9,24 @@ suite('getSegmentForSelection', () => {
 	test('returns null for synthetic state idle', () => {
 		assert.strictEqual(getSegmentForSelection('state', 'idle'), null);
 		assert.strictEqual(getSegmentForSelection('state', 'Idle:'), null);
+		assert.strictEqual(getSegmentForSelection('state', ' idle: '), null);
 	});
 
 	test('returns null for synthetic breakpoint base', () => {
 		assert.strictEqual(getSegmentForSelection('breakpoints', 'base'), null);
+		assert.strictEqual(getSegmentForSelection('breakpoints', 'Base:'), null);
+		assert.strictEqual(getSegmentForSelection('breakpoints', ' Base: '), null);
 	});
 
 	test('returns null for synthetic container base', () => {
-		assert.strictEqual(
-			getSegmentForSelection('container', CONTAINER_BASE_FILTER_VALUE),
-			null,
-		);
+		assert.strictEqual(getSegmentForSelection('container', 'base'), null);
+		assert.strictEqual(getSegmentForSelection('container', 'Base:'), null);
+		assert.strictEqual(getSegmentForSelection('container', ' Base: '), null);
 	});
 
 	test('returns null for synthetic theme light chip', () => {
 		assert.strictEqual(getSegmentForSelection('theme', 'light'), null);
+		assert.strictEqual(getSegmentForSelection('theme', 'Light:'), null);
 		assert.strictEqual(getSegmentForSelection('theme', ' Light: '), null);
 	});
 
