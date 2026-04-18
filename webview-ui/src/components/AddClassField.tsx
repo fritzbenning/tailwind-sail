@@ -1,7 +1,5 @@
 import { type Accessor, createEffect, createSignal } from "solid-js";
 import { vscode } from "../vscode";
-import "./class-token-input.css";
-import "./AddClassField.css";
 
 export function AddClassField(props: {
 	variantPrefix: Accessor<string>;
@@ -55,13 +53,18 @@ export function AddClassField(props: {
 
 	return (
 		<>
-			<div class="sail-add-class-divider" role="presentation" />
-			<div class="sail-add-class-section">
-				<div class="sail-panel-title">Add</div>
+			<div
+				class="mb-[var(--sail-panel-block-gap)] box-border h-px shrink-0 border-0 bg-[var(--vscode-widget-border)] p-0"
+				role="presentation"
+			/>
+			<div class="sail-add-class-section box-border px-[var(--sail-panel-inline-pad)]">
+				<div class="sail-panel-title mb-2.5 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-[var(--vscode-descriptionForeground)]">
+					Add
+				</div>
 				<input
 					ref={setInputEl}
 					type="text"
-					class="class-token-input sail-add-class-input"
+					class="class-token-input box-border m-0 w-full max-w-full rounded-sm border border-[var(--vscode-input-border,var(--vscode-widget-border))] bg-[var(--vscode-input-background)] px-1.5 py-1 text-[0.85em] text-[var(--vscode-input-foreground)] outline-none [font-family:var(--vscode-editor-font-family)] focus:border-[var(--vscode-focusBorder)]"
 					spellcheck={false}
 					autocomplete="off"
 					placeholder="New class"

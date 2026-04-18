@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@layer base {
+	#parsed-classes {
+		--sail-panel-inline-pad: 8px;
+		box-sizing: border-box;
+		flex: 1 1 auto;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	#parsed-classes > .sail-message-box {
+		flex-shrink: 0;
+		margin-left: var(--sail-panel-inline-pad);
+		margin-right: var(--sail-panel-inline-pad);
+	}
+
+	.parsed-classes-panel > *:not(.sail-class-list-scroll) {
+		flex-shrink: 0;
+	}
+
+	* {
+		scrollbar-width: normal;
+		scrollbar-color: var(
+				--vscode-scrollbarSlider-background,
+				rgba(121, 121, 121, 0.4)
+			)
+			var(--vscode-sideBar-background);
+	}
+
+	*::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+
+	*::-webkit-scrollbar-track {
+		background: var(--vscode-sideBar-background);
+	}
+
+	*::-webkit-scrollbar-thumb {
+		background: var(
+			--vscode-scrollbarSlider-background,
+			rgba(121, 121, 121, 0.4)
+		);
+		border-radius: 5px;
+	}
+
+	*::-webkit-scrollbar-thumb:hover {
+		background: var(
+			--vscode-scrollbarSlider-hoverBackground,
+			var(--vscode-scrollbarSlider-background)
+		);
+	}
+
+	*::-webkit-scrollbar-thumb:active {
+		background: var(
+			--vscode-scrollbarSlider-activeBackground,
+			var(
+				--vscode-scrollbarSlider-hoverBackground,
+				var(--vscode-scrollbarSlider-background)
+			)
+		);
+	}
+}
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+body {
+	box-sizing: border-box;
+	margin: 0;
+	height: 100%;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	font-family: var(--vscode-font-family);
+	font-size: var(--vscode-font-size);
+	font-weight: var(--vscode-font-weight);
+	color: var(--vscode-foreground);
+	background: var(--vscode-sideBar-background);
+	border-right: 1px solid
+		var(--vscode-sideBar-border, var(--vscode-widget-border));
+	padding: 10px 0 !important;
+}

@@ -16,8 +16,6 @@ import { NoResultState } from "./NoResultState";
 import { SemanticFilterBar } from "./SemanticFilterBar";
 import { VariantFilterRows } from "./VariantFilterRows";
 import { VariantPrefixToggle } from "./VariantPrefixToggle";
-import "./panel-titles.css";
-import "./ParsedClassesPanel.css";
 
 export function ParsedClassesPanel(props: {
 	panel: SailWebviewPanelModel;
@@ -62,13 +60,16 @@ export function ParsedClassesPanel(props: {
 	);
 
 	return (
-		<div class="parsed-classes-panel">
+		<div class="parsed-classes-panel flex min-h-0 min-w-0 flex-1 flex-col gap-0 overflow-hidden [--sail-class-row-gap:6px] [--sail-panel-block-gap:14px]">
 			<ClassSearchRow
 				value={props.filter.classSearch}
 				onInput={(v) => props.onPatchFilter({ classSearch: v })}
 				onClear={() => props.onPatchFilter({ classSearch: "" })}
 			/>
-			<div class="sail-search-class-divider" role="presentation" />
+			<div
+				class="sail-search-class-divider mb-[var(--sail-panel-block-gap)] box-border h-px shrink-0 border-0 bg-[var(--vscode-widget-border)] p-0"
+				role="presentation"
+			/>
 			<SemanticFilterBar
 				panel={props.panel}
 				semantic={props.filter.semantic}
@@ -87,15 +88,18 @@ export function ParsedClassesPanel(props: {
 					}
 				/>
 			</Show>
-			<div class="sail-filters-class-divider" role="presentation" />
+			<div
+				class="sail-filters-class-divider m-0 box-border h-px shrink-0 border-0 bg-[var(--vscode-widget-border)] p-0"
+				role="presentation"
+			/>
 			<Show when={showNoResult()}>
 				<NoResultState onReset={resetFilters} />
 			</Show>
-			<div class="sail-class-list-scroll">
-				<ul class="class-token-list">
+			<div class="sail-class-list-scroll box-border min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-[var(--sail-panel-inline-pad)] pt-[var(--sail-panel-block-gap)] pb-[var(--sail-panel-block-gap)]">
+				<ul class="class-token-list m-0 flex list-none flex-col gap-[var(--sail-class-row-gap)] p-0">
 					<Show when={props.panel.classes.length === 0}>
 						<li
-							class="class-row muted"
+							class="class-row muted relative text-[var(--vscode-descriptionForeground)] opacity-[0.85]"
 							data-sail-no-token="true"
 							data-sail-semantic="others"
 						>

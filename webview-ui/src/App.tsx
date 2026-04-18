@@ -17,7 +17,6 @@ import {
 	defaultClientFilterState,
 	filterStateIsAvailable,
 } from "./matchClasses";
-import "./app-shell.css";
 
 let deferRender = false;
 let pendingModel: SailWebviewViewModel | null = null;
