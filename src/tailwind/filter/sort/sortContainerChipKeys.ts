@@ -6,7 +6,7 @@
  * // Output: `['base', '@md']`
  */
 export function sortContainerChipKeys(keys: readonly string[]): string[] {
-	const base = 'base';
+	const base = "base";
 	const hasBase = keys.includes(base);
 	const rest = keys
 		.filter((k) => k !== base)

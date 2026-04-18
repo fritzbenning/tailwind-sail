@@ -1,8 +1,11 @@
-import type { FilterDimensionId } from '../variants';
-import { VARIANT_IDS } from '../variants';
-import { classifyVariantModifier } from '../classify/classifyVariantModifier';
-import { getEmptyVariantBuckets, VariantBuckets } from './getEmptyVariantBuckets';
-import { compareBreakpointKeys } from '../breakpoints/compareBreakpointKeys';
+import { compareBreakpointKeys } from "../breakpoints/compareBreakpointKeys";
+import { classifyVariantModifier } from "../classify/classifyVariantModifier";
+import type { FilterDimensionId } from "../variants";
+import { VARIANT_IDS } from "../variants";
+import {
+	getEmptyVariantBuckets,
+	VariantBuckets,
+} from "./getEmptyVariantBuckets";
 
 /**
  * Groups variant prefixes (`md:`, `hover:`, …) into per-dimension unique keys, sorted.
@@ -12,7 +15,9 @@ import { compareBreakpointKeys } from '../breakpoints/compareBreakpointKeys';
  * // Input: `['dark:', 'md:', 'hover:', 'md:']`
  * // Output: `{ theme: ['dark'], breakpoints: ['md'], state: ['hover'], … }` (empty arrays for unused dimensions)
  */
-export function createBucketModifiers(modifiers: readonly string[]): VariantBuckets {
+export function createBucketModifiers(
+	modifiers: readonly string[],
+): VariantBuckets {
 	const buckets = getEmptyVariantBuckets();
 
 	const seen: Record<FilterDimensionId, Set<string>> = {
@@ -44,10 +49,12 @@ export function createBucketModifiers(modifiers: readonly string[]): VariantBuck
 	}
 
 	for (const id of VARIANT_IDS) {
-		if (id === 'breakpoints') {
+		if (id === "breakpoints") {
 			buckets[id].sort(compareBreakpointKeys);
 		} else {
-			buckets[id].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+			buckets[id].sort((a, b) =>
+				a.localeCompare(b, undefined, { numeric: true }),
+			);
 		}
 	}
 

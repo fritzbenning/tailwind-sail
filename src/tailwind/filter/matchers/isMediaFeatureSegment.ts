@@ -1,4 +1,4 @@
-import { MEDIA_FEATURE_EXACT } from '../constants';
+import { MEDIA_FEATURE_EXACT } from "../constants";
 
 /**
  * `true` for media / `@media` feature style variants (`print:`, `motion-reduce:`, …).
@@ -16,7 +16,7 @@ export function isMediaFeatureSegment(segment: string): boolean {
 	if (MEDIA_FEATURE_EXACT.has(l)) {
 		return true;
 	}
-	if (l.startsWith('any-pointer-') || l.startsWith('any-hover')) {
+	if (l.startsWith("any-pointer-") || l.startsWith("any-hover")) {
 		return true;
 	}
 	return false;

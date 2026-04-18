@@ -10,5 +10,5 @@
  * // Output: `false`
  */
 export function isDataSegment(segment: string): boolean {
-	return segment.toLowerCase().startsWith('data-');
+	return segment.toLowerCase().startsWith("data-");
 }

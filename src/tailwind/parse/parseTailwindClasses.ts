@@ -4,8 +4,8 @@
  * validation against a project config). Shared by editor and webview code.
  */
 
-import { containTailwindClasses } from '../detect/containTailwindClasses';
-import type { ParsedTailwindClass, ParsedTailwindResult } from './types';
+import { containTailwindClasses } from "../detect/containTailwindClasses";
+import type { ParsedTailwindClass, ParsedTailwindResult } from "./types";
 
 /**
  * Splits on whitespace into class tokens and records each token’s half-open span `[startInRaw, endInRaw)` in `input`.

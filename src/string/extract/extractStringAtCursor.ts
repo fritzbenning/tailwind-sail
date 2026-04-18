@@ -1,6 +1,6 @@
-import * as vscode from 'vscode';
-import type { ExtractedString } from '../types';
-import { extractStringAtOffset } from './extractStringAtOffset';
+import * as vscode from "vscode";
+import type { ExtractedString } from "../types";
+import { extractStringAtOffset } from "./extractStringAtOffset";
 
 /**
  * Given the active editor cursor (primary selection anchor), finds whether that offset lies
@@ -38,7 +38,10 @@ import { extractStringAtOffset } from './extractStringAtOffset';
  * //   rawToDocSegments: [{ rawStart: 0, rawEnd: 10, docStart: 11, docEnd: 21 }],
  * // }
  */
-export function extractStringAtCursor(document: vscode.TextDocument, position: vscode.Position): ExtractedString | undefined {
+export function extractStringAtCursor(
+	document: vscode.TextDocument,
+	position: vscode.Position,
+): ExtractedString | undefined {
 	const offset = document.offsetAt(position);
 	const text = document.getText();
 	const inner = extractStringAtOffset(text, offset);
@@ -47,7 +50,10 @@ export function extractStringAtCursor(document: vscode.TextDocument, position: v
 	}
 	return {
 		rawContent: inner.rawContent,
-		range: new vscode.Range(document.positionAt(inner.startOffset), document.positionAt(inner.endOffset)),
+		range: new vscode.Range(
+			document.positionAt(inner.startOffset),
+			document.positionAt(inner.endOffset),
+		),
 		rawToDocSegments: inner.rawToDocSegments,
 	};
 }

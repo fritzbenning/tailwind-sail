@@ -1,18 +1,24 @@
-import * as vscode from 'vscode';
-import { rawSpanToDocOffsets } from '../../string/utils/rawSpanToDocOffsets';
-import { parseTailwindClasses } from '../../tailwind/parse/parseTailwindClasses';
-import { extractStringAtCursor } from '../../string/extract/extractStringAtCursor';
+import * as vscode from "vscode";
+import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
+import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 
 /**
  * Appends a new class token to the string under the primary cursor (or replaces whitespace-only
  * content when there are no tokens). Returns whether an edit was applied.
  */
-export async function addClassToString(editor: vscode.TextEditor, newClass: string): Promise<boolean> {
+export async function addClassToString(
+	editor: vscode.TextEditor,
+	newClass: string,
+): Promise<boolean> {
 	const trimmed = newClass.trim();
 	if (trimmed.length === 0 || /\s/.test(trimmed)) {
 		return false;
 	}
-	const extracted = extractStringAtCursor(editor.document, editor.selection.active);
+	const extracted = extractStringAtCursor(
+		editor.document,
+		editor.selection.active,
+	);
 	if (!extracted) {
 		return false;
 	}
@@ -39,11 +45,18 @@ export async function addClassToString(editor: vscode.TextEditor, newClass: stri
 		endInRaw = pos > last.endInRaw ? pos : last.endInRaw;
 	}
 
-	const span = rawSpanToDocOffsets(extracted.rawToDocSegments, startInRaw, endInRaw);
+	const span = rawSpanToDocOffsets(
+		extracted.rawToDocSegments,
+		startInRaw,
+		endInRaw,
+	);
 	if (!span) {
 		return false;
 	}
 	const doc = editor.document;
-	const range = new vscode.Range(doc.positionAt(span.docStart), doc.positionAt(span.docEnd));
+	const range = new vscode.Range(
+		doc.positionAt(span.docStart),
+		doc.positionAt(span.docEnd),
+	);
 	return editor.edit((b) => b.replace(range, insertText));
 }

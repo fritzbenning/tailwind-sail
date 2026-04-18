@@ -1,9 +1,9 @@
-import type { ScanResult } from '../types';
-import { skipBlockComment } from '../scan/skipBlockComment';
-import { skipLineComment } from '../scan/skipLineComment';
-import { tryDoubleQuote } from './tryDoubleQuote';
-import { trySingleQuote } from './trySingleQuote';
-import { tryTemplateLiteral } from './tryTemplateLiteral';
+import { skipBlockComment } from "../scan/skipBlockComment";
+import { skipLineComment } from "../scan/skipLineComment";
+import type { ScanResult } from "../types";
+import { tryDoubleQuote } from "./tryDoubleQuote";
+import { trySingleQuote } from "./trySingleQuote";
+import { tryTemplateLiteral } from "./tryTemplateLiteral";
 
 /**
  * Parses a `${ ... }` expression body: `braceOpenIdx` is the index of `{` in `${`. Consumes until the
@@ -26,17 +26,21 @@ import { tryTemplateLiteral } from './tryTemplateLiteral';
  * tryExpressionBlock('\`x ${ foo } y\`', 4, 8);
  * // → { end: 11 }  // end after `}`; no `extracted`
  */
-export function tryExpressionBlock(text: string, braceOpenIdx: number, offset: number): ScanResult {
+export function tryExpressionBlock(
+	text: string,
+	braceOpenIdx: number,
+	offset: number,
+): ScanResult {
 	let i = braceOpenIdx + 1;
 	let depth = 1;
 
 	while (i < text.length && depth > 0) {
 		const c = text[i];
-		if (c === '/' && text[i + 1] === '/') {
+		if (c === "/" && text[i + 1] === "/") {
 			i = skipLineComment(text, i);
 			continue;
 		}
-		if (c === '/' && text[i + 1] === '*') {
+		if (c === "/" && text[i + 1] === "*") {
 			i = skipBlockComment(text, i);
 			continue;
 		}
@@ -56,7 +60,7 @@ export function tryExpressionBlock(text: string, braceOpenIdx: number, offset: n
 			i = r.end;
 			continue;
 		}
-		if (c === '`') {
+		if (c === "`") {
 			const r = tryTemplateLiteral(text, i, offset);
 			if (r.extracted) {
 				return { end: r.end, extracted: r.extracted };
@@ -64,12 +68,12 @@ export function tryExpressionBlock(text: string, braceOpenIdx: number, offset: n
 			i = r.end;
 			continue;
 		}
-		if (c === '{') {
+		if (c === "{") {
 			depth++;
 			i++;
 			continue;
 		}
-		if (c === '}') {
+		if (c === "}") {
 			depth--;
 			if (depth === 0) {
 				return { end: i + 1 };

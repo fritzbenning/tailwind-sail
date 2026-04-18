@@ -10,5 +10,5 @@
  * // Output: `false`
  */
 export function isAriaSegment(segment: string): boolean {
-	return segment.toLowerCase().startsWith('aria-');
+	return segment.toLowerCase().startsWith("aria-");
 }

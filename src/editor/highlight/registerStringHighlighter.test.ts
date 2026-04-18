@@ -1,10 +1,10 @@
-import * as assert from 'assert';
-import * as vscode from 'vscode';
-import { extractStringAtCursor } from '../../string/extract/extractStringAtCursor';
-import type { SailEditorSnapshot } from '../types';
-import { registerStringHighlighter } from './registerStringHighlighter';
+import * as assert from "assert";
+import * as vscode from "vscode";
+import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import type { SailEditorSnapshot } from "../types";
+import { registerStringHighlighter } from "./registerStringHighlighter";
 
-suite('registerStringHighlighter', () => {
+suite("registerStringHighlighter", () => {
 	const subscriptions: vscode.Disposable[] = [];
 
 	teardown(() => {
@@ -13,11 +13,14 @@ suite('registerStringHighlighter', () => {
 		}
 	});
 
-	test('refresh runs without error when the sidebar is considered visible', async () => {
+	test("refresh runs without error when the sidebar is considered visible", async () => {
 		const text = 'const x = "m-2";';
-		const doc = await vscode.workspace.openTextDocument({ content: text, language: 'typescript' });
+		const doc = await vscode.workspace.openTextDocument({
+			content: text,
+			language: "typescript",
+		});
 		const editor = await vscode.window.showTextDocument(doc);
-		const pos = doc.positionAt(text.indexOf('m'));
+		const pos = doc.positionAt(text.indexOf("m"));
 		editor.selection = new vscode.Selection(pos, pos);
 		const extracted = extractStringAtCursor(doc, pos);
 		assert.ok(extracted);
@@ -28,16 +31,25 @@ suite('registerStringHighlighter', () => {
 		refresh(snapshot);
 	});
 
-	test('refresh returns early when highlightActiveString is disabled', async () => {
-		const prev = vscode.workspace.getConfiguration('sail').get<boolean>('highlightActiveString');
+	test("refresh returns early when highlightActiveString is disabled", async () => {
+		const prev = vscode.workspace
+			.getConfiguration("sail")
+			.get<boolean>("highlightActiveString");
 		await vscode.workspace
-			.getConfiguration('sail')
-			.update('highlightActiveString', false, vscode.ConfigurationTarget.Global);
+			.getConfiguration("sail")
+			.update(
+				"highlightActiveString",
+				false,
+				vscode.ConfigurationTarget.Global,
+			);
 		try {
 			const text = 'const x = "m-2";';
-			const doc = await vscode.workspace.openTextDocument({ content: text, language: 'typescript' });
+			const doc = await vscode.workspace.openTextDocument({
+				content: text,
+				language: "typescript",
+			});
 			const editor = await vscode.window.showTextDocument(doc);
-			const pos = doc.positionAt(text.indexOf('m'));
+			const pos = doc.positionAt(text.indexOf("m"));
 			editor.selection = new vscode.Selection(pos, pos);
 			const extracted = extractStringAtCursor(doc, pos);
 			assert.ok(extracted);
@@ -49,8 +61,12 @@ suite('registerStringHighlighter', () => {
 		} finally {
 			if (prev !== undefined) {
 				await vscode.workspace
-					.getConfiguration('sail')
-					.update('highlightActiveString', prev, vscode.ConfigurationTarget.Global);
+					.getConfiguration("sail")
+					.update(
+						"highlightActiveString",
+						prev,
+						vscode.ConfigurationTarget.Global,
+					);
 			}
 		}
 	});

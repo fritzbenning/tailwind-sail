@@ -1,5 +1,5 @@
-import type { ExtractedStringOffsets } from '../types';
-import { scanTopLevelCode } from '../scan/scanTopLevelCode';
+import { scanTopLevelCode } from "../scan/scanTopLevelCode";
+import type { ExtractedStringOffsets } from "../types";
 
 /**
  * Returns the JS/TS string literal (double, single, or template static regions) that contains
@@ -27,7 +27,10 @@ import { scanTopLevelCode } from '../scan/scanTopLevelCode';
  * extractStringAtOffset('const x = "flex";', 99);
  * // → undefined  // offset past end of text
  */
-export function extractStringAtOffset(text: string, offset: number): ExtractedStringOffsets | undefined {
+export function extractStringAtOffset(
+	text: string,
+	offset: number,
+): ExtractedStringOffsets | undefined {
 	if (offset < 0 || offset > text.length) {
 		return undefined;
 	}

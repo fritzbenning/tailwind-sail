@@ -12,5 +12,7 @@ import { BREAKPOINT_SCALE_ORDER } from "../constants";
  * // Output: `-1`
  */
 export function getBreakpointScaleIndex(name: string): number {
-	return BREAKPOINT_SCALE_ORDER.indexOf(name.toLowerCase() as (typeof BREAKPOINT_SCALE_ORDER)[number]);
+	return BREAKPOINT_SCALE_ORDER.indexOf(
+		name.toLowerCase() as (typeof BREAKPOINT_SCALE_ORDER)[number],
+	);
 }

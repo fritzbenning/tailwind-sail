@@ -1,12 +1,12 @@
-import type { VariantBuckets, FilterDimensionId } from "../tailwind/filter";
+import type { FilterDimensionId, VariantBuckets } from "../tailwind/filter";
 
 export type SailWebviewViewModel =
-	| { kind: 'needString' }
-	| { kind: 'noTailwind' }
+	| { kind: "needString" }
+	| { kind: "noTailwind" }
 	| SailWebviewPanelModel;
 
 export interface SailWebviewPanelModel {
-	readonly kind: 'panel';
+	readonly kind: "panel";
 	readonly semanticChips: readonly { readonly id: string }[];
 	readonly variantRows: readonly SailWebviewVariantRow[];
 	readonly showVariantPrefixToggle: boolean;

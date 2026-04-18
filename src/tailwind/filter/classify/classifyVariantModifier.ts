@@ -1,5 +1,5 @@
-import type { FilterDimensionId } from '../variants';
-import { VARIANTS } from '../variants';
+import type { FilterDimensionId } from "../variants";
+import { VARIANTS } from "../variants";
 
 /**
  * Result of classifying one variant prefix (segment) for the sidebar filters.
@@ -28,8 +28,12 @@ export interface ClassifiedVariant {
  * // Input: `'dark:'`
  * // Output: `{ dimension: 'theme', key: 'dark', label: 'dark' }`
  */
-export function classifyVariantModifier(modifierWithColon: string): ClassifiedVariant {
-	const segment = modifierWithColon.endsWith(':') ? modifierWithColon.slice(0, -1) : modifierWithColon;
+export function classifyVariantModifier(
+	modifierWithColon: string,
+): ClassifiedVariant {
+	const segment = modifierWithColon.endsWith(":")
+		? modifierWithColon.slice(0, -1)
+		: modifierWithColon;
 
 	for (const def of VARIANTS) {
 		if (def.match(segment)) {
@@ -40,6 +44,8 @@ export function classifyVariantModifier(modifierWithColon: string): ClassifiedVa
 			};
 		}
 	}
-	
-	throw new Error(`classifyVariantModifier: no dimension matched for segment ${JSON.stringify(segment)}`);
+
+	throw new Error(
+		`classifyVariantModifier: no dimension matched for segment ${JSON.stringify(segment)}`,
+	);
 }

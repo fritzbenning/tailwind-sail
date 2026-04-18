@@ -1,5 +1,5 @@
-import { getSegmentForSelection } from './getSegmentForSelection';
-import { VARIANT_IDS, type FilterDimensionId } from '../filter/variants';
+import { type FilterDimensionId, VARIANT_IDS } from "../filter/variants";
+import { getSegmentForSelection } from "./getSegmentForSelection";
 
 /** Matches sidebar variant filter state: one selected chip key (or `'all'`) per dimension. */
 export type VariantFilterEff = Record<FilterDimensionId, string>;
@@ -17,11 +17,11 @@ export function getActiveVariantClasses(
 		if (!presentRowDimensions.has(dim)) {
 			continue;
 		}
-		const sel = variantEff[dim] ?? 'all';
+		const sel = variantEff[dim] ?? "all";
 		const seg = getSegmentForSelection(dim, sel);
 		if (seg) {
 			parts.push(seg);
 		}
 	}
-	return parts.join('');
+	return parts.join("");
 }

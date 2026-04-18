@@ -1,4 +1,4 @@
-import type * as vscode from 'vscode';
+import type * as vscode from "vscode";
 
 /**
  * Maps a contiguous slice of the logical `rawContent` string (concatenated static template spans)

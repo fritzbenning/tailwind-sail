@@ -12,7 +12,10 @@
 	font-size: 0.75em;
 	line-height: 1.3;
 	color: var(--vscode-foreground);
-	background: var(--vscode-button-secondaryBackground, var(--vscode-input-background));
+	background: var(
+		--vscode-button-secondaryBackground,
+		var(--vscode-input-background)
+	);
 	border: 1px solid var(--vscode-widget-border);
 	border-radius: 2px;
 	cursor: pointer;
@@ -24,7 +27,7 @@
 .modifier-chip:focus-visible {
 	border-color: var(--vscode-focusBorder);
 }
-.modifier-chip[aria-pressed='true'] {
+.modifier-chip[aria-pressed="true"] {
 	border-color: var(--vscode-focusBorder);
 	background: var(--vscode-toolbar-hoverBackground);
 }

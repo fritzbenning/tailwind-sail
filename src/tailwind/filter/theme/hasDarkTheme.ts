@@ -1,4 +1,4 @@
-import type { VariantBuckets } from '../buckets/getEmptyVariantBuckets';
+import type { VariantBuckets } from "../buckets/getEmptyVariantBuckets";
 
 /**
  * `true` when the variant buckets include a `dark` theme segment.
@@ -12,5 +12,5 @@ import type { VariantBuckets } from '../buckets/getEmptyVariantBuckets';
  * // Output: `hasDarkTheme(…)` → `false`
  */
 export function hasDarkTheme(buckets: VariantBuckets): boolean {
-	return buckets.theme.includes('dark');
+	return buckets.theme.includes("dark");
 }

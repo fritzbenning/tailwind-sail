@@ -1,6 +1,5 @@
-
-import { BREAKPOINT_NAMES } from '../constants';
-import { getBreakpointScaleIndex } from './getBreakpointScaleIndex';
+import { BREAKPOINT_NAMES } from "../constants";
+import { getBreakpointScaleIndex } from "./getBreakpointScaleIndex";
 
 /**
  * Sort key tuple for a breakpoint filter chip: tier, scale index, max/bare/min variant, tie-break string.
@@ -9,10 +8,12 @@ import { getBreakpointScaleIndex } from './getBreakpointScaleIndex';
  * // Input: `'md'` (bare breakpoint key)
  * // Output: `[0, 2, 1, 'md']` (tier 0, scale index 2, bare `min` slot1)
  */
-export function getBreakpointSortTuple(key: string): readonly [number, number, number, string] {
+export function getBreakpointSortTuple(
+	key: string,
+): readonly [number, number, number, string] {
 	const lower = key.toLowerCase();
 
-	if (lower.startsWith('max-') && !lower.startsWith('max-[')) {
+	if (lower.startsWith("max-") && !lower.startsWith("max-[")) {
 		const name = lower.slice(4);
 		const i = getBreakpointScaleIndex(name);
 		if (i >= 0) {
@@ -25,14 +26,14 @@ export function getBreakpointSortTuple(key: string): readonly [number, number, n
 			return [0, i, 1, key];
 		}
 	}
-	if (lower.startsWith('min-') && !lower.startsWith('min-[')) {
+	if (lower.startsWith("min-") && !lower.startsWith("min-[")) {
 		const name = lower.slice(4);
 		const i = getBreakpointScaleIndex(name);
 		if (i >= 0) {
 			return [0, i, 2, key];
 		}
 	}
-	if (lower.startsWith('min-[') || lower.startsWith('max-[')) {
+	if (lower.startsWith("min-[") || lower.startsWith("max-[")) {
 		return [1, 0, 0, key];
 	}
 	return [2, 0, 0, key];

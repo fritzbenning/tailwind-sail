@@ -1,2 +1,5 @@
-export type { SailEditorSnapshot } from './types';
-export { registerEditorTracker, type EditorTrackerHandle } from './tracking/registerEditorTracker';
+export {
+	type EditorTrackerHandle,
+	registerEditorTracker,
+} from "./tracking/registerEditorTracker";
+export type { SailEditorSnapshot } from "./types";

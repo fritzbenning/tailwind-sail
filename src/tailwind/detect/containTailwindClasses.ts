@@ -1,4 +1,4 @@
-import { isTailwindClass } from './isTailwindClass';
+import { isTailwindClass } from "./isTailwindClass";
 
 /**
  * True if any whitespace-separated token looks Tailwind-ish.

@@ -1,4 +1,4 @@
-import type { RawToDocSegment } from '../types';
+import type { RawToDocSegment } from "../types";
 
 /**
  * Maps a half-open span `[rawStart, rawEnd)` in logical `rawContent` to document character offsets
@@ -37,7 +37,9 @@ export function rawSpanToDocOffsets(
 	if (rawStart < 0 || rawEnd < rawStart) {
 		return undefined;
 	}
-	const seg = segments.find((s) => rawStart >= s.rawStart && rawEnd <= s.rawEnd);
+	const seg = segments.find(
+		(s) => rawStart >= s.rawStart && rawEnd <= s.rawEnd,
+	);
 	if (!seg) {
 		return undefined;
 	}

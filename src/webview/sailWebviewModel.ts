@@ -1,25 +1,33 @@
-import type { SailEditorSnapshot } from '../editor/types';
-import type { ParsedTailwindClass } from '../tailwind/parse/types';
-import { UTILITY_CATEGORIES } from '../tailwind/filter/categories';
-import { classifyTailwindUtility } from '../tailwind/filter/classify/classifyTailwindUtility';
+import type { SailEditorSnapshot } from "../editor/types";
+import { rawSpanToDocOffsets } from "../string/utils/rawSpanToDocOffsets";
 import {
-	VARIANT_FILTER_ROW_DIMENSIONS,
+	type FilterDimensionId,
 	getVariantBuckets,
 	getVariantLabel,
+	hasDarkTheme,
 	sortBreakpointsChipKeys,
 	sortContainerChipKeys,
 	sortStateChipKeys,
 	sortThemeChipKeys,
-	hasDarkTheme,
+	VARIANT_FILTER_ROW_DIMENSIONS,
 	type VariantBuckets,
-	type FilterDimensionId,
-} from '../tailwind/filter';
-import { normalizeClass } from '../tailwind/utils/normalizeClass';
-import { splitTailwindClassVariants } from '../tailwind/variants/splitTailwindClassVariants';
-import { rawSpanToDocOffsets } from '../string/utils/rawSpanToDocOffsets';
-import type { SailWebviewClassItem, SailWebviewPanelModel, SailWebviewVariantRow, SailWebviewViewModel } from './protocol';
+} from "../tailwind/filter";
+import { UTILITY_CATEGORIES } from "../tailwind/filter/categories";
+import { classifyTailwindUtility } from "../tailwind/filter/classify/classifyTailwindUtility";
+import type { ParsedTailwindClass } from "../tailwind/parse/types";
+import { normalizeClass } from "../tailwind/utils/normalizeClass";
+import { splitTailwindClassVariants } from "../tailwind/variants/splitTailwindClassVariants";
+import type {
+	SailWebviewClassItem,
+	SailWebviewPanelModel,
+	SailWebviewVariantRow,
+	SailWebviewViewModel,
+} from "./protocol";
 
-function mergePresentKeys(target: Record<FilterDimensionId, Set<string>>, buckets: VariantBuckets): void {
+function mergePresentKeys(
+	target: Record<FilterDimensionId, Set<string>>,
+	buckets: VariantBuckets,
+): void {
 	for (const id of VARIANT_FILTER_ROW_DIMENSIONS) {
 		for (const k of buckets[id]) {
 			target[id].add(k);
@@ -27,31 +35,35 @@ function mergePresentKeys(target: Record<FilterDimensionId, Set<string>>, bucket
 	}
 }
 
-function buildVariantRows(presentKeys: Record<FilterDimensionId, Set<string>>): SailWebviewVariantRow[] {
+function buildVariantRows(
+	presentKeys: Record<FilterDimensionId, Set<string>>,
+): SailWebviewVariantRow[] {
 	const rows: SailWebviewVariantRow[] = [];
 
 	for (const dim of VARIANT_FILTER_ROW_DIMENSIONS) {
 		const raw = Array.from(presentKeys[dim]);
 		let keys: string[];
-		if (dim === 'state') {
+		if (dim === "state") {
 			keys = sortStateChipKeys(raw);
-		} else if (dim === 'breakpoints') {
+		} else if (dim === "breakpoints") {
 			keys = sortBreakpointsChipKeys(raw);
-		} else if (dim === 'container') {
+		} else if (dim === "container") {
 			keys = sortContainerChipKeys(raw);
-		} else if (dim === 'theme') {
+		} else if (dim === "theme") {
 			keys = sortThemeChipKeys(raw);
 		} else {
-			keys = raw.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+			keys = raw.sort((a, b) =>
+				a.localeCompare(b, undefined, { numeric: true }),
+			);
 		}
 		if (keys.length === 0) {
 			continue;
 		}
 		if (
-			(dim === 'state' && keys.length === 1 && keys[0] === 'idle') ||
-			(dim === 'breakpoints' && keys.length === 1 && keys[0] === 'base') ||
-			(dim === 'container' && keys.length === 1 && keys[0] === 'base') ||
-			(dim === 'theme' && keys.length === 1 && keys[0] === 'light')
+			(dim === "state" && keys.length === 1 && keys[0] === "idle") ||
+			(dim === "breakpoints" && keys.length === 1 && keys[0] === "base") ||
+			(dim === "container" && keys.length === 1 && keys[0] === "base") ||
+			(dim === "theme" && keys.length === 1 && keys[0] === "light")
 		) {
 			continue;
 		}
@@ -65,19 +77,23 @@ function buildVariantRows(presentKeys: Record<FilterDimensionId, Set<string>>): 
 	return rows;
 }
 
-export function buildSailWebviewViewModel(snapshot: SailEditorSnapshot): SailWebviewViewModel {
+export function buildSailWebviewViewModel(
+	snapshot: SailEditorSnapshot,
+): SailWebviewViewModel {
 	const stringDetected = snapshot.extracted !== undefined;
 	const classes = snapshot.parsed?.classes ?? [];
 	const looksTw = snapshot.parsed?.looksLikeTailwind === true;
 
 	if (!stringDetected) {
-		return { kind: 'needString' };
+		return { kind: "needString" };
 	}
 	if (!looksTw) {
-		return { kind: 'noTailwind' };
+		return { kind: "noTailwind" };
 	}
 
-	const perClassModifiers = classes.map((c) => splitTailwindClassVariants(c.name).modifiers);
+	const perClassModifiers = classes.map(
+		(c) => splitTailwindClassVariants(c.name).modifiers,
+	);
 
 	const presentKeys: Record<FilterDimensionId, Set<string>> = {
 		aria: new Set(),
@@ -106,20 +122,20 @@ export function buildSailWebviewViewModel(snapshot: SailEditorSnapshot): SailWeb
 		const buckets = getVariantBuckets(mods);
 		mergePresentKeys(presentKeys, buckets);
 		if (buckets.state.length === 0) {
-			presentKeys.state.add('idle');
+			presentKeys.state.add("idle");
 		}
 		offerThemeLightChip ||= !hasDarkTheme(buckets);
 		offerBreakpointsBaseChip ||= buckets.breakpoints.length === 0;
 		offerContainerBaseChip ||= buckets.container.length === 0;
 	}
 	if (offerThemeLightChip) {
-		presentKeys.theme.add('light');
+		presentKeys.theme.add("light");
 	}
 	if (offerBreakpointsBaseChip) {
-		presentKeys.breakpoints.add('base');
+		presentKeys.breakpoints.add("base");
 	}
 	if (offerContainerBaseChip) {
-		presentKeys.container.add('base');
+		presentKeys.container.add("base");
 	}
 
 	const variantRows = buildVariantRows(presentKeys);
@@ -136,26 +152,34 @@ export function buildSailWebviewViewModel(snapshot: SailEditorSnapshot): SailWeb
 		}
 	}
 
-	const classItems: SailWebviewClassItem[] = classes.map((c: ParsedTailwindClass, tokenIndex: number) => {
-		const mods = perClassModifiers[tokenIndex] ?? [];
-		const utility = normalizeClass(splitTailwindClassVariants(c.name).utility);
-		const semantic = classifyTailwindUtility(utility);
-		const buckets = getVariantBuckets(mods);
-		const canMap =
-			snapshot.extracted &&
-			rawSpanToDocOffsets(snapshot.extracted.rawToDocSegments, c.startInRaw, c.endInRaw) !== undefined;
-		const editable = Boolean(stringDetected && looksTw && canMap);
-		return {
-			tokenIndex,
-			fullClass: c.name,
-			semantic,
-			variantBuckets: buckets,
-			editable,
-		};
-	});
+	const classItems: SailWebviewClassItem[] = classes.map(
+		(c: ParsedTailwindClass, tokenIndex: number) => {
+			const mods = perClassModifiers[tokenIndex] ?? [];
+			const utility = normalizeClass(
+				splitTailwindClassVariants(c.name).utility,
+			);
+			const semantic = classifyTailwindUtility(utility);
+			const buckets = getVariantBuckets(mods);
+			const canMap =
+				snapshot.extracted &&
+				rawSpanToDocOffsets(
+					snapshot.extracted.rawToDocSegments,
+					c.startInRaw,
+					c.endInRaw,
+				) !== undefined;
+			const editable = Boolean(stringDetected && looksTw && canMap);
+			return {
+				tokenIndex,
+				fullClass: c.name,
+				semantic,
+				variantBuckets: buckets,
+				editable,
+			};
+		},
+	);
 
 	const panel: SailWebviewPanelModel = {
-		kind: 'panel',
+		kind: "panel",
 		semanticChips,
 		variantRows,
 		showVariantPrefixToggle: variantRows.length > 0,

@@ -1,10 +1,10 @@
-import type { SailWebviewPanelModel } from '@sail/protocol';
-import type { ClientFilterState } from '../matchClasses';
-import './FilterBar.css';
+import type { SailWebviewPanelModel } from "@sail/protocol";
+import type { ClientFilterState } from "../matchClasses";
+import "./FilterBar.css";
 
 export function SemanticFilterBar(props: {
 	panel: SailWebviewPanelModel;
-	semantic: ClientFilterState['semantic'];
+	semantic: ClientFilterState["semantic"];
 	onSemanticChip: (id: string) => void;
 }) {
 	if (props.panel.semanticChips.length === 0) {
@@ -13,9 +13,14 @@ export function SemanticFilterBar(props: {
 	return (
 		<div class="sail-filter-section" data-sail-filter-row="semantic">
 			<div class="sail-panel-title">Utility</div>
-			<div class="sail-filter-bar" role="toolbar" aria-label="Tailwind utility category filters">
+			<div
+				class="sail-filter-bar"
+				role="toolbar"
+				aria-label="Tailwind utility category filters"
+			>
 				{props.panel.semanticChips.map((c) => {
-					const pressed = props.semantic.t === 'semantic' && props.semantic.v === c.id;
+					const pressed =
+						props.semantic.t === "semantic" && props.semantic.v === c.id;
 					return (
 						<button
 							type="button"

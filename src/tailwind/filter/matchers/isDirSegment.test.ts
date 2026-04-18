@@ -1,13 +1,13 @@
-import * as assert from 'assert';
-import { isDirSegment } from './isDirSegment';
+import * as assert from "assert";
+import { isDirSegment } from "./isDirSegment";
 
-suite('isDirSegment', () => {
-	test('matches ltr and rtl case-insensitively', () => {
-		assert.strictEqual(isDirSegment('ltr'), true);
-		assert.strictEqual(isDirSegment('RTL'), true);
+suite("isDirSegment", () => {
+	test("matches ltr and rtl case-insensitively", () => {
+		assert.strictEqual(isDirSegment("ltr"), true);
+		assert.strictEqual(isDirSegment("RTL"), true);
 	});
 
-	test('rejects other segments', () => {
-		assert.strictEqual(isDirSegment('md'), false);
+	test("rejects other segments", () => {
+		assert.strictEqual(isDirSegment("md"), false);
 	});
 });

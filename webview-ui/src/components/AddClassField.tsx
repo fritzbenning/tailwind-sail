@@ -1,7 +1,7 @@
-import { type Accessor, createEffect, createSignal } from 'solid-js';
-import { vscode } from '../vscode';
-import './class-token-input.css';
-import './AddClassField.css';
+import { type Accessor, createEffect, createSignal } from "solid-js";
+import { vscode } from "../vscode";
+import "./class-token-input.css";
+import "./AddClassField.css";
 
 export function AddClassField(props: {
 	variantPrefix: Accessor<string>;
@@ -10,16 +10,22 @@ export function AddClassField(props: {
 }) {
 	const [inputEl, setInputEl] = createSignal<HTMLInputElement | undefined>();
 
-	const applyPrefixChange = (el: HTMLInputElement, p: string, themeLightFilter: boolean) => {
-		const oldP = el.dataset.sailVariantPrefix ?? '';
+	const applyPrefixChange = (
+		el: HTMLInputElement,
+		p: string,
+		themeLightFilter: boolean,
+	) => {
+		const oldP = el.dataset.sailVariantPrefix ?? "";
 		const stripLight =
-			themeLightFilter && !p.startsWith('light:') && el.value.startsWith('light:');
+			themeLightFilter &&
+			!p.startsWith("light:") &&
+			el.value.startsWith("light:");
 		if (p === oldP && !stripLight) {
 			return;
 		}
 		let cur = el.value;
 		if (stripLight) {
-			cur = cur.slice('light:'.length);
+			cur = cur.slice("light:".length);
 		}
 		let suffix: string;
 		if (oldP.length === 0) {
@@ -62,7 +68,7 @@ export function AddClassField(props: {
 					onKeyDown={(e) => {
 						const t = e.currentTarget;
 						const p = props.variantPrefix();
-						if (e.key === 'Enter') {
+						if (e.key === "Enter") {
 							e.preventDefault();
 							const raw = t.value;
 							const full = raw.trim();
@@ -70,12 +76,15 @@ export function AddClassField(props: {
 								? full.slice(p.length).trim()
 								: full;
 							if (util.length > 0) {
-								vscode.postMessage({ type: 'sailAddClass', className: raw.trim() });
+								vscode.postMessage({
+									type: "sailAddClass",
+									className: raw.trim(),
+								});
 								t.value = p;
 								t.dataset.sailVariantPrefix = p;
 							}
 							t.blur();
-						} else if (e.key === 'Escape') {
+						} else if (e.key === "Escape") {
 							e.preventDefault();
 							t.value = p;
 							t.dataset.sailVariantPrefix = p;

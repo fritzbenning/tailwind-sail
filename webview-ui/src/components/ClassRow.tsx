@@ -1,14 +1,17 @@
-import { createEffect, createSignal } from 'solid-js';
-import type { SailWebviewClassItem, SailWebviewPanelModel } from '@sail/protocol';
-import { IconTrash } from './Icons';
+import type {
+	SailWebviewClassItem,
+	SailWebviewPanelModel,
+} from "@sail/protocol";
+import { createEffect, createSignal } from "solid-js";
 import {
+	type ClientFilterState,
 	effectiveVariantState,
 	stripMatchingVariantPrefixesForDisplay,
-	type ClientFilterState,
-} from '../matchClasses';
-import { vscode } from '../vscode';
-import './class-token-input.css';
-import './ClassRow.css';
+} from "../matchClasses";
+import { vscode } from "../vscode";
+import { IconTrash } from "./Icons";
+import "./class-token-input.css";
+import "./ClassRow.css";
 
 export function ClassRow(props: {
 	item: SailWebviewClassItem;
@@ -16,11 +19,15 @@ export function ClassRow(props: {
 	filter: ClientFilterState;
 	visible: boolean;
 }) {
-	const variantEff = () => effectiveVariantState(props.panel, props.filter.variant);
+	const variantEff = () =>
+		effectiveVariantState(props.panel, props.filter.variant);
 
 	const displayWhenBlurred = () =>
 		props.filter.hideMatchingVariantPrefixes
-			? stripMatchingVariantPrefixesForDisplay(props.item.fullClass, variantEff())
+			? stripMatchingVariantPrefixesForDisplay(
+					props.item.fullClass,
+					variantEff(),
+				)
 			: props.item.fullClass;
 
 	const [focused, setFocused] = createSignal(false);
@@ -36,7 +43,7 @@ export function ClassRow(props: {
 
 	return (
 		<li
-			class={`class-row${props.item.editable ? ' class-row--editable' : ''}`}
+			class={`class-row${props.item.editable ? " class-row--editable" : ""}`}
 			data-sail-semantic={props.item.semantic}
 			hidden={!props.visible}
 		>
@@ -62,13 +69,13 @@ export function ClassRow(props: {
 							const v = e.currentTarget.value;
 							setDraft(v);
 							vscode.postMessage({
-								type: 'sailEditClass',
+								type: "sailEditClass",
 								tokenIndex: props.item.tokenIndex,
 								newValue: v,
 							});
 						}}
 						onKeyDown={(e) => {
-							if (e.key === 'Enter' || e.key === 'Escape') {
+							if (e.key === "Enter" || e.key === "Escape") {
 								e.preventDefault();
 								(e.target as HTMLInputElement).blur();
 							}
@@ -85,7 +92,10 @@ export function ClassRow(props: {
 							onClick={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
-								vscode.postMessage({ type: 'sailRemoveClass', tokenIndex: props.item.tokenIndex });
+								vscode.postMessage({
+									type: "sailRemoveClass",
+									tokenIndex: props.item.tokenIndex,
+								});
 							}}
 						>
 							<IconTrash />

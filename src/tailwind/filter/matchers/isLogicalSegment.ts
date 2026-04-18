@@ -11,5 +11,5 @@
  */
 export function isLogicalSegment(segment: string): boolean {
 	const l = segment.toLowerCase();
-	return l.startsWith('has-') || l.startsWith('not-');
+	return l.startsWith("has-") || l.startsWith("not-");
 }

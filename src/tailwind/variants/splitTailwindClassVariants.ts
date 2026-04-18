@@ -3,10 +3,13 @@
  * remaining utility. Colons inside `[…]` (arbitrary variants / values) are not treated as
  * variant separators, so URLs and similar stay intact.
  */
-export function splitTailwindClassVariants(fullClass: string): { modifiers: string[]; utility: string } {
+export function splitTailwindClassVariants(fullClass: string): {
+	modifiers: string[];
+	utility: string;
+} {
 	const trimmed = fullClass.trim();
 	if (!trimmed) {
-		return { modifiers: [], utility: '' };
+		return { modifiers: [], utility: "" };
 	}
 	const modifiers: string[] = [];
 	let start = 0;
@@ -15,17 +18,17 @@ export function splitTailwindClassVariants(fullClass: string): { modifiers: stri
 
 	while (i < trimmed.length) {
 		const c = trimmed[i];
-		if (c === '[') {
+		if (c === "[") {
 			bracketDepth++;
-		} else if (c === ']') {
+		} else if (c === "]") {
 			bracketDepth = Math.max(0, bracketDepth - 1);
-		} else if (c === ':' && bracketDepth === 0) {
+		} else if (c === ":" && bracketDepth === 0) {
 			const segment = trimmed.slice(start, i);
 			if (segment.length === 0) {
 				i++;
 				continue;
 			}
-			modifiers.push(segment + ':');
+			modifiers.push(segment + ":");
 			start = i + 1;
 		}
 		i++;

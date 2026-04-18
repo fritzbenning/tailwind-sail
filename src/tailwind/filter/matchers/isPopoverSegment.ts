@@ -11,5 +11,5 @@
  */
 export function isPopoverSegment(segment: string): boolean {
 	const l = segment.toLowerCase();
-	return l === 'open' || l === 'close';
+	return l === "open" || l === "close";
 }

@@ -1,9 +1,9 @@
-import type { ExtractedStringOffsets } from '../types';
-import { skipBlockComment } from './skipBlockComment';
-import { skipLineComment } from './skipLineComment';
-import { tryDoubleQuote } from '../try/tryDoubleQuote';
-import { trySingleQuote } from '../try/trySingleQuote';
-import { tryTemplateLiteral } from '../try/tryTemplateLiteral';
+import { tryDoubleQuote } from "../try/tryDoubleQuote";
+import { trySingleQuote } from "../try/trySingleQuote";
+import { tryTemplateLiteral } from "../try/tryTemplateLiteral";
+import type { ExtractedStringOffsets } from "../types";
+import { skipBlockComment } from "./skipBlockComment";
+import { skipLineComment } from "./skipLineComment";
 
 /**
  * Walks `text` from the start, skipping line/block comments, and tries each string literal
@@ -26,15 +26,18 @@ import { tryTemplateLiteral } from '../try/tryTemplateLiteral';
  * scanTopLevelCode(src2, src2.indexOf('yes'));
  * // → { rawContent: 'yes', ... }  // not the commented-out "nope"
  */
-export function scanTopLevelCode(text: string, offset: number): ExtractedStringOffsets | undefined {
+export function scanTopLevelCode(
+	text: string,
+	offset: number,
+): ExtractedStringOffsets | undefined {
 	let i = 0;
 	while (i < text.length) {
 		const c = text[i];
-		if (c === '/' && text[i + 1] === '/') {
+		if (c === "/" && text[i + 1] === "/") {
 			i = skipLineComment(text, i);
 			continue;
 		}
-		if (c === '/' && text[i + 1] === '*') {
+		if (c === "/" && text[i + 1] === "*") {
 			i = skipBlockComment(text, i);
 			continue;
 		}
@@ -54,7 +57,7 @@ export function scanTopLevelCode(text: string, offset: number): ExtractedStringO
 			i = r.end;
 			continue;
 		}
-		if (c === '`') {
+		if (c === "`") {
 			const r = tryTemplateLiteral(text, i, offset);
 			if (r.extracted) {
 				return r.extracted;

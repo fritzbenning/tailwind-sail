@@ -1,5 +1,5 @@
-import { IconX } from './Icons';
-import './ClassSearchRow.css';
+import { IconX } from "./Icons";
+import "./ClassSearchRow.css";
 
 export function ClassSearchRow(props: {
 	value: string;
@@ -18,18 +18,21 @@ export function ClassSearchRow(props: {
 					value={props.value}
 					onInput={(e) => props.onInput(e.currentTarget.value)}
 					onKeyDown={(e) => {
-						if (e.key === 'Enter') {
+						if (e.key === "Enter") {
 							e.preventDefault();
 							(e.target as HTMLInputElement).blur();
 						}
-						if (e.key === 'Escape') {
+						if (e.key === "Escape") {
 							e.preventDefault();
 							props.onClear();
 							(e.target as HTMLInputElement).blur();
 						}
 					}}
 				/>
-				<div class="sail-class-search-clear-wrap" hidden={props.value.trim().length === 0}>
+				<div
+					class="sail-class-search-clear-wrap"
+					hidden={props.value.trim().length === 0}
+				>
 					<button
 						type="button"
 						class="sail-class-search-clear"

@@ -1,4 +1,4 @@
-import './VariantPrefixToggle.css';
+import "./VariantPrefixToggle.css";
 
 export function VariantPrefixToggle(props: {
 	checked: boolean;
@@ -14,7 +14,9 @@ export function VariantPrefixToggle(props: {
 					onInput={(e) => props.onChange(e.currentTarget.checked)}
 				/>
 				<span class="sail-variant-prefix-switch" aria-hidden="true" />
-				<span class="sail-variant-prefix-toggle-text">Hide selected variant prefixes</span>
+				<span class="sail-variant-prefix-toggle-text">
+					Hide selected variant prefixes
+				</span>
 			</label>
 		</div>
 	);

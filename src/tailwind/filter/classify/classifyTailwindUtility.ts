@@ -1,14 +1,14 @@
-import { UTILITY_CATEGORIES } from '../categories';
+import { UTILITY_CATEGORIES } from "../categories";
 
 /**
  * Returns a semantic category id for a utility segment (variants already split off).
  */
 export function classifyTailwindUtility(utility: string): string {
 	if (!utility) {
-		return 'others';
+		return "others";
 	}
 	for (const cat of UTILITY_CATEGORIES) {
-		if (cat.id === 'others') {
+		if (cat.id === "others") {
 			break;
 		}
 		const sorted = [...cat.prefixes].sort((a, b) => b.length - a.length);
@@ -18,5 +18,5 @@ export function classifyTailwindUtility(utility: string): string {
 			}
 		}
 	}
-	return 'others';
+	return "others";
 }

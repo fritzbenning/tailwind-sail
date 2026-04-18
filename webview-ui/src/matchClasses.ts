@@ -1,15 +1,24 @@
-import { VARIANT_IDS, classifyVariantModifier, type FilterDimensionId } from '@ext/filter';
-import { splitTailwindClassVariants } from '@ext/variants/splitTailwindClassVariants';
-import type { SailWebviewClassItem, SailWebviewPanelModel } from '@sail/protocol';
+import {
+	classifyVariantModifier,
+	type FilterDimensionId,
+	shouldStripModifierForVariantFilter,
+	VARIANT_IDS,
+	variantBucketMatchesSelection,
+} from "@ext/filter";
+import { splitTailwindClassVariants } from "@ext/variants/splitTailwindClassVariants";
+import type {
+	SailWebviewClassItem,
+	SailWebviewPanelModel,
+} from "@sail/protocol";
 
-export type SemanticFilter = { t: 'all' } | { t: 'semantic'; v: string };
+export type SemanticFilter = { t: "all" } | { t: "semantic"; v: string };
 
 export type VariantFilterState = Record<FilterDimensionId, string>;
 
 export function emptyVariantFilterState(): VariantFilterState {
 	const o = {} as VariantFilterState;
 	for (const id of VARIANT_IDS) {
-		o[id] = 'all';
+		o[id] = "all";
 	}
 	return o;
 }
@@ -23,30 +32,17 @@ export interface ClientFilterState {
 
 export function defaultClientFilterState(): ClientFilterState {
 	return {
-		semantic: { t: 'all' },
+		semantic: { t: "all" },
 		variant: emptyVariantFilterState(),
-		classSearch: '',
+		classSearch: "",
 		hideMatchingVariantPrefixes: false,
 	};
 }
 
-function shouldStripVariantModifier(sel: string, dimension: FilterDimensionId, key: string): boolean {
-	if (sel === 'all') {
-		return false;
-	}
-	if (dimension === 'state' && sel === 'idle') {
-		return false;
-	}
-	if (dimension === 'breakpoints' && sel === 'base') {
-		return false;
-	}
-	if (dimension === 'container' && sel === 'base') {
-		return false;
-	}
-	return sel === key;
-}
-
-export function stripMatchingVariantPrefixesForDisplay(fullClass: string, variantEff: VariantFilterState): string {
+export function stripMatchingVariantPrefixesForDisplay(
+	fullClass: string,
+	variantEff: VariantFilterState,
+): string {
 	const trimmed = fullClass.trim();
 	if (!trimmed) {
 		return fullClass;
@@ -55,46 +51,60 @@ export function stripMatchingVariantPrefixesForDisplay(fullClass: string, varian
 	const kept: string[] = [];
 	for (const mod of modifiers) {
 		const { dimension, key } = classifyVariantModifier(mod);
-		const sel = variantEff[dimension] ?? 'all';
-		if (shouldStripVariantModifier(sel, dimension, key)) {
+		const sel = variantEff[dimension] ?? "all";
+		if (shouldStripModifierForVariantFilter(sel, dimension, key)) {
 			continue;
 		}
 		kept.push(mod);
 	}
-	return kept.join('') + utility;
+	return kept.join("") + utility;
 }
 
-export function presentVariantDimensions(panel: SailWebviewPanelModel): Set<FilterDimensionId> {
+export function presentVariantDimensions(
+	panel: SailWebviewPanelModel,
+): Set<FilterDimensionId> {
 	return new Set(panel.variantRows.map((r) => r.dimension));
 }
 
-export function effectiveSemanticFilter(panel: SailWebviewPanelModel, st: SemanticFilter): SemanticFilter {
+export function effectiveSemanticFilter(
+	panel: SailWebviewPanelModel,
+	st: SemanticFilter,
+): SemanticFilter {
 	if (panel.semanticChips.length === 0) {
-		return { t: 'all' };
+		return { t: "all" };
 	}
 	return st;
 }
 
-export function effectiveVariantState(panel: SailWebviewPanelModel, variantSt: VariantFilterState): VariantFilterState {
+export function effectiveVariantState(
+	panel: SailWebviewPanelModel,
+	variantSt: VariantFilterState,
+): VariantFilterState {
 	const rows = presentVariantDimensions(panel);
 	const out = emptyVariantFilterState();
 	for (const id of VARIANT_IDS) {
-		out[id] = rows.has(id) ? (variantSt[id] ?? 'all') : 'all';
+		out[id] = rows.has(id) ? (variantSt[id] ?? "all") : "all";
 	}
 	return out;
 }
 
-export function rowMatchesSemanticFilter(item: SailWebviewClassItem, st: SemanticFilter): boolean {
-	if (st.t === 'all') {
+export function rowMatchesSemanticFilter(
+	item: SailWebviewClassItem,
+	st: SemanticFilter,
+): boolean {
+	if (st.t === "all") {
 		return true;
 	}
-	if (st.t === 'semantic') {
+	if (st.t === "semantic") {
 		return item.semantic === st.v;
 	}
 	return true;
 }
 
-export function rowMatchesClassSearch(item: SailWebviewClassItem, queryTrimmedLower: string): boolean {
+export function rowMatchesClassSearch(
+	item: SailWebviewClassItem,
+	queryTrimmedLower: string,
+): boolean {
 	if (queryTrimmedLower.length === 0) {
 		return true;
 	}
@@ -112,47 +122,26 @@ export function rowMatchesVariantFilters(
 		if (!rows.has(dim)) {
 			continue;
 		}
-		const sel = variantEff[dim] ?? 'all';
-		if (sel === 'all') {
+		const sel = variantEff[dim] ?? "all";
+		if (sel === "all") {
 			continue;
 		}
 		const arr = buckets[dim] ?? [];
-		if (dim === 'state' && sel === 'idle') {
-			if (arr.length !== 0) {
-				return false;
-			}
-			continue;
-		}
-		if (dim === 'theme' && sel === 'light') {
-			if (arr.includes('dark')) {
-				return false;
-			}
-			continue;
-		}
-		if (dim === 'breakpoints' && sel === 'base') {
-			if (arr.length !== 0) {
-				return false;
-			}
-			continue;
-		}
-		if (dim === 'container' && sel === 'base') {
-			if (arr.length !== 0) {
-				return false;
-			}
-			continue;
-		}
-		if (!arr.includes(sel)) {
+		if (!variantBucketMatchesSelection(dim, sel, arr)) {
 			return false;
 		}
 	}
 	return true;
 }
 
-export function filterStateIsAvailable(panel: SailWebviewPanelModel, st: ClientFilterState): boolean {
+export function filterStateIsAvailable(
+	panel: SailWebviewPanelModel,
+	st: ClientFilterState,
+): boolean {
 	const semantic = st.semantic;
-	if (semantic.t === 'all') {
+	if (semantic.t === "all") {
 		/* ok */
-	} else if (semantic.t === 'semantic') {
+	} else if (semantic.t === "semantic") {
 		const ok = panel.semanticChips.some((c) => c.id === semantic.v);
 		if (!ok) {
 			return false;
@@ -162,8 +151,8 @@ export function filterStateIsAvailable(panel: SailWebviewPanelModel, st: ClientF
 	}
 
 	for (const row of panel.variantRows) {
-		const sel = st.variant[row.dimension] ?? 'all';
-		if (sel === 'all') {
+		const sel = st.variant[row.dimension] ?? "all";
+		if (sel === "all") {
 			continue;
 		}
 		if (!row.values.includes(sel)) {
@@ -188,7 +177,10 @@ export function classItemVisible(
 	);
 }
 
-export function anyClassVisible(panel: SailWebviewPanelModel, st: ClientFilterState): boolean {
+export function anyClassVisible(
+	panel: SailWebviewPanelModel,
+	st: ClientFilterState,
+): boolean {
 	if (panel.classes.length === 0) {
 		return false;
 	}

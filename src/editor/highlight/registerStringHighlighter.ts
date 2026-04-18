@@ -1,5 +1,5 @@
-import * as vscode from 'vscode';
-import type { SailEditorSnapshot } from '../types';
+import * as vscode from "vscode";
+import type { SailEditorSnapshot } from "../types";
 
 export type StringHighlighterHandle = {
 	refresh(snapshot: SailEditorSnapshot): void;
@@ -19,7 +19,7 @@ export function registerStringHighlighter(
 	const decorationType = vscode.window.createTextEditorDecorationType({
 		rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
 		// Underline only; omit `color` so editor/syntax colors stay unchanged.
-		textDecoration: 'underline',
+		textDecoration: "underline",
 	});
 	context.subscriptions.push(decorationType);
 
@@ -28,7 +28,9 @@ export function registerStringHighlighter(
 			editor.setDecorations(decorationType, []);
 		}
 
-		const enabled = vscode.workspace.getConfiguration('sail').get<boolean>('highlightActiveString', true);
+		const enabled = vscode.workspace
+			.getConfiguration("sail")
+			.get<boolean>("highlightActiveString", true);
 		if (!enabled) {
 			return;
 		}

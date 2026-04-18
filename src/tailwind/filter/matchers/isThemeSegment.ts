@@ -11,5 +11,5 @@
  */
 export function isThemeSegment(segment: string): boolean {
 	const l = segment.toLowerCase();
-	return l === 'dark' || l === 'light' || l.startsWith('theme-');
+	return l === "dark" || l === "light" || l.startsWith("theme-");
 }

@@ -1,4 +1,4 @@
-import { PSEUDO_EXACT } from '../constants';
+import { PSEUDO_EXACT } from "../constants";
 
 /**
  * `true` when the segment is a pseudo-element variant (`before:`, `after:`, …).

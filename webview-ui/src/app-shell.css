@@ -15,7 +15,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	border-right: 1px solid var(--vscode-sideBar-border, var(--vscode-widget-border));
+	border-right: 1px solid
+		var(--vscode-sideBar-border, var(--vscode-widget-border));
 }
 #parsed-classes {
 	--sail-panel-inline-pad: 8px;
@@ -34,7 +35,10 @@ body {
 /* Match workbench scrollbars via theme colors (Firefox). */
 * {
 	scrollbar-width: normal;
-	scrollbar-color: var(--vscode-scrollbarSlider-background, rgba(121, 121, 121, 0.4))
+	scrollbar-color: var(
+			--vscode-scrollbarSlider-background,
+			rgba(121, 121, 121, 0.4)
+		)
 		var(--vscode-sideBar-background);
 }
 /* Chromium / Electron webview */
@@ -46,7 +50,10 @@ body {
 	background: var(--vscode-sideBar-background);
 }
 *::-webkit-scrollbar-thumb {
-	background: var(--vscode-scrollbarSlider-background, rgba(121, 121, 121, 0.4));
+	background: var(
+		--vscode-scrollbarSlider-background,
+		rgba(121, 121, 121, 0.4)
+	);
 	border-radius: 5px;
 }
 *::-webkit-scrollbar-thumb:hover {
@@ -58,7 +65,10 @@ body {
 *::-webkit-scrollbar-thumb:active {
 	background: var(
 		--vscode-scrollbarSlider-activeBackground,
-		var(--vscode-scrollbarSlider-hoverBackground, var(--vscode-scrollbarSlider-background))
+		var(
+			--vscode-scrollbarSlider-hoverBackground,
+			var(--vscode-scrollbarSlider-background)
+		)
 	);
 }
 h1 {

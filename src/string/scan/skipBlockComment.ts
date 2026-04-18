@@ -19,7 +19,7 @@
 export function skipBlockComment(text: string, start: number): number {
 	let i = start + 2;
 	while (i + 1 < text.length) {
-		if (text[i] === '*' && text[i + 1] === '/') {
+		if (text[i] === "*" && text[i + 1] === "/") {
 			return i + 2;
 		}
 		i++;

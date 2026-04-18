@@ -1,4 +1,4 @@
-import { INTERACTION_EXACT } from '../constants';
+import { INTERACTION_EXACT } from "../constants";
 
 /**
  * `true` for interaction / state variants (`hover:`, `group-hover:`, `peer-focus:`, `in-…`, …).
@@ -21,16 +21,16 @@ export function isInteractionStateSegment(segment: string): boolean {
 	if (INTERACTION_EXACT.has(l)) {
 		return true;
 	}
-	if (l.startsWith('group-') || l.startsWith('peer-')) {
+	if (l.startsWith("group-") || l.startsWith("peer-")) {
 		return true;
 	}
-	if (l.startsWith('inverted-')) {
+	if (l.startsWith("inverted-")) {
 		return false;
 	}
-	if (l.startsWith('in-[')) {
+	if (l.startsWith("in-[")) {
 		return false;
 	}
-	if (l.startsWith('in-')) {
+	if (l.startsWith("in-")) {
 		return true;
 	}
 	return false;

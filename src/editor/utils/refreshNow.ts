@@ -1,4 +1,4 @@
-import type { DebounceTimer } from './scheduleUpdate';
+import type { DebounceTimer } from "./scheduleUpdate";
 
 export interface RefreshNowParams {
 	readonly debounceTimer: { current: DebounceTimer };

@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
-import { rawSpanToDocOffsets } from '../../string/utils/rawSpanToDocOffsets';
-import { extractStringAtCursor } from '../../string/extract/extractStringAtCursor';
-import { parseTailwindClasses } from '../../tailwind/parse/parseTailwindClasses';
+import * as vscode from "vscode";
+import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
+import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 
 /**
  * Replaces the token at `tokenIndex` in the string under the primary cursor with `newValue`.
@@ -16,7 +16,10 @@ export async function applySailClassTokenEdit(
 	if (trimmed.length === 0 || /\s/.test(trimmed)) {
 		return false;
 	}
-	const extracted = extractStringAtCursor(editor.document, editor.selection.active);
+	const extracted = extractStringAtCursor(
+		editor.document,
+		editor.selection.active,
+	);
 	if (!extracted) {
 		return false;
 	}
@@ -25,11 +28,18 @@ export async function applySailClassTokenEdit(
 	if (!c) {
 		return false;
 	}
-	const span = rawSpanToDocOffsets(extracted.rawToDocSegments, c.startInRaw, c.endInRaw);
+	const span = rawSpanToDocOffsets(
+		extracted.rawToDocSegments,
+		c.startInRaw,
+		c.endInRaw,
+	);
 	if (!span) {
 		return false;
 	}
 	const doc = editor.document;
-	const range = new vscode.Range(doc.positionAt(span.docStart), doc.positionAt(span.docEnd));
+	const range = new vscode.Range(
+		doc.positionAt(span.docStart),
+		doc.positionAt(span.docEnd),
+	);
 	return editor.edit((b) => b.replace(range, trimmed));
 }

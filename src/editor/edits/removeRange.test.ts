@@ -1,6 +1,6 @@
-import assert from 'assert';
-import { removeRange } from './removeRange';
-import { parseTailwindClasses } from '../../tailwind/parse/parseTailwindClasses';
+import assert from "assert";
+import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
+import { removeRange } from "./removeRange";
 
 function removedSlice(raw: string, tokenIndex: number): string {
 	const { classes } = parseTailwindClasses(raw);
@@ -9,24 +9,24 @@ function removedSlice(raw: string, tokenIndex: number): string {
 	return raw.slice(r.startInRaw, r.endInRaw);
 }
 
-suite('removeRange', () => {
-	test('single token removes the token only', () => {
-		assert.strictEqual(removedSlice('flex', 0), 'flex');
+suite("removeRange", () => {
+	test("single token removes the token only", () => {
+		assert.strictEqual(removedSlice("flex", 0), "flex");
 	});
 
-	test('first of two removes token and following whitespace', () => {
-		assert.strictEqual(removedSlice('flex gap-2', 0), 'flex ');
+	test("first of two removes token and following whitespace", () => {
+		assert.strictEqual(removedSlice("flex gap-2", 0), "flex ");
 	});
 
-	test('last of two removes preceding whitespace and token', () => {
-		assert.strictEqual(removedSlice('flex gap-2', 1), ' gap-2');
+	test("last of two removes preceding whitespace and token", () => {
+		assert.strictEqual(removedSlice("flex gap-2", 1), " gap-2");
 	});
 
-	test('middle token removes interstitial whitespace and token', () => {
-		assert.strictEqual(removedSlice('a b c', 1), ' b');
+	test("middle token removes interstitial whitespace and token", () => {
+		assert.strictEqual(removedSlice("a b c", 1), " b");
 	});
 
-	test('first of three with extra spaces removes through next token start', () => {
-		assert.strictEqual(removedSlice('a  b c', 0), 'a  ');
+	test("first of three with extra spaces removes through next token start", () => {
+		assert.strictEqual(removedSlice("a  b c", 0), "a  ");
 	});
 });

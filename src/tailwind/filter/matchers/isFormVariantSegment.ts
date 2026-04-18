@@ -1,4 +1,4 @@
-import { FORM_VARIANT_EXACT } from '../constants';
+import { FORM_VARIANT_EXACT } from "../constants";
 
 /**
  * `true` when the segment is a form / field pseudo-class variant (`disabled:`, `checked:`, …).

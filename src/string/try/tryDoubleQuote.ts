@@ -19,18 +19,22 @@ import { finalizeQuoted } from "../utils/finalizeQuoted";
  * tryDoubleQuote('x = "ab', 4, 5);
  * // → { end: 7 }  // EOF before closing quote; no `extracted`
  */
-export function tryDoubleQuote(text: string, openIdx: number, offset: number): ScanResult {
+export function tryDoubleQuote(
+	text: string,
+	openIdx: number,
+	offset: number,
+): ScanResult {
 	let i = openIdx + 1;
 	while (i < text.length) {
 		const c = text[i];
-		if (c === '\\') {
+		if (c === "\\") {
 			i += 2;
 			continue;
 		}
 		if (c === '"') {
 			return finalizeQuoted(text, openIdx, i, offset);
 		}
-		if (c === '\n' || c === '\r') {
+		if (c === "\n" || c === "\r") {
 			return { end: i };
 		}
 		i++;

@@ -1,4 +1,4 @@
-import { stripImportantPrefix } from './stripImportantPrefix';
+import { stripImportantPrefix } from "./stripImportantPrefix";
 
 /**
  * Canonical form for filter matching: trim, strip `!`, lowercase, drop leading `-`/`_` (negative
@@ -7,5 +7,5 @@ import { stripImportantPrefix } from './stripImportantPrefix';
  */
 export function normalizeClass(utility: string): string {
 	const u = stripImportantPrefix(utility.trim()).toLowerCase();
-	return u.replace(/^[-_]+/, '');
+	return u.replace(/^[-_]+/, "");
 }

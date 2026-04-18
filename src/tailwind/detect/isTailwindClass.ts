@@ -1,6 +1,10 @@
-import { COMMON_UTILITIES, COMMON_UTILITY_NAMESPACE, ARBITRARY_BRACKETS } from './constants';
-import { findLastVariantSegment } from '../find/findLastVariantSegment';
-import { stripImportantPrefix } from '../utils/stripImportantPrefix';
+import { findLastVariantSegment } from "../find/findLastVariantSegment";
+import { stripImportantPrefix } from "../utils/stripImportantPrefix";
+import {
+	ARBITRARY_BRACKETS,
+	COMMON_UTILITIES,
+	COMMON_UTILITY_NAMESPACE,
+} from "./constants";
 
 /**
  * True if `token` plausibly resembles one Tailwind utility token (after variants).
@@ -31,7 +35,7 @@ export function isTailwindClass(token: string): boolean {
 		return true;
 	}
 
-	const hyphenParts = last.split('-');
+	const hyphenParts = last.split("-");
 	if (hyphenParts.length >= 2) {
 		const head = hyphenParts[0];
 		if (!head) {

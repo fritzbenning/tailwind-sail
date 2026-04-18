@@ -1,4 +1,4 @@
-import { STRUCTURAL_EXACT } from '../constants';
+import { STRUCTURAL_EXACT } from "../constants";
 
 /**
  * `true` for structural / sibling-order style variants (`first:`, `nth-…`, …).
@@ -16,5 +16,5 @@ export function isStructuralSegment(segment: string): boolean {
 	if (STRUCTURAL_EXACT.has(l)) {
 		return true;
 	}
-	return l.startsWith('nth-');
+	return l.startsWith("nth-");
 }

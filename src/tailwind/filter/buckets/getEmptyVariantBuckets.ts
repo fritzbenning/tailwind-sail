@@ -1,4 +1,4 @@
-import type { FilterDimensionId } from '../variants';
+import type { FilterDimensionId } from "../variants";
 
 /**
  * Per-dimension lists of unique variant keys (no trailing `:`) for one class’s modifiers.

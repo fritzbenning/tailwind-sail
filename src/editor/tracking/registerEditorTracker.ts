@@ -1,11 +1,11 @@
-import * as vscode from 'vscode';
-import { onDocumentChange } from './onDocumentChange';
-import { pushSnapshot } from './pushSnapshot';
-import { refreshNow as runImmediateRefresh } from '../utils/refreshNow';
-import { scheduleUpdate } from '../utils/scheduleUpdate';
-import { SailTailwindViewProvider } from '../../webview/SailTailwindViewProvider';
-import type { StringHighlighterHandle } from '../highlight/registerStringHighlighter';
-import { onSelectionChange } from './onSelectionChange';
+import * as vscode from "vscode";
+import { SailTailwindViewProvider } from "../../webview/SailTailwindViewProvider";
+import type { StringHighlighterHandle } from "../highlight/registerStringHighlighter";
+import { refreshNow as runImmediateRefresh } from "../utils/refreshNow";
+import { scheduleUpdate } from "../utils/scheduleUpdate";
+import { onDocumentChange } from "./onDocumentChange";
+import { onSelectionChange } from "./onSelectionChange";
+import { pushSnapshot } from "./pushSnapshot";
 
 export interface EditorTrackerHandle {
 	/** Forces an immediate refresh (used by the “Sail: Refresh” command). */
@@ -21,9 +21,10 @@ export function registerEditorTracker(
 	stringHighlighter: StringHighlighterHandle,
 	context: vscode.ExtensionContext,
 ): EditorTrackerHandle {
-	const debounceTimer: { current: ReturnType<typeof setTimeout> | undefined } = {
-		current: undefined,
-	};
+	const debounceTimer: { current: ReturnType<typeof setTimeout> | undefined } =
+		{
+			current: undefined,
+		};
 
 	const runSchedule = () =>
 		scheduleUpdate({
@@ -33,10 +34,17 @@ export function registerEditorTracker(
 
 	context.subscriptions.push(
 		vscode.window.onDidChangeActiveTextEditor(() => runSchedule()),
-		vscode.window.onDidChangeTextEditorSelection((e) => onSelectionChange(e.textEditor, runSchedule)),
-		vscode.workspace.onDidChangeTextDocument((e) => onDocumentChange(e, runSchedule)),
+		vscode.window.onDidChangeTextEditorSelection((e) =>
+			onSelectionChange(e.textEditor, runSchedule),
+		),
+		vscode.workspace.onDidChangeTextDocument((e) =>
+			onDocumentChange(e, runSchedule),
+		),
 		vscode.workspace.onDidChangeConfiguration((e) => {
-			if (e.affectsConfiguration('sail.updateDebounceMs') || e.affectsConfiguration('sail.highlightActiveString')) {
+			if (
+				e.affectsConfiguration("sail.updateDebounceMs") ||
+				e.affectsConfiguration("sail.highlightActiveString")
+			) {
 				runSchedule();
 			}
 		}),

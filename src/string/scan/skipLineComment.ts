@@ -18,7 +18,7 @@ export function skipLineComment(text: string, start: number): number {
 	let i = start + 2;
 	while (i < text.length) {
 		const c = text[i];
-		if (c === '\n' || c === '\r') {
+		if (c === "\n" || c === "\r") {
 			return i;
 		}
 		i++;

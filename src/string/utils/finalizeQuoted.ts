@@ -1,4 +1,4 @@
-import type { ExtractedStringOffsets, ScanResult } from '../types';
+import type { ExtractedStringOffsets, ScanResult } from "../types";
 
 /**
  * Builds a {@link ScanResult} for a fully scanned single- or double-quoted string when the closing
@@ -30,7 +30,12 @@ import type { ExtractedStringOffsets, ScanResult } from '../types';
  * finalizeQuoted('const x = "flex";', 10, 15, 5);
  * // → { end: 16 }
  */
-export function finalizeQuoted(text: string, openIdx: number, closeIdx: number, offset: number): ScanResult {
+export function finalizeQuoted(
+	text: string,
+	openIdx: number,
+	closeIdx: number,
+	offset: number,
+): ScanResult {
 	// VS Code: caret before the closing `"` uses `offset === closeIdx`.
 	const inside = offset > openIdx && offset <= closeIdx;
 	if (!inside) {
@@ -44,7 +49,12 @@ export function finalizeQuoted(text: string, openIdx: number, closeIdx: number, 
 			startOffset: openIdx,
 			endOffset: closeIdx + 1,
 			rawToDocSegments: [
-				{ rawStart: 0, rawEnd: rawContent.length, docStart: openIdx + 1, docEnd: closeIdx },
+				{
+					rawStart: 0,
+					rawEnd: rawContent.length,
+					docStart: openIdx + 1,
+					docEnd: closeIdx,
+				},
 			],
 		},
 	};

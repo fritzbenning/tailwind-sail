@@ -1,5 +1,5 @@
-import type { ExtractedStringOffsets, ScanResult } from '../types';
-import { tryExpressionBlock } from './tryExpressionBlock';
+import type { ExtractedStringOffsets, ScanResult } from "../types";
+import { tryExpressionBlock } from "./tryExpressionBlock";
 
 /**
  * Scans a template literal starting at `openIdx` (the opening `` ` ``). Handles escapes,
@@ -33,18 +33,22 @@ import { tryExpressionBlock } from './tryExpressionBlock';
  * tryTemplateLiteral('const c = `a ${foo} b`;', 10, 14);
  * // → { end: 24 } // end after closing backtick; `extracted` omitted
  */
-export function tryTemplateLiteral(text: string, openIdx: number, offset: number): ScanResult {
+export function tryTemplateLiteral(
+	text: string,
+	openIdx: number,
+	offset: number,
+): ScanResult {
 	let i = openIdx + 1;
 	const staticRanges: Array<{ start: number; end: number }> = [];
 	let staticStart = openIdx + 1;
 
 	while (i < text.length) {
 		const c = text[i];
-		if (c === '\\') {
+		if (c === "\\") {
 			i += 2;
 			continue;
 		}
-		if (c === '$' && text[i + 1] === '{') {
+		if (c === "$" && text[i + 1] === "{") {
 			staticRanges.push({ start: staticStart, end: i });
 			const braceOpenIdx = i + 1;
 			const sub = tryExpressionBlock(text, braceOpenIdx, offset);
@@ -55,10 +59,12 @@ export function tryTemplateLiteral(text: string, openIdx: number, offset: number
 			staticStart = i;
 			continue;
 		}
-		if (c === '`') {
+		if (c === "`") {
 			const closeIdx = i;
 			staticRanges.push({ start: staticStart, end: closeIdx });
-			const rawContent = staticRanges.map((r) => text.slice(r.start, r.end)).join('');
+			const rawContent = staticRanges
+				.map((r) => text.slice(r.start, r.end))
+				.join("");
 			let rawAcc = 0;
 			const rawToDocSegments = staticRanges.map((r) => {
 				const piece = text.slice(r.start, r.end);
@@ -71,7 +77,9 @@ export function tryTemplateLiteral(text: string, openIdx: number, offset: number
 				rawAcc += piece.length;
 				return seg;
 			});
-			const insideStatic = staticRanges.some((r) => offset >= r.start && offset <= r.end);
+			const insideStatic = staticRanges.some(
+				(r) => offset >= r.start && offset <= r.end,
+			);
 			if (insideStatic) {
 				const extracted: ExtractedStringOffsets = {
 					rawContent,

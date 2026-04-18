@@ -10,5 +10,5 @@
  * // Output: `false`
  */
 export function isSupportsSegment(segment: string): boolean {
-	return segment.toLowerCase().startsWith('supports-');
+	return segment.toLowerCase().startsWith("supports-");
 }

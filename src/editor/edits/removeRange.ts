@@ -1,4 +1,4 @@
-import type { ParsedTailwindClass } from '../../tailwind/parse/types';
+import type { ParsedTailwindClass } from "../../tailwind/parse/types";
 
 /**
  * Half-open **[startInRaw, endInRaw)** in the raw class string: clear this slice to remove

@@ -11,5 +11,5 @@
  */
 export function isDirSegment(segment: string): boolean {
 	const l = segment.toLowerCase();
-	return l === 'ltr' || l === 'rtl';
+	return l === "ltr" || l === "rtl";
 }

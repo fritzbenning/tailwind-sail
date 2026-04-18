@@ -1,7 +1,6 @@
 import { VARIANTS } from "..";
 import type { FilterDimensionId } from "../variants";
 
-
 /**
  * Readable sidebar label for a dimension id.
  *
@@ -14,6 +13,8 @@ import type { FilterDimensionId } from "../variants";
  * // Output: `'Forms'`
  */
 export function getVariantLabel(id: FilterDimensionId): string {
-	const found = VARIANTS.find((d: { id: FilterDimensionId; label: string; }) => d.id === id);
+	const found = VARIANTS.find(
+		(d: { id: FilterDimensionId; label: string }) => d.id === id,
+	);
 	return found?.label ?? id;
 }

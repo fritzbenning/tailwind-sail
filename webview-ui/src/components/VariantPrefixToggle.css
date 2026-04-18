@@ -37,10 +37,12 @@
 	border-radius: 8px;
 	background: var(--vscode-input-background);
 	border: 1px solid var(--vscode-input-border, var(--vscode-widget-border));
-	transition: background 0.12s ease, border-color 0.12s ease;
+	transition:
+		background 0.12s ease,
+		border-color 0.12s ease;
 }
 .sail-variant-prefix-switch::after {
-	content: '';
+	content: "";
 	position: absolute;
 	top: 2px;
 	left: 2px;
@@ -49,7 +51,9 @@
 	border-radius: 50%;
 	background: var(--vscode-foreground);
 	opacity: 0.65;
-	transition: transform 0.12s ease, opacity 0.12s ease;
+	transition:
+		transform 0.12s ease,
+		opacity 0.12s ease;
 }
 .sail-variant-prefix-toggle-input:checked + .sail-variant-prefix-switch {
 	background: var(--vscode-button-background);
