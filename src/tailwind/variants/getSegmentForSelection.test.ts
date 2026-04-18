@@ -1,0 +1,44 @@
+import * as assert from 'assert';
+import { getSegmentForSelection } from './getSegmentForSelection';
+import { CONTAINER_BASE_FILTER_VALUE } from '../filter';
+
+suite('getSegmentForSelection', () => {
+	test('returns null for all', () => {
+		assert.strictEqual(getSegmentForSelection('theme', 'all'), null);
+	});
+
+	test('returns null for synthetic state idle', () => {
+		assert.strictEqual(getSegmentForSelection('state', 'idle'), null);
+		assert.strictEqual(getSegmentForSelection('state', 'Idle:'), null);
+	});
+
+	test('returns null for synthetic breakpoint base', () => {
+		assert.strictEqual(getSegmentForSelection('breakpoints', 'base'), null);
+	});
+
+	test('returns null for synthetic container base', () => {
+		assert.strictEqual(
+			getSegmentForSelection('container', CONTAINER_BASE_FILTER_VALUE),
+			null,
+		);
+	});
+
+	test('returns null for synthetic theme light chip', () => {
+		assert.strictEqual(getSegmentForSelection('theme', 'light'), null);
+		assert.strictEqual(getSegmentForSelection('theme', ' Light: '), null);
+	});
+
+	test('appends colon when missing', () => {
+		assert.strictEqual(getSegmentForSelection('theme', 'dark'), 'dark:');
+		assert.strictEqual(getSegmentForSelection('state', 'hover'), 'hover:');
+	});
+
+	test('preserves trimmed segment when colon already present', () => {
+		assert.strictEqual(getSegmentForSelection('theme', 'dark:'), 'dark:');
+		assert.strictEqual(getSegmentForSelection('other', '[&_svg]:'), '[&_svg]:');
+	});
+
+	test('does not treat light as synthetic on non-theme dimensions', () => {
+		assert.strictEqual(getSegmentForSelection('misc', 'light'), 'light:');
+	});
+});

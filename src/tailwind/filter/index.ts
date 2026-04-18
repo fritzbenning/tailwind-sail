@@ -9,4 +9,4 @@ export { sortStateChipKeys } from './sort/sortStateChipKeys';
 export { sortThemeChipKeys } from './sort/sortThemeChipKeys';
 export { hasDarkTheme } from './theme/hasDarkTheme';
 export { sortBreakpointsChipKeys } from './sort/sortBreakpointsChipKeys';
-export { getActiveVariantClasses, type VariantFilterEff } from './getActiveVariantClasses';
+export { getActiveVariantClasses, type VariantFilterEff } from '../variants/getActiveVariantClasses';

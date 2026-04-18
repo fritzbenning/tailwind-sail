@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { VARIANT_IDS } from './variants';
+import { VARIANT_IDS } from '../filter/variants';
 import { getActiveVariantClasses, type VariantFilterEff } from './getActiveVariantClasses';
 
 function emptyEff(): VariantFilterEff {
