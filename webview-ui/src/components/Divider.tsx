@@ -1,8 +1,21 @@
+import { cva } from "class-variance-authority";
 import type { JSX } from "solid-js";
 import { splitProps } from "solid-js";
 
-const baseClass =
-	"box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0";
+const dividerVariants = cva(
+	"box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0",
+	{
+		variants: {
+			marginBottom: {
+				true: "mb-4",
+				false: "m-0",
+			},
+		},
+		defaultVariants: {
+			marginBottom: false,
+		},
+	},
+);
 
 export type DividerProps = {
 	/** Adds `mb-4` below the rule (matches section separators). */
@@ -14,11 +27,7 @@ export function Divider(props: DividerProps) {
 
 	return (
 		<div
-			class={
-				local.marginBottom
-					? `${baseClass} mb-4`
-					: `${baseClass} m-0`
-			}
+			class={dividerVariants({ marginBottom: local.marginBottom })}
 			role="presentation"
 			{...rest}
 		/>
