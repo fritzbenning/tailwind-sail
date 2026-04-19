@@ -25,10 +25,10 @@ export function isClassItemVisibleForClientFilter(
 ): boolean {
 	const utilEff = getEffectiveUtilityState(panel, st.activeUtility);
 	const varEff = getEffectiveVariantState(panel, st.activeVariants);
-	const q = st.search.trim().toLowerCase();
+	const queryTrimmedLower = st.search.trim().toLowerCase();
 	return (
 		isClassMatchingUtilityState(item, utilEff) &&
 		isClassMatchingVariantState(item, varEff, panel) &&
-		isClassMatchingSearchQuery(item, q)
+		isClassMatchingSearchQuery(item, queryTrimmedLower)
 	);
 }

@@ -1,56 +1,55 @@
 import { type Accessor, createEffect, createSignal } from "solid-js";
+import { applyVariantPrefix, getClassNameFromInputValue } from "../lib";
 import { vscode } from "../vscode";
 import { Input } from "./Input";
 
-export function AddClassField(props: {
-	variantPrefix: Accessor<string>;
-	/** Theme "light" chip is a filter-only sentinel (no `light:` auto-prefix); strip stray `light:` when syncing. */
-	stripIfThemeLightFilter: Accessor<boolean>;
-}) {
-	const [inputEl, setInputEl] = createSignal<HTMLInputElement | undefined>();
-
-	const applyPrefixChange = (
-		el: HTMLInputElement,
-		p: string,
-		themeLightFilter: boolean,
-	) => {
-		const oldP = el.dataset.sailVariantPrefix ?? "";
-		const stripLight =
-			themeLightFilter &&
-			!p.startsWith("light:") &&
-			el.value.startsWith("light:");
-		if (p === oldP && !stripLight) {
-			return;
-		}
-		let cur = el.value;
-		if (stripLight) {
-			cur = cur.slice("light:".length);
-		}
-		let suffix: string;
-		if (oldP.length === 0) {
-			suffix = p.length > 0 && cur.startsWith(p) ? cur.slice(p.length) : cur;
-		} else if (cur.startsWith(oldP)) {
-			suffix = cur.slice(oldP.length);
-		} else {
-			suffix = cur;
-		}
-		el.value = p + suffix;
-		el.dataset.sailVariantPrefix = p;
-		if (document.activeElement === el) {
-			const len = el.value.length;
-			queueMicrotask(() => el.setSelectionRange(len, len));
-		}
-	};
+export function AddClassField(props: { variantPrefix: Accessor<string> }) {
+	const [inputElement, setInputElement] = createSignal<
+		HTMLInputElement | undefined
+	>();
 
 	createEffect(() => {
-		const el = inputEl();
-		const p = props.variantPrefix();
-		const themeLight = props.stripIfThemeLightFilter();
+		const el = inputElement();
+		const variantPrefix = props.variantPrefix();
+
 		if (!el) {
 			return;
 		}
-		applyPrefixChange(el, p, themeLight);
+
+		applyVariantPrefix(el, variantPrefix);
 	});
+
+	function handleKeyDown(
+		keyboardEvent: KeyboardEvent & { currentTarget: HTMLInputElement },
+	) {
+		const inputElement = keyboardEvent.currentTarget;
+		const variantPrefix = props.variantPrefix();
+
+		if (keyboardEvent.key === "Enter") {
+			keyboardEvent.preventDefault();
+			const inputValue = inputElement.value.trim();
+			const className = getClassNameFromInputValue(inputValue, variantPrefix);
+
+			if (className.length > 0) {
+				vscode.postMessage({
+					type: "sailAddClass",
+					className: inputValue,
+				});
+
+				inputElement.value = variantPrefix;
+				inputElement.dataset.variantPrefix = variantPrefix;
+			}
+
+			inputElement.blur();
+		} else if (keyboardEvent.key === "Escape") {
+			keyboardEvent.preventDefault();
+
+			inputElement.value = variantPrefix;
+			inputElement.dataset.variantPrefix = variantPrefix;
+
+			inputElement.blur();
+		}
+	}
 
 	return (
 		<>
@@ -63,37 +62,12 @@ export function AddClassField(props: {
 					Add
 				</div>
 				<Input
-					ref={setInputEl}
+					ref={setInputElement}
 					type="text"
 					spellcheck={false}
 					autocomplete="off"
 					placeholder="New class"
-					onKeyDown={(e) => {
-						const t = e.currentTarget;
-						const p = props.variantPrefix();
-						if (e.key === "Enter") {
-							e.preventDefault();
-							const raw = t.value;
-							const full = raw.trim();
-							const util = full.startsWith(p)
-								? full.slice(p.length).trim()
-								: full;
-							if (util.length > 0) {
-								vscode.postMessage({
-									type: "sailAddClass",
-									className: raw.trim(),
-								});
-								t.value = p;
-								t.dataset.sailVariantPrefix = p;
-							}
-							t.blur();
-						} else if (e.key === "Escape") {
-							e.preventDefault();
-							t.value = p;
-							t.dataset.sailVariantPrefix = p;
-							t.blur();
-						}
-					}}
+					onKeyDown={handleKeyDown}
 				/>
 			</div>
 		</>

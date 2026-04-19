@@ -7,7 +7,7 @@ import { isClassMatchingUtilityState } from "./isClassMatchingUtilityState";
 import { isClassMatchingVariantState } from "./isClassMatchingVariantState";
 
 /**
- * Whether a single parsed class should be shown given the full filter (utility, variants, search).
+ * Whether a single parsed class is in scope for the full filter (utility, variants, search).
  *
  * @example
  * // Input: item matches utility + variants; filterState.search = "flex"
@@ -18,23 +18,26 @@ import { isClassMatchingVariantState } from "./isClassMatchingVariantState";
  * // Input: same item; filterState.search = "grid"
  * // Output: false
  */
-export function isClassItemVisibleForFilter(
+export function isClassInScope(
 	item: ClassItem,
 	panel: PanelModal,
 	filterState: FilterState,
 ): boolean {
-	const currentUtilities = getEffectiveUtilityState(
+	const activeUtility = getEffectiveUtilityState(
 		panel,
 		filterState.activeUtility,
 	);
-	const currentVariants = getEffectiveVariantState(
+
+	const activeVariants = getEffectiveVariantState(
 		panel,
 		filterState.activeVariants,
 	);
-	const q = filterState.search.trim().toLowerCase();
+
+	const searchQuery = filterState.search.trim().toLowerCase();
+
 	return (
-		isClassMatchingUtilityState(item, currentUtilities) &&
-		isClassMatchingVariantState(item, currentVariants, panel) &&
-		isClassMatchingSearchQuery(item, q)
+		isClassMatchingUtilityState(item, activeUtility) &&
+		isClassMatchingVariantState(item, activeVariants, panel) &&
+		isClassMatchingSearchQuery(item, searchQuery)
 	);
 }

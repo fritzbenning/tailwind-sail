@@ -1,11 +1,12 @@
 import { getActiveVariantClasses } from "@ext/filter";
 import type { Accessor } from "solid-js";
 import { createMemo, For, Show } from "solid-js";
+import { useCurrentClasses } from "../hooks/useCurrentClasses";
 import { useFilter } from "../hooks/useFilter";
 import {
 	getEffectiveVariantState,
 	getVariantDimensionsFromPanel,
-	isClassItemVisibleForFilter,
+	stripLightPrefix,
 } from "../lib";
 import type { PanelModal, WebviewModal } from "../types";
 import { AddClassField } from "./AddClassField";
@@ -24,6 +25,8 @@ export function ClassList(props: ClassListProps) {
 	const panel = createMemo(() => props.model() as PanelModal);
 
 	const { filter, patchFilter, resetFilter } = useFilter(props.model);
+
+	const currentClasses = useCurrentClasses(panel, filter);
 
 	const onUtilityChip = (id: string) => {
 		const filterState = filter();
@@ -45,26 +48,13 @@ export function ClassList(props: ClassListProps) {
 		patchFilter({ activeVariants });
 	};
 
-	const visibleClasses = createMemo(() =>
-		panel().classes.filter((c) =>
-			isClassItemVisibleForFilter(c, panel(), filter()),
-		),
-	);
-
-	const showNoResult = () =>
-		panel().classes.length > 0 && visibleClasses().length === 0;
-
 	const addClassVariantPrefix = createMemo(() =>
-		getActiveVariantClasses(
-			getVariantDimensionsFromPanel(panel()),
-			getEffectiveVariantState(panel(), filter().activeVariants),
+		stripLightPrefix(
+			getActiveVariantClasses(
+				getVariantDimensionsFromPanel(panel()),
+				getEffectiveVariantState(panel(), filter().activeVariants),
+			),
 		),
-	);
-
-	const addClassStripThemeLight = createMemo(
-		() =>
-			getEffectiveVariantState(panel(), filter().activeVariants).theme ===
-			"light",
 	);
 
 	return (
@@ -100,7 +90,7 @@ export function ClassList(props: ClassListProps) {
 				class="sail-filters-class-divider m-0 box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
-			<Show when={showNoResult()}>
+			<Show when={currentClasses().length === 0}>
 				<NoResultState onReset={resetFilter} />
 			</Show>
 			<div class="sail-class-list-scroll box-border min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-(--sail-panel-inline-pad) pt-(--sail-panel-block-gap) pb-(--sail-panel-block-gap)">
@@ -114,17 +104,14 @@ export function ClassList(props: ClassListProps) {
 							(no classes)
 						</li>
 					</Show>
-					<For each={visibleClasses()}>
+					<For each={currentClasses()}>
 						{(item) => (
 							<ClassItem item={item} panel={panel()} filter={filter()} />
 						)}
 					</For>
 				</ul>
 			</div>
-			<AddClassField
-				variantPrefix={addClassVariantPrefix}
-				stripIfThemeLightFilter={addClassStripThemeLight}
-			/>
+			<AddClassField variantPrefix={addClassVariantPrefix} />
 		</div>
 	);
 }

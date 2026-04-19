@@ -5,7 +5,8 @@ import {
 	getDefaultFilterState,
 	getEffectiveVariantState,
 	getVariantDimensionsFromPanel,
-	isClassItemVisibleForFilter,
+	isClassInScope,
+	stripLightPrefix,
 } from "../lib";
 import type { PanelModal } from "../types";
 import { AddClassField } from "./AddClassField";
@@ -48,7 +49,7 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 
 	const visibleClasses = createMemo(() =>
 		props.panel.classes.filter((c) =>
-			isClassItemVisibleForFilter(c, props.panel, props.filter),
+			isClassInScope(c, props.panel, props.filter),
 		),
 	);
 
@@ -56,16 +57,12 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 		props.panel.classes.length > 0 && visibleClasses().length === 0;
 
 	const addClassVariantPrefix = createMemo(() =>
-		getActiveVariantClasses(
-			getVariantDimensionsFromPanel(props.panel),
-			getEffectiveVariantState(props.panel, props.filter.activeVariants),
+		stripLightPrefix(
+			getActiveVariantClasses(
+				getVariantDimensionsFromPanel(props.panel),
+				getEffectiveVariantState(props.panel, props.filter.activeVariants),
+			),
 		),
-	);
-
-	const addClassStripThemeLight = createMemo(
-		() =>
-			getEffectiveVariantState(props.panel, props.filter.activeVariants)
-				.theme === "light",
 	);
 
 	return (
@@ -126,10 +123,7 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 					</For>
 				</ul>
 			</div>
-			<AddClassField
-				variantPrefix={addClassVariantPrefix}
-				stripIfThemeLightFilter={addClassStripThemeLight}
-			/>
+			<AddClassField variantPrefix={addClassVariantPrefix} />
 		</div>
 	);
 }
