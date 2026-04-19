@@ -32,40 +32,36 @@ export function ClassItem(props: {
 		<li class="relative group">
 			<ClassDot />
 			<div class="group/line flex min-w-0 items-center gap-1.5">
-				<div class="inline-flex w-full max-w-full min-h-[1.35em] min-w-0 items-center gap-1.5">
-					<Input
-						variant="inline"
-						type="text"
-						spellcheck={false}
-						data-token-index={props.item.tokenIndex}
-						value={inputValue()}
-						onFocus={onFocus}
-						onBlur={onBlur}
-						onInput={(event) => {
-							const value = event.currentTarget.value;
-							onUpdate(value);
-							vscode.postMessage({
-								type: "sailEditClass",
-								tokenIndex: props.item.tokenIndex,
-								newValue: value,
-							});
-						}}
-						onKeyDown={(e) => {
-							if (e.key === "Enter" || e.key === "Escape") {
-								e.preventDefault();
-								(e.target as HTMLInputElement).blur();
-							}
-						}}
-					/>
-				</div>
+				<Input
+					variant="inline"
+					type="text"
+					spellcheck={false}
+					data-token-index={props.item.tokenIndex}
+					value={inputValue()}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					onInput={(event) => {
+						const value = event.currentTarget.value;
+						onUpdate(value);
+						vscode.postMessage({
+							type: "sailEditClass",
+							tokenIndex: props.item.tokenIndex,
+							newValue: value,
+						});
+					}}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" || e.key === "Escape") {
+							e.preventDefault();
+							(e.target as HTMLInputElement).blur();
+						}
+					}}
+				/>
 				<div class="flex items-center gap-2 px-1">
 					<ButtonSlot>
 						<RemoveButton tokenIndex={props.item.tokenIndex} />
 					</ButtonSlot>
 					<Show when={backgroundColorClass()}>
-						{(bg) => (
-							<ColorSwatch backgroundColorClass={bg()} />
-						)}
+						{(bg) => <ColorSwatch backgroundColorClass={bg()} />}
 					</Show>
 				</div>
 			</div>
