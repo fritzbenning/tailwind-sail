@@ -1,5 +1,5 @@
 export { getClassNameFromInputValue } from "./getClassNameFromInputValue";
-export { getDisplayClassWithoutRedundantVariantModifiers } from "./display/getDisplayClassWithoutRedundantVariantModifiers";
+export { getClassWithoutActiveVariant } from "./display/getClassWithoutActiveVariant";
 export { isClassInScope } from "./matching/isClassInScope";
 export { isClassMatchingSearchQuery } from "./matching/isClassMatchingSearchQuery";
 export { isClassMatchingUtilityState } from "./matching/isClassMatchingUtilityState";

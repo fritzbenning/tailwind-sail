@@ -20,7 +20,7 @@ import type { VariantState } from "../state/types";
  * // Input: fullClass = "  ", variantEff = any
  * // Output: same whitespace-only string (trimmed empty → unchanged)
  */
-export function getDisplayClassWithoutRedundantVariantModifiers(
+export function getClassWithoutActiveVariant(
 	fullClass: string,
 	variantEff: VariantState,
 ): string {

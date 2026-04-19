@@ -8,7 +8,7 @@ export function mergeFilterState(
 		activeUtility: patch.activeUtility ?? previous.activeUtility,
 		activeVariants: patch.activeVariants ?? previous.activeVariants,
 		search: patch.search ?? previous.search,
-		hideMatchingVariantPrefixes:
-			patch.hideMatchingVariantPrefixes ?? previous.hideMatchingVariantPrefixes,
+		hideVariantPrefixes:
+			patch.hideVariantPrefixes ?? previous.hideVariantPrefixes,
 	};
 }

@@ -18,15 +18,14 @@ export function ClassItem(props: {
 	const variantState = () =>
 		normalizeVariantState(props.panel, props.filter.activeVariants);
 
-	const { inputValue, swatchClass, onFocus, onBlur, onDraftInput } =
+	const { inputValue, classValue, onFocus, onBlur, onUpdate } =
 		useClassValue({
 			fullClass: () => props.item.fullClass,
-			hideMatchingVariantPrefixes: () =>
-				props.filter.hideMatchingVariantPrefixes,
+			hideVariantPrefixes: () => props.filter.hideVariantPrefixes,
 			variantState,
 		});
 
-	const swatchSpec = createMemo(() => getTailwindColorSwatch(swatchClass()));
+	const swatchSpec = createMemo(() => getTailwindColorSwatch(classValue()));
 
 	return (
 		<li class="relative group">
@@ -43,7 +42,7 @@ export function ClassItem(props: {
 						onBlur={onBlur}
 						onInput={(e) => {
 							const v = e.currentTarget.value;
-							onDraftInput(v);
+							onUpdate(v);
 							vscode.postMessage({
 								type: "sailEditClass",
 								tokenIndex: props.item.tokenIndex,

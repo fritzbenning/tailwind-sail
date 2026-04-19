@@ -10,5 +10,5 @@ export interface FilterState {
 	activeUtility: UtilityState;
 	activeVariants: VariantState;
 	search: string;
-	hideMatchingVariantPrefixes: boolean;
+	hideVariantPrefixes: boolean;
 }

@@ -11,7 +11,7 @@ import type { FilterState } from "./types";
  * //   activeUtility: { kind: "all" },
  * //   activeVariants: { screens: "all", theme: "all", ... },
  * //   search: "",
- * //   hideMatchingVariantPrefixes: false
+ * //   hideVariantPrefixes: false
  * // }
  */
 export function getDefaultFilterState(): FilterState {
@@ -19,6 +19,6 @@ export function getDefaultFilterState(): FilterState {
 		activeUtility: { kind: "all" },
 		activeVariants: getEmptyVariantState(),
 		search: "",
-		hideMatchingVariantPrefixes: false,
+		hideVariantPrefixes: false,
 	};
 }

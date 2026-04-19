@@ -54,9 +54,9 @@ export function ClassList(props: ClassListProps) {
 			<Show when={panel().showVariantPrefixToggle}>
 				<Section>
 					<ToggleSwitch
-						checked={filter().hideMatchingVariantPrefixes}
+						checked={filter().hideVariantPrefixes}
 						onCheckedChange={(checked) =>
-							patchFilter({ hideMatchingVariantPrefixes: checked })
+							patchFilter({ hideVariantPrefixes: checked })
 						}
 					>
 						Hide selected variant prefixes
