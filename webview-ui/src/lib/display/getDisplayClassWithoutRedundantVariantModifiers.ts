@@ -3,7 +3,7 @@ import {
 	shouldStripModifierForVariantFilter,
 } from "@ext/filter";
 import { splitTailwindClassVariants } from "@ext/variants/splitTailwindClassVariants";
-import type { VariantFilterState } from "../state/types";
+import type { VariantState } from "../state/types";
 
 /**
  * Rebuilds the class string for display by dropping variant modifiers that are redundant
@@ -22,7 +22,7 @@ import type { VariantFilterState } from "../state/types";
  */
 export function getDisplayClassWithoutRedundantVariantModifiers(
 	fullClass: string,
-	variantEff: VariantFilterState,
+	variantEff: VariantState,
 ): string {
 	const trimmed = fullClass.trim();
 	if (!trimmed) {

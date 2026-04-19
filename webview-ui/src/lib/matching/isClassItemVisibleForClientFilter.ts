@@ -1,34 +1,34 @@
 import type { ClassItem, PanelModal } from "../../types";
-import { getEffectiveUtilityFilter } from "../state/getEffectiveUtilityFilter";
-import { getEffectiveVariantFilterState } from "../state/getEffectiveVariantFilterState";
-import type { ClientFilterState } from "../state/types";
+import { getEffectiveUtilityState } from "../state/getEffectiveUtilityState";
+import { getEffectiveVariantState } from "../state/getEffectiveVariantState";
+import type { FilterState } from "../state/types";
 import { isClassMatchingSearchQuery } from "./isClassMatchingSearchQuery";
-import { isClassMatchingUtilityFilter } from "./isClassMatchingUtilityFilter";
-import { isClassMatchingVariantFilters } from "./isClassMatchingVariantFilters";
+import { isClassMatchingUtilityState } from "./isClassMatchingUtilityState";
+import { isClassMatchingVariantState } from "./isClassMatchingVariantState";
 
 /**
  * Whether a single parsed class should be shown given the full client filter (utility, variants, search).
  *
  * @example
- * // Input: item matches utility + variants; st.classSearch = "flex"
+ * // Input: item matches utility + variants; st.search = "flex"
  * // item.fullClass = "md:flex"
  * // Output: true
  *
  * @example
- * // Input: same item; st.classSearch = "grid"
+ * // Input: same item; st.search = "grid"
  * // Output: false
  */
 export function isClassItemVisibleForClientFilter(
 	item: ClassItem,
 	panel: PanelModal,
-	st: ClientFilterState,
+	st: FilterState,
 ): boolean {
-	const utilEff = getEffectiveUtilityFilter(panel, st.utility);
-	const varEff = getEffectiveVariantFilterState(panel, st.variant);
-	const q = st.classSearch.trim().toLowerCase();
+	const utilEff = getEffectiveUtilityState(panel, st.activeUtility);
+	const varEff = getEffectiveVariantState(panel, st.activeVariants);
+	const q = st.search.trim().toLowerCase();
 	return (
-		isClassMatchingUtilityFilter(item, utilEff) &&
-		isClassMatchingVariantFilters(item, varEff, panel) &&
+		isClassMatchingUtilityState(item, utilEff) &&
+		isClassMatchingVariantState(item, varEff, panel) &&
 		isClassMatchingSearchQuery(item, q)
 	);
 }

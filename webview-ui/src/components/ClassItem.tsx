@@ -1,6 +1,6 @@
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
-import { type FilterState, getEffectiveVariantFilterState } from "../lib";
+import { type FilterState, getEffectiveVariantState } from "../lib";
 import { tailwindColorSwatch } from "../tailwindColorSwatch";
 import type { ClassItem as ClassItemData, PanelModal } from "../types";
 import { vscode } from "../vscode";
@@ -16,7 +16,7 @@ export function ClassItem(props: {
 	filter: FilterState;
 }) {
 	const variantEff = () =>
-		getEffectiveVariantFilterState(props.panel, props.filter.variant);
+		getEffectiveVariantState(props.panel, props.filter.activeVariants);
 
 	const classValue = useClassValue({
 		fullClass: () => props.item.fullClass,

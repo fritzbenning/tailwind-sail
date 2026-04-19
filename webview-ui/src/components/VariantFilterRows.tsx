@@ -5,13 +5,13 @@ import { Chip } from "./Chip";
 
 export function VariantFilterRows(props: {
 	panel: PanelModal;
-	variant: FilterState["variant"];
+	activeVariants: FilterState["activeVariants"];
 	onVariantChip: (dimension: string, value: string) => void;
 }) {
 	const rowsWithSelection = createMemo(() =>
 		props.panel.variants.map((row) => ({
 			row,
-			isActive: props.variant[row.dimension] ?? "all",
+			isActive: props.activeVariants[row.dimension] ?? "all",
 		})),
 	);
 

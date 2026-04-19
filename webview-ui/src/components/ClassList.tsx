@@ -3,7 +3,7 @@ import type { Accessor } from "solid-js";
 import { createMemo, For, Show } from "solid-js";
 import { useFilter } from "../hooks/useFilter";
 import {
-	getEffectiveVariantFilterState,
+	getEffectiveVariantState,
 	getVariantDimensionsFromPanel,
 	isClassItemVisibleForFilter,
 } from "../lib";
@@ -28,18 +28,21 @@ export function ClassList(props: ClassListProps) {
 	const onUtilityChip = (id: string) => {
 		const filterState = filter();
 		const nextUtil =
-			filterState.utility.t === "utility" && filterState.utility.v === id
+			filterState.activeUtility.t === "utility" &&
+			filterState.activeUtility.v === id
 				? { t: "all" as const }
 				: { t: "utility" as const, v: id };
-		patchFilter({ utility: nextUtil });
+		patchFilter({ activeUtility: nextUtil });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
 		const filterState = filter();
-		const variant = { ...filterState.variant };
-		const cur = variant[dimension as keyof typeof variant] ?? "all";
-		variant[dimension as keyof typeof variant] = cur === value ? "all" : value;
-		patchFilter({ variant });
+		const activeVariants = { ...filterState.activeVariants };
+		const cur =
+			activeVariants[dimension as keyof typeof activeVariants] ?? "all";
+		activeVariants[dimension as keyof typeof activeVariants] =
+			cur === value ? "all" : value;
+		patchFilter({ activeVariants });
 	};
 
 	const visibleClasses = createMemo(() =>
@@ -54,22 +57,22 @@ export function ClassList(props: ClassListProps) {
 	const addClassVariantPrefix = createMemo(() =>
 		getActiveVariantClasses(
 			getVariantDimensionsFromPanel(panel()),
-			getEffectiveVariantFilterState(panel(), filter().variant),
+			getEffectiveVariantState(panel(), filter().activeVariants),
 		),
 	);
 
 	const addClassStripThemeLight = createMemo(
 		() =>
-			getEffectiveVariantFilterState(panel(), filter().variant).theme ===
+			getEffectiveVariantState(panel(), filter().activeVariants).theme ===
 			"light",
 	);
 
 	return (
 		<div class="class-list flex min-h-0 min-w-0 flex-1 flex-col gap-0 overflow-hidden [--sail-class-row-gap:6px] [--sail-panel-block-gap:14px]">
 			<ClassSearchRow
-				value={filter().classSearch}
-				onInput={(v) => patchFilter({ classSearch: v })}
-				onClear={() => patchFilter({ classSearch: "" })}
+				value={filter().search}
+				onInput={(v) => patchFilter({ search: v })}
+				onClear={() => patchFilter({ search: "" })}
 			/>
 			<div
 				class="sail-search-class-divider mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
@@ -77,12 +80,12 @@ export function ClassList(props: ClassListProps) {
 			/>
 			<UtilityFilterBar
 				panel={panel()}
-				utility={filter().utility}
+				activeUtility={filter().activeUtility}
 				onUtilityChip={onUtilityChip}
 			/>
 			<VariantFilterRows
 				panel={panel()}
-				variant={filter().variant}
+				activeVariants={filter().activeVariants}
 				onVariantChip={onVariantChip}
 			/>
 			<Show when={panel().showVariantPrefixToggle}>

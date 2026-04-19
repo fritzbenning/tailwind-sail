@@ -4,7 +4,7 @@ import { Chip } from "./Chip";
 
 export function UtilityFilterBar(props: {
 	panel: PanelModal;
-	utility: FilterState["utility"];
+	activeUtility: FilterState["activeUtility"];
 	onUtilityChip: (id: string) => void;
 }) {
 	if (props.panel.utilities.length === 0) {
@@ -25,7 +25,8 @@ export function UtilityFilterBar(props: {
 			>
 				{props.panel.utilities.map((c) => {
 					const isActive =
-						props.utility.t === "utility" && props.utility.v === c.id;
+						props.activeUtility.t === "utility" &&
+						props.activeUtility.v === c.id;
 					return (
 						<Chip
 							isActive={isActive}

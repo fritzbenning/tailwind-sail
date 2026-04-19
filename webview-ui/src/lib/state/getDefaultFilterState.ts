@@ -1,5 +1,5 @@
+import { getEmptyVariantState } from "./getEmptyVariantState";
 import type { FilterState } from "./types";
-import { getEmptyVariantFilterState } from "./getEmptyVariantFilterState";
 
 /**
  * Default filter state when the panel loads or after an invalid selection is reset.
@@ -8,17 +8,17 @@ import { getEmptyVariantFilterState } from "./getEmptyVariantFilterState";
  * // Input: (none)
  * // Output:
  * // {
- * //   utility: { t: "all" },
- * //   variant: { screens: "all", theme: "all", ... },
- * //   classSearch: "",
+ * //   activeUtility: { t: "all" },
+ * //   activeVariants: { screens: "all", theme: "all", ... },
+ * //   search: "",
  * //   hideMatchingVariantPrefixes: false
  * // }
  */
 export function getDefaultFilterState(): FilterState {
 	return {
-		utility: { t: "all" },
-		variant: getEmptyVariantFilterState(),
-		classSearch: "",
+		activeUtility: { t: "all" },
+		activeVariants: getEmptyVariantState(),
+		search: "",
 		hideMatchingVariantPrefixes: false,
 	};
 }

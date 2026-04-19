@@ -1,21 +1,21 @@
 import type { ClassItem, PanelModal } from "../../types";
-import { getEffectiveUtilityFilter } from "../state/getEffectiveUtilityFilter";
-import { getEffectiveVariantFilterState } from "../state/getEffectiveVariantFilterState";
+import { getEffectiveUtilityState } from "../state/getEffectiveUtilityState";
+import { getEffectiveVariantState } from "../state/getEffectiveVariantState";
 import type { FilterState } from "../state/types";
 import { isClassMatchingSearchQuery } from "./isClassMatchingSearchQuery";
-import { isClassMatchingUtilityFilter } from "./isClassMatchingUtilityFilter";
-import { isClassMatchingVariantFilters } from "./isClassMatchingVariantFilters";
+import { isClassMatchingUtilityState } from "./isClassMatchingUtilityState";
+import { isClassMatchingVariantState } from "./isClassMatchingVariantState";
 
 /**
  * Whether a single parsed class should be shown given the full filter (utility, variants, search).
  *
  * @example
- * // Input: item matches utility + variants; filterState.classSearch = "flex"
+ * // Input: item matches utility + variants; filterState.search = "flex"
  * // item.fullClass = "md:flex"
  * // Output: true
  *
  * @example
- * // Input: same item; filterState.classSearch = "grid"
+ * // Input: same item; filterState.search = "grid"
  * // Output: false
  */
 export function isClassItemVisibleForFilter(
@@ -23,12 +23,18 @@ export function isClassItemVisibleForFilter(
 	panel: PanelModal,
 	filterState: FilterState,
 ): boolean {
-	const currentUtilities = getEffectiveUtilityFilter(panel, filterState.utility);
-	const currentVariants = getEffectiveVariantFilterState(panel, filterState.variant);
-	const q = filterState.classSearch.trim().toLowerCase();
+	const currentUtilities = getEffectiveUtilityState(
+		panel,
+		filterState.activeUtility,
+	);
+	const currentVariants = getEffectiveVariantState(
+		panel,
+		filterState.activeVariants,
+	);
+	const q = filterState.search.trim().toLowerCase();
 	return (
-		isClassMatchingUtilityFilter(item, currentUtilities) &&
-		isClassMatchingVariantFilters(item, currentVariants, panel) &&
+		isClassMatchingUtilityState(item, currentUtilities) &&
+		isClassMatchingVariantState(item, currentVariants, panel) &&
 		isClassMatchingSearchQuery(item, q)
 	);
 }

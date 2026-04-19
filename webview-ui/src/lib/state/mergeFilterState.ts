@@ -5,9 +5,9 @@ export function mergeFilterState(
 	patch: Partial<FilterState>,
 ): FilterState {
 	return {
-		utility: patch.utility ?? previous.utility,
-		variant: patch.variant ?? previous.variant,
-		classSearch: patch.classSearch ?? previous.classSearch,
+		activeUtility: patch.activeUtility ?? previous.activeUtility,
+		activeVariants: patch.activeVariants ?? previous.activeVariants,
+		search: patch.search ?? previous.search,
 		hideMatchingVariantPrefixes:
 			patch.hideMatchingVariantPrefixes ?? previous.hideMatchingVariantPrefixes,
 	};

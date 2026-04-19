@@ -6,18 +6,18 @@ import type { FilterState } from "./types";
  * Used to reset client state when the underlying class list or chip metadata changes.
  *
  * @example
- * // Input: filterState.utility = { t: "utility", v: "text" }, panel has a utility chip with id "text"
+ * // Input: filterState.activeUtility = { t: "utility", v: "text" }, panel has a utility chip with id "text"
  * // Output: true
  *
  * @example
- * // Input: filterState.utility = { t: "utility", v: "bogus" }, panel chips don’t include "bogus"
+ * // Input: filterState.activeUtility = { t: "utility", v: "bogus" }, panel chips don’t include "bogus"
  * // Output: false
  */
 export function validateFilterState(
 	panel: PanelModal,
 	filterState: FilterState,
 ): boolean {
-	const utility = filterState.utility;
+	const utility = filterState.activeUtility;
 	if (utility.t === "all") {
 		/* ok */
 	} else if (utility.t === "utility") {
@@ -30,7 +30,7 @@ export function validateFilterState(
 	}
 
 	for (const row of panel.variants) {
-		const selectedVariant = filterState.variant[row.dimension] ?? "all";
+		const selectedVariant = filterState.activeVariants[row.dimension] ?? "all";
 		if (selectedVariant === "all") {
 			continue;
 		}

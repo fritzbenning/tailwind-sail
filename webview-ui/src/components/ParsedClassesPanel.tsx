@@ -3,7 +3,7 @@ import { createMemo, For, Show } from "solid-js";
 import {
 	type FilterState,
 	getDefaultFilterState,
-	getEffectiveVariantFilterState,
+	getEffectiveVariantState,
 	getVariantDimensionsFromPanel,
 	isClassItemVisibleForFilter,
 } from "../lib";
@@ -29,18 +29,21 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 	const onUtilityChip = (id: string) => {
 		const filterState = props.filter;
 		const nextUtil =
-			filterState.utility.t === "utility" && filterState.utility.v === id
+			filterState.activeUtility.t === "utility" &&
+			filterState.activeUtility.v === id
 				? { t: "all" as const }
 				: { t: "utility" as const, v: id };
-		props.onPatchFilter({ utility: nextUtil });
+		props.onPatchFilter({ activeUtility: nextUtil });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
 		const filterState = props.filter;
-		const variant = { ...filterState.variant };
-		const cur = variant[dimension as keyof typeof variant] ?? "all";
-		variant[dimension as keyof typeof variant] = cur === value ? "all" : value;
-		props.onPatchFilter({ variant });
+		const activeVariants = { ...filterState.activeVariants };
+		const cur =
+			activeVariants[dimension as keyof typeof activeVariants] ?? "all";
+		activeVariants[dimension as keyof typeof activeVariants] =
+			cur === value ? "all" : value;
+		props.onPatchFilter({ activeVariants });
 	};
 
 	const visibleClasses = createMemo(() =>
@@ -55,22 +58,22 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 	const addClassVariantPrefix = createMemo(() =>
 		getActiveVariantClasses(
 			getVariantDimensionsFromPanel(props.panel),
-			getEffectiveVariantFilterState(props.panel, props.filter.variant),
+			getEffectiveVariantState(props.panel, props.filter.activeVariants),
 		),
 	);
 
 	const addClassStripThemeLight = createMemo(
 		() =>
-			getEffectiveVariantFilterState(props.panel, props.filter.variant)
+			getEffectiveVariantState(props.panel, props.filter.activeVariants)
 				.theme === "light",
 	);
 
 	return (
 		<div class="parsed-classes-panel flex min-h-0 min-w-0 flex-1 flex-col gap-0 overflow-hidden [--sail-class-row-gap:6px] [--sail-panel-block-gap:14px]">
 			<ClassSearchRow
-				value={props.filter.classSearch}
-				onInput={(v) => props.onPatchFilter({ classSearch: v })}
-				onClear={() => props.onPatchFilter({ classSearch: "" })}
+				value={props.filter.search}
+				onInput={(v) => props.onPatchFilter({ search: v })}
+				onClear={() => props.onPatchFilter({ search: "" })}
 			/>
 			<div
 				class="sail-search-class-divider mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
@@ -78,12 +81,12 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 			/>
 			<UtilityFilterBar
 				panel={props.panel}
-				utility={props.filter.utility}
+				activeUtility={props.filter.activeUtility}
 				onUtilityChip={onUtilityChip}
 			/>
 			<VariantFilterRows
 				panel={props.panel}
-				variant={props.filter.variant}
+				activeVariants={props.filter.activeVariants}
 				onVariantChip={onVariantChip}
 			/>
 			<Show when={props.panel.showVariantPrefixToggle}>

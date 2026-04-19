@@ -12,7 +12,7 @@ import type { UtilityState } from "./types";
  * // Input: panel.utilities = [{ id: "text", ... }], utilityState = { t: "utility", v: "text" }
  * // Output: { t: "utility", v: "text" }
  */
-export function getEffectiveUtilityFilter(
+export function getEffectiveUtilityState(
 	panel: PanelModal,
 	utilityState: UtilityState,
 ): UtilityState {

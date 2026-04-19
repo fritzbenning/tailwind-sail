@@ -1,5 +1,5 @@
 import { VARIANT_IDS } from "@ext/filter";
-import type { VariantFilterState } from "./types";
+import type { VariantState } from "./types";
 
 /**
  * Builds a variant filter map with every known dimension set to `"all"` (no narrowing).
@@ -13,8 +13,8 @@ import type { VariantFilterState } from "./types";
  * //   ...
  * // }
  */
-export function getEmptyVariantFilterState(): VariantFilterState {
-	const o = {} as VariantFilterState;
+export function getEmptyVariantState(): VariantState {
+	const o = {} as VariantState;
 	for (const id of VARIANT_IDS) {
 		o[id] = "all";
 	}

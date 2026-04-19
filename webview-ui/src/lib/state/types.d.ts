@@ -1,17 +1,12 @@
 import type { FilterDimensionId } from "@ext/filter";
 
-/** Client-side utility chip filter: all utilities, or a single Tailwind utility id. */
-export type UtilityFilter = { t: "all" } | { t: "utility"; v: string };
+export type UtilityState = { t: "all" } | { t: "utility"; v: string };
 
-/** Per-dimension variant selection: `"all"` or a concrete variant value id from the panel. */
-export type VariantFilterState = Record<FilterDimensionId, string>;
+export type VariantState = Record<FilterDimensionId, string>;
 
-/**
- * Full filter state for the parsed-classes panel (utility chips, variant rows, search, display toggle).
- */
 export interface FilterState {
-	utility: UtilityFilter;
-	variant: VariantFilterState;
-	classSearch: string;
+	activeUtility: UtilityState;
+	activeVariants: VariantState;
+	search: string;
 	hideMatchingVariantPrefixes: boolean;
 }

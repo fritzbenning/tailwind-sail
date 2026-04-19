@@ -1,17 +1,17 @@
-export type {
-	FilterState,
-	UtilityFilter,
-	VariantFilterState,
-} from "./state/types";
-export { getDefaultFilterState } from "./state/getDefaultFilterState";
 export { getDisplayClassWithoutRedundantVariantModifiers } from "./display/getDisplayClassWithoutRedundantVariantModifiers";
-export { getEffectiveUtilityFilter } from "./state/getEffectiveUtilityFilter";
-export { getEffectiveVariantFilterState } from "./state/getEffectiveVariantFilterState";
-export { getEmptyVariantFilterState } from "./state/getEmptyVariantFilterState";
-export { mergeFilterState } from "./state/mergeFilterState";
-export { getVariantDimensionsFromPanel } from "./state/getVariantDimensionsFromPanel";
 export { isClassItemVisibleForFilter } from "./matching/isClassItemVisibleForFilter";
 export { isClassMatchingSearchQuery } from "./matching/isClassMatchingSearchQuery";
-export { isClassMatchingUtilityFilter } from "./matching/isClassMatchingUtilityFilter";
-export { isClassMatchingVariantFilters } from "./matching/isClassMatchingVariantFilters";
+export { isClassMatchingUtilityState } from "./matching/isClassMatchingUtilityState";
+export { isClassMatchingVariantState } from "./matching/isClassMatchingVariantState";
+export { getDefaultFilterState } from "./state/getDefaultFilterState";
+export { getEffectiveUtilityState } from "./state/getEffectiveUtilityState";
+export { getEffectiveVariantState } from "./state/getEffectiveVariantState";
+export { getEmptyVariantState } from "./state/getEmptyVariantState";
+export { getVariantDimensionsFromPanel } from "./state/getVariantDimensionsFromPanel";
+export { mergeFilterState } from "./state/mergeFilterState";
+export type {
+	FilterState,
+	UtilityState,
+	VariantState,
+} from "./state/types";
 export { validateFilterState } from "./state/validateFilterState";

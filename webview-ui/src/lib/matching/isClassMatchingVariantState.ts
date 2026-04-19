@@ -1,7 +1,7 @@
 import { VARIANT_IDS, variantBucketMatchesSelection } from "@ext/filter";
 import type { ClassItem, PanelModal } from "../../types";
 import { getVariantDimensionsFromPanel } from "../state/getVariantDimensionsFromPanel";
-import type { VariantFilterState } from "../state/types";
+import type { VariantState } from "../state/types";
 
 /**
  * Whether the class’s variant buckets satisfy every narrowed dimension in the filter.
@@ -14,9 +14,9 @@ import type { VariantFilterState } from "../state/types";
  * // Input: variantEff.screens = "md", item.variantBuckets.screens = ["lg"]
  * // Output: false
  */
-export function isClassMatchingVariantFilters(
+export function isClassMatchingVariantState(
 	item: ClassItem,
-	variantEff: VariantFilterState,
+	variantEff: VariantState,
 	panel: PanelModal,
 ): boolean {
 	const rows = getVariantDimensionsFromPanel(panel);
