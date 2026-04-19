@@ -9,10 +9,10 @@ export function useFilterHandlers(
 	const onUtilityClick = (id: string) => {
 		const filterState = filter();
 		const nextUtility =
-			filterState.activeUtility.t === "utility" &&
-			filterState.activeUtility.v === id
-				? { t: "all" as const }
-				: { t: "utility" as const, v: id };
+			filterState.activeUtility.kind === "utility" &&
+			filterState.activeUtility.id === id
+				? { kind: "all" as const }
+				: { kind: "utility" as const, id };
 		patchFilter({ activeUtility: nextUtility });
 	};
 

@@ -8,7 +8,7 @@ import type { FilterState } from "./types";
  * // Input: (none)
  * // Output:
  * // {
- * //   activeUtility: { t: "all" },
+ * //   activeUtility: { kind: "all" },
  * //   activeVariants: { screens: "all", theme: "all", ... },
  * //   search: "",
  * //   hideMatchingVariantPrefixes: false
@@ -16,7 +16,7 @@ import type { FilterState } from "./types";
  */
 export function getDefaultFilterState(): FilterState {
 	return {
-		activeUtility: { t: "all" },
+		activeUtility: { kind: "all" },
 		activeVariants: getEmptyVariantState(),
 		search: "",
 		hideMatchingVariantPrefixes: false,

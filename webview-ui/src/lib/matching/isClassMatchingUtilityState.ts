@@ -5,26 +5,23 @@ import type { UtilityState } from "../state/types";
  * Whether a parsed class item passes the utility-chip filter.
  *
  * @example
- * // Input: item.utility = "text", utilityState = { t: "utility", v: "text" }
+ * // Input: item.utility = "text", utilityState = { kind: "utility", id: "text" }
  * // Output: true
  *
  * @example
- * // Input: item.utility = "flex", utilityState = { t: "utility", v: "text" }
+ * // Input: item.utility = "flex", utilityState = { kind: "utility", id: "text" }
  * // Output: false
  *
  * @example
- * // Input: any item, utilityState = { t: "all" }
+ * // Input: any item, utilityState = { kind: "all" }
  * // Output: true
  */
 export function isClassMatchingUtilityState(
 	item: ClassItem,
 	utilityState: UtilityState,
 ): boolean {
-	if (utilityState.t === "all") {
+	if (utilityState.kind === "all") {
 		return true;
 	}
-	if (utilityState.t === "utility") {
-		return item.utility === utilityState.v;
-	}
-	return true;
+	return item.utility === utilityState.id;
 }

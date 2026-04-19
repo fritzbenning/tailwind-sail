@@ -1,3 +1,4 @@
+import { createMemo } from "solid-js";
 import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
@@ -12,26 +13,26 @@ export function UtilityFilters(props: {
 	if (props.panel.utilities.length === 0) {
 		return null;
 	}
+
+	const currentUtilityId = createMemo(() =>
+		props.activeUtility.kind === "utility" ? props.activeUtility.id : null,
+	);
+
 	return (
 		<Section>
 			<SectionTitle>Utility</SectionTitle>
-			<div
-				class="flex flex-wrap items-center gap-1"
-				role="toolbar"
-				aria-label="Tailwind utility category filters"
-			>
-				{props.panel.utilities.map((c) => {
-					const isActive =
-						props.activeUtility.t === "utility" &&
-						props.activeUtility.v === c.id;
+			<div class="flex flex-wrap items-center gap-1">
+				{props.panel.utilities.map((utility) => {
+					const isActive = currentUtilityId() === utility.id;
+
 					return (
 						<Chip
 							isActive={isActive}
 							data-sail-filter-kind="utility"
-							data-sail-utility={c.id}
-							onClick={() => props.onUtilityClick(c.id)}
+							data-sail-utility={utility.id}
+							onClick={() => props.onUtilityClick(utility.id)}
 						>
-							{c.id}
+							{utility.id}
 						</Chip>
 					);
 				})}
