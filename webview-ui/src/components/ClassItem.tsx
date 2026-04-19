@@ -15,15 +15,14 @@ export function ClassItem(props: {
 	panel: PanelModal;
 	filter: FilterState;
 }) {
-	const variantState = () =>
-		normalizeVariantState(props.panel, props.filter.activeVariants);
+	const activeVariants = props.filter.activeVariants;
+	const variantState = () => normalizeVariantState(props.panel, activeVariants);
 
-	const { inputValue, classValue, onFocus, onBlur, onUpdate } =
-		useClassValue({
-			fullClass: () => props.item.fullClass,
-			hideVariantPrefixes: () => props.filter.hideVariantPrefixes,
-			variantState,
-		});
+	const { inputValue, classValue, onFocus, onBlur, onUpdate } = useClassValue({
+		fullClass: () => props.item.fullClass,
+		hideVariantPrefixes: () => props.filter.hideVariantPrefixes,
+		variantState,
+	});
 
 	const swatchSpec = createMemo(() => getTailwindColorSwatch(classValue()));
 
