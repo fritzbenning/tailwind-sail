@@ -2,7 +2,6 @@ import { getActiveVariantClasses } from "@ext/filter";
 import type { SailWebviewPanelModel } from "@sail/protocol";
 import { createMemo, For, Show } from "solid-js";
 import {
-	anyClassVisible,
 	type ClientFilterState,
 	classItemVisible,
 	defaultClientFilterState,
@@ -42,9 +41,14 @@ export function ParsedClassesPanel(props: {
 		props.onPatchFilter({ variant });
 	};
 
+	const visibleClasses = createMemo(() =>
+		props.panel.classes.filter((c) =>
+			classItemVisible(c, props.panel, props.filter),
+		),
+	);
+
 	const showNoResult = () =>
-		props.panel.classes.length > 0 &&
-		!anyClassVisible(props.panel, props.filter);
+		props.panel.classes.length > 0 && visibleClasses().length === 0;
 
 	const addClassVariantPrefix = createMemo(() =>
 		getActiveVariantClasses(
@@ -67,7 +71,7 @@ export function ParsedClassesPanel(props: {
 				onClear={() => props.onPatchFilter({ classSearch: "" })}
 			/>
 			<div
-				class="sail-search-class-divider mb-[var(--sail-panel-block-gap)] box-border h-px shrink-0 border-0 bg-[var(--vscode-widget-border)] p-0"
+				class="sail-search-class-divider mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
 			<SemanticFilterBar
@@ -89,31 +93,26 @@ export function ParsedClassesPanel(props: {
 				/>
 			</Show>
 			<div
-				class="sail-filters-class-divider m-0 box-border h-px shrink-0 border-0 bg-[var(--vscode-widget-border)] p-0"
+				class="sail-filters-class-divider m-0 box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
 			<Show when={showNoResult()}>
 				<NoResultState onReset={resetFilters} />
 			</Show>
-			<div class="sail-class-list-scroll box-border min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-[var(--sail-panel-inline-pad)] pt-[var(--sail-panel-block-gap)] pb-[var(--sail-panel-block-gap)]">
-				<ul class="class-token-list m-0 flex list-none flex-col gap-[var(--sail-class-row-gap)] p-0">
+			<div class="sail-class-list-scroll box-border min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-(--sail-panel-inline-pad) pt-(--sail-panel-block-gap) pb-(--sail-panel-block-gap)">
+				<ul class="class-token-list m-0 flex list-none flex-col gap-(--sail-class-row-gap) p-0">
 					<Show when={props.panel.classes.length === 0}>
 						<li
-							class="class-row muted relative text-[var(--vscode-descriptionForeground)] opacity-[0.85]"
+							class="class-row muted relative text-(--vscode-descriptionForeground) opacity-[0.85]"
 							data-sail-no-token="true"
 							data-sail-semantic="others"
 						>
 							(no classes)
 						</li>
 					</Show>
-					<For each={props.panel.classes}>
+					<For each={visibleClasses()}>
 						{(item) => (
-							<ClassRow
-								item={item}
-								panel={props.panel}
-								filter={props.filter}
-								visible={classItemVisible(item, props.panel, props.filter)}
-							/>
+							<ClassRow item={item} panel={props.panel} filter={props.filter} />
 						)}
 					</For>
 				</ul>

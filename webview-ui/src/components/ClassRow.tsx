@@ -17,7 +17,6 @@ export function ClassRow(props: {
 	item: SailWebviewClassItem;
 	panel: SailWebviewPanelModel;
 	filter: ClientFilterState;
-	visible: boolean;
 }) {
 	const variantEff = () =>
 		effectiveVariantState(props.panel, props.filter.variant);
@@ -33,7 +32,7 @@ export function ClassRow(props: {
 	);
 
 	return (
-		<li class="relative group" hidden={!props.visible}>
+		<li class="relative group">
 			<ClassDot />
 			<div class="group/line flex min-w-0 items-center gap-1.5">
 				<div class="relative min-w-0 flex-1">

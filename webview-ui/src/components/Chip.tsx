@@ -4,7 +4,7 @@ import { splitProps } from "solid-js";
 
 const chipVariants = cva(
 	[
-		"sail-chip modifier-chip box-border m-0 cursor-pointer rounded-sm border px-2 py-0.5 text-[0.75em] leading-[1.3] text-(--vscode-foreground) [font-family:var(--vscode-editor-font-family)]",
+		"sail-chip modifier-chip box-border m-0 cursor-pointer rounded-sm border px-2 py-0.5 text-[0.75em] leading-[1.3] text-(--vscode-foreground) font-(family-name:--vscode-editor-font-family)",
 		"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-(--vscode-focusBorder)",
 		"active:brightness-[0.94]",
 	].join(" "),

@@ -9,11 +9,11 @@ const copy: Record<"needString" | "noTailwind", string> = {
 export function EmptyState(props: { kind: "needString" | "noTailwind" }) {
 	return (
 		<div
-			class="sail-message-box box-border flex items-center gap-2.5 rounded border border-[var(--vscode-widget-border)] px-3 py-2.5 text-[0.95em] leading-[1.45] text-[var(--vscode-descriptionForeground)]"
+			class="sail-message-box box-border flex items-center gap-2.5 rounded border border-(--vscode-widget-border) px-3 py-2.5 text-[0.95em] leading-[1.45] text-(--vscode-descriptionForeground)"
 			role="status"
 		>
 			<span
-				class="shrink-0 leading-[0] text-[var(--vscode-descriptionForeground)] [&_svg]:block"
+				class="shrink-0 leading-[0] text-(--vscode-descriptionForeground) [&_svg]:block"
 				aria-hidden="true"
 			>
 				<IconInfo />

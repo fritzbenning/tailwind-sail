@@ -55,11 +55,11 @@ export function AddClassField(props: {
 	return (
 		<>
 			<div
-				class="mb-[var(--sail-panel-block-gap)] box-border h-px shrink-0 border-0 bg-[var(--vscode-widget-border)] p-0"
+				class="mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
-			<div class="sail-add-class-section box-border px-[var(--sail-panel-inline-pad)]">
-				<div class="sail-panel-title mb-2.5 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-[var(--vscode-descriptionForeground)]">
+			<div class="sail-add-class-section box-border px-(--sail-panel-inline-pad)">
+				<div class="sail-panel-title mb-2.5 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-(--vscode-descriptionForeground)">
 					Add
 				</div>
 				<Input

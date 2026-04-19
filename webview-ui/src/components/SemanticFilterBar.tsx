@@ -12,10 +12,10 @@ export function SemanticFilterBar(props: {
 	}
 	return (
 		<div
-			class="sail-filter-section mb-[var(--sail-panel-block-gap)] box-border px-[var(--sail-panel-inline-pad)]"
+			class="sail-filter-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)"
 			data-sail-filter-row="semantic"
 		>
-			<div class="sail-panel-title mb-2 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-[var(--vscode-descriptionForeground)]">
+			<div class="sail-panel-title mb-2 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-(--vscode-descriptionForeground)">
 				Utility
 			</div>
 			<div
