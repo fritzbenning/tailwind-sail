@@ -6,7 +6,7 @@ import type { PanelModal } from "../../types";
  *
  * @example
  * // Input panel.variants:
- * //   [{ dimension: "screens", values: [...] }, { dimension: "theme", values: [...] }]
+ * //   [{ dimension: "screens", value: [...] }, { dimension: "theme", value: [...] }]
  * // Output:
  * //   Set { "screens", "theme" }
  */

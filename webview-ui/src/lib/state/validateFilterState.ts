@@ -30,7 +30,7 @@ export function validateFilterState(
 		if (selectedVariant === "all") {
 			continue;
 		}
-		if (!row.values.includes(selectedVariant)) {
+		if (!row.value.includes(selectedVariant)) {
 			return false;
 		}
 	}

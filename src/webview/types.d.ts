@@ -16,7 +16,7 @@ export interface PanelModal {
 export interface Variant {
 	readonly dimension: FilterDimensionId;
 	readonly label: string;
-	readonly values: readonly string[];
+	readonly value: readonly string[];
 }
 
 export interface ClassItem {

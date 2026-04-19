@@ -69,7 +69,7 @@ function buildVariantRows(
 		rows.push({
 			dimension: dim,
 			label: getVariantLabel(dim),
-			values: keys,
+			value: keys,
 		});
 	}
 

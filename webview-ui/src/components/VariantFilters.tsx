@@ -2,6 +2,7 @@ import { createMemo, For } from "solid-js";
 import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
+import { ChipList } from "./ChipList";
 import { Section } from "./Section";
 import { SectionTitle } from "./SectionTitle";
 
@@ -10,37 +11,30 @@ export function VariantFilters(props: {
 	activeVariants: FilterState["activeVariants"];
 	onVariantClick: (dimension: string, value: string) => void;
 }) {
-	const rowsWithSelection = createMemo(() =>
-		props.panel.variants.map((row) => ({
-			row,
-			isActive: props.activeVariants[row.dimension] ?? "all",
+	const statefulVariants = createMemo(() =>
+		props.panel.variants.map((variant) => ({
+			variant,
+			isActive: props.activeVariants[variant.dimension] ?? "all",
 		})),
 	);
 
 	return (
-		<For each={rowsWithSelection()}>
-			{({ row, isActive }) => (
-				<Section data-sail-filter-row={row.dimension}>
-					<SectionTitle>{row.label}</SectionTitle>
-					<div
-						class="flex flex-wrap items-center gap-1"
-						role="toolbar"
-						aria-label={`${row.label} filters`}
-					>
-						<For each={row.values}>
-							{(val) => (
+		<For each={statefulVariants()}>
+			{({ variant, isActive }) => (
+				<Section data-sail-filter-row={variant.dimension}>
+					<SectionTitle>{variant.label}</SectionTitle>
+					<ChipList>
+						<For each={variant.value}>
+							{(value) => (
 								<Chip
-									isActive={isActive === val}
-									data-sail-filter-kind="variant"
-									data-sail-dimension={row.dimension}
-									data-sail-value={val}
-									onClick={() => props.onVariantClick(row.dimension, val)}
+									isActive={isActive === value}
+									onClick={() => props.onVariantClick(variant.dimension, value)}
 								>
-									{val}
+									{value}
 								</Chip>
 							)}
 						</For>
-					</div>
+					</ChipList>
 				</Section>
 			)}
 		</For>

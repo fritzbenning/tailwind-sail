@@ -11,9 +11,10 @@ import { Divider } from "./Divider";
 import { NoResultState } from "./NoResultState";
 import { ScrollPanel } from "./ScrollPanel";
 import { Search } from "./Search";
+import { Section } from "./Section";
+import { ToggleSwitch } from "./ToggleSwitch";
 import { UtilityFilters } from "./UtilityFilters";
 import { VariantFilters } from "./VariantFilters";
-import { VariantPrefixToggle } from "./VariantPrefixToggle";
 
 export type ClassListProps = {
 	model: Accessor<WebviewModal>;
@@ -51,12 +52,16 @@ export function ClassList(props: ClassListProps) {
 				onVariantClick={onVariantClick}
 			/>
 			<Show when={panel().showVariantPrefixToggle}>
-				<VariantPrefixToggle
-					checked={filter().hideMatchingVariantPrefixes}
-					onChange={(checked) =>
-						patchFilter({ hideMatchingVariantPrefixes: checked })
-					}
-				/>
+				<Section>
+					<ToggleSwitch
+						checked={filter().hideMatchingVariantPrefixes}
+						onCheckedChange={(checked) =>
+							patchFilter({ hideMatchingVariantPrefixes: checked })
+						}
+					>
+						Hide selected variant prefixes
+					</ToggleSwitch>
+				</Section>
 			</Show>
 			<Divider />
 			<Show when={currentClasses().length === 0}>

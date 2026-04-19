@@ -2,6 +2,7 @@ import { createMemo } from "solid-js";
 import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
+import { ChipList } from "./ChipList";
 import { Section } from "./Section";
 import { SectionTitle } from "./SectionTitle";
 
@@ -21,7 +22,7 @@ export function UtilityFilters(props: {
 	return (
 		<Section>
 			<SectionTitle>Utility</SectionTitle>
-			<div class="flex flex-wrap items-center gap-1">
+			<ChipList>
 				{props.panel.utilities.map((utility) => {
 					const isActive = currentUtilityId() === utility.id;
 
@@ -36,7 +37,7 @@ export function UtilityFilters(props: {
 						</Chip>
 					);
 				})}
-			</div>
+			</ChipList>
 		</Section>
 	);
 }
