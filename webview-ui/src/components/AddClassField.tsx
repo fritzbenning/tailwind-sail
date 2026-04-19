@@ -59,7 +59,7 @@ export function AddClassField(props: { variantPrefix: Accessor<string> }) {
 				role="presentation"
 			/>
 			<div class="sail-add-class-section box-border px-(--sail-panel-inline-pad)">
-				<SectionTitle class="mb-2.5">Add</SectionTitle>
+				<SectionTitle>Add</SectionTitle>
 				<Input
 					ref={setInputElement}
 					type="text"
