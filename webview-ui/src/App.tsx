@@ -21,7 +21,7 @@ export function App() {
 				<ParsedClassesPanel
 					panel={model() as SailWebviewPanelModel}
 					filter={filter()}
-					setFilter={(next) => setFilter(next)}
+					setFilter={setFilter}
 					onPatchFilter={patchFilter}
 				/>
 			</Match>

@@ -8,6 +8,7 @@ export { getDisplayClassWithoutRedundantVariantModifiers } from "./display/getDi
 export { getEffectiveUtilityFilter } from "./state/getEffectiveUtilityFilter";
 export { getEffectiveVariantFilterState } from "./state/getEffectiveVariantFilterState";
 export { getEmptyVariantFilterState } from "./state/getEmptyVariantFilterState";
+export { mergeFilterState } from "./state/mergeFilterState";
 export { getVariantDimensionsFromPanel } from "./state/getVariantDimensionsFromPanel";
 export { isClassItemVisibleForClientFilter } from "./matching/isClassItemVisibleForClientFilter";
 export { isClassMatchingSearchQuery } from "./matching/isClassMatchingSearchQuery";
