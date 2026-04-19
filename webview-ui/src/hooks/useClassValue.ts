@@ -5,6 +5,15 @@ import {
 	type VariantState,
 } from "../lib";
 
+/**
+ * Local edit state for a single class string in the panel: blurred value may hide
+ * redundant variant prefixes; focused value is a draft synced from `fullClass` until blur.
+ *
+ * @param options.fullClass - Authoritative class string from the host model
+ * @param options.hideMatchingVariantPrefixes - When true and blurred, strip variants that match the effective state
+ * @param options.variantEff - Effective variant state used for display stripping and swatch
+ * @returns Input/swatch helpers: `shownValue`, `classForSwatch`, and focus/draft handlers
+ */
 export function useClassValue(options: {
 	fullClass: Accessor<string>;
 	hideMatchingVariantPrefixes: Accessor<boolean>;

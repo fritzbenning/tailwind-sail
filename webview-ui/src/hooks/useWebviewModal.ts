@@ -3,7 +3,13 @@ import type { WebviewModal } from "../types";
 
 const CLASS_TOKEN_INPUT_CLASS = "class-token-input";
 
-// Host `sailUpdate` → model signal; defers applies while a class-token input is focused.
+/**
+ * Webview modal state driven by host `postMessage` (`sailUpdate`). While a class-token
+ * input is focused, incoming model updates are queued and applied after focus moves away,
+ * so typing is not overwritten mid-edit.
+ *
+ * @returns Tuple `[model, setModel]` — reactive {@link WebviewModal} and imperative setter
+ */
 export function useWebviewModal() {
 	const [model, setModel] = createSignal<WebviewModal>({
 		kind: "noString",

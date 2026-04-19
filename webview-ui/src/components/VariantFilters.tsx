@@ -7,7 +7,7 @@ import { SectionTitle } from "./SectionTitle";
 export function VariantFilters(props: {
 	panel: PanelModal;
 	activeVariants: FilterState["activeVariants"];
-	onVariantChip: (dimension: string, value: string) => void;
+	onVariantClick: (dimension: string, value: string) => void;
 }) {
 	const rowsWithSelection = createMemo(() =>
 		props.panel.variants.map((row) => ({
@@ -36,7 +36,7 @@ export function VariantFilters(props: {
 									data-sail-filter-kind="variant"
 									data-sail-dimension={row.dimension}
 									data-sail-value={val}
-									onClick={() => props.onVariantChip(row.dimension, val)}
+									onClick={() => props.onVariantClick(row.dimension, val)}
 								>
 									{val}
 								</Chip>

@@ -6,7 +6,7 @@ import { SectionTitle } from "./SectionTitle";
 export function UtilityFilters(props: {
 	panel: PanelModal;
 	activeUtility: FilterState["activeUtility"];
-	onUtilityChip: (id: string) => void;
+	onUtilityClick: (id: string) => void;
 }) {
 	if (props.panel.utilities.length === 0) {
 		return null;
@@ -31,7 +31,7 @@ export function UtilityFilters(props: {
 							isActive={isActive}
 							data-sail-filter-kind="utility"
 							data-sail-utility={c.id}
-							onClick={() => props.onUtilityChip(c.id)}
+							onClick={() => props.onUtilityClick(c.id)}
 						>
 							{c.id}
 						</Chip>

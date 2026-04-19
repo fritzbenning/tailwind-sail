@@ -1,13 +1,9 @@
-import { getActiveVariantClasses } from "@ext/filter";
 import type { Accessor } from "solid-js";
 import { createMemo, For, Show } from "solid-js";
 import { useCurrentClasses } from "../hooks/useCurrentClasses";
 import { useFilter } from "../hooks/useFilter";
-import {
-	getEffectiveVariantState,
-	getVariantDimensionsFromPanel,
-	stripLightPrefix,
-} from "../lib";
+import { useFilterHandlers } from "../hooks/useFilterHandlers";
+import { useVariantPrefix } from "../hooks/useVariantPrefix";
 import type { PanelModal, WebviewModal } from "../types";
 import { AddClass } from "./AddClass";
 import { ClassItem } from "./ClassItem";
@@ -29,34 +25,11 @@ export function ClassList(props: ClassListProps) {
 	const { filter, patchFilter, resetFilter } = useFilter(props.model);
 
 	const currentClasses = useCurrentClasses(panel, filter);
+	const variantPrefix = useVariantPrefix(panel, filter);
 
-	const onUtilityChip = (id: string) => {
-		const filterState = filter();
-		const nextUtility =
-			filterState.activeUtility.t === "utility" &&
-			filterState.activeUtility.v === id
-				? { t: "all" as const }
-				: { t: "utility" as const, v: id };
-		patchFilter({ activeUtility: nextUtility });
-	};
-
-	const onVariantChip = (dimension: string, value: string) => {
-		const filterState = filter();
-		const activeVariants = { ...filterState.activeVariants };
-		const activeValue =
-			activeVariants[dimension as keyof typeof activeVariants] ?? "all";
-		activeVariants[dimension as keyof typeof activeVariants] =
-			activeValue === value ? "all" : value;
-		patchFilter({ activeVariants });
-	};
-
-	const addClassVariantPrefix = createMemo(() =>
-		stripLightPrefix(
-			getActiveVariantClasses(
-				getVariantDimensionsFromPanel(panel()),
-				getEffectiveVariantState(panel(), filter().activeVariants),
-			),
-		),
+	const { onUtilityClick, onVariantClick } = useFilterHandlers(
+		filter,
+		patchFilter,
 	);
 
 	return (
@@ -70,12 +43,12 @@ export function ClassList(props: ClassListProps) {
 			<UtilityFilters
 				panel={panel()}
 				activeUtility={filter().activeUtility}
-				onUtilityChip={onUtilityChip}
+				onUtilityClick={onUtilityClick}
 			/>
 			<VariantFilters
 				panel={panel()}
 				activeVariants={filter().activeVariants}
-				onVariantChip={onVariantChip}
+				onVariantClick={onVariantClick}
 			/>
 			<Show when={panel().showVariantPrefixToggle}>
 				<VariantPrefixToggle
@@ -98,7 +71,7 @@ export function ClassList(props: ClassListProps) {
 					</For>
 				</ul>
 			</ScrollPanel>
-			<AddClass variantPrefix={addClassVariantPrefix} />
+			<AddClass variantPrefix={variantPrefix} />
 		</div>
 	);
 }
