@@ -31,7 +31,7 @@ export function ClassItem(props: {
 	return (
 		<li class="relative group">
 			<ClassDot />
-			<div class="group/line flex min-w-0 items-center gap-1.5">
+			<div class="flex min-w-0 items-center gap-1.5">
 				<Input
 					variant="inline"
 					type="text"
