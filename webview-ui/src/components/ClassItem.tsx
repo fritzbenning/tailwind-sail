@@ -1,7 +1,7 @@
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
 import { type FilterState, normalizeVariantState } from "../lib";
-import { getTailwindColorSwatch } from "../tailwindColorSwatch";
+import { getTailwindBackgroundColorClass } from "../lib/tailwind/getTailwindBackgroundColorClass";
 import type { ClassItem as ClassItemData, PanelModal } from "../types";
 import { vscode } from "../vscode";
 import { ButtonSlot } from "./ButtonSlot";
@@ -24,7 +24,9 @@ export function ClassItem(props: {
 		variantState,
 	});
 
-	const swatchSpec = createMemo(() => getTailwindColorSwatch(classValue()));
+	const backgroundColorClass = createMemo(() =>
+		getTailwindBackgroundColorClass(classValue()),
+	);
 
 	return (
 		<li class="relative group">
@@ -39,13 +41,13 @@ export function ClassItem(props: {
 						value={inputValue()}
 						onFocus={onFocus}
 						onBlur={onBlur}
-						onInput={(e) => {
-							const v = e.currentTarget.value;
-							onUpdate(v);
+						onInput={(event) => {
+							const value = event.currentTarget.value;
+							onUpdate(value);
 							vscode.postMessage({
 								type: "sailEditClass",
 								tokenIndex: props.item.tokenIndex,
-								newValue: v,
+								newValue: value,
 							});
 						}}
 						onKeyDown={(e) => {
@@ -60,8 +62,10 @@ export function ClassItem(props: {
 					<ButtonSlot>
 						<RemoveButton tokenIndex={props.item.tokenIndex} />
 					</ButtonSlot>
-					<Show when={swatchSpec()}>
-						{(resolvedSwatch) => <ColorSwatch swatch={resolvedSwatch()} />}
+					<Show when={backgroundColorClass()}>
+						{(bg) => (
+							<ColorSwatch backgroundColorClass={bg()} />
+						)}
 					</Show>
 				</div>
 			</div>
