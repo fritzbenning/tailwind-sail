@@ -1,5 +1,5 @@
-import type { SailWebviewClassItem } from "sail-protocol";
-import type { UtilityFilter } from "../types/filterStateTypes";
+import type { ClassItem } from "../../types";
+import type { UtilityFilter } from "../state/types";
 
 /**
  * Whether a parsed class item passes the utility-chip filter.
@@ -17,7 +17,7 @@ import type { UtilityFilter } from "../types/filterStateTypes";
  * // Output: true
  */
 export function isClassMatchingUtilityFilter(
-	item: SailWebviewClassItem,
+	item: ClassItem,
 	st: UtilityFilter,
 ): boolean {
 	if (st.t === "all") {

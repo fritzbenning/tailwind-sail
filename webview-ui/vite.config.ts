@@ -8,7 +8,6 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@ext": path.resolve(__dirname, "../src/tailwind"),
-			"sail-protocol": path.resolve(__dirname, "src/sail-protocol.ts"),
 		},
 	},
 	build: {

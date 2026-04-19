@@ -1,6 +1,6 @@
 import { VARIANT_IDS } from "@ext/filter";
-import type { SailWebviewPanelModel } from "sail-protocol";
-import type { VariantFilterState } from "../types/filterStateTypes";
+import type { PanelModal } from "../../types";
+import type { VariantFilterState } from "./types";
 import { getEmptyVariantFilterState } from "./getEmptyVariantFilterState";
 import { getVariantDimensionsFromPanel } from "./getVariantDimensionsFromPanel";
 
@@ -13,7 +13,7 @@ import { getVariantDimensionsFromPanel } from "./getVariantDimensionsFromPanel";
  * // Output: { ..., screens: "md", theme: "all", ... }  // theme reset because no row
  */
 export function getEffectiveVariantFilterState(
-	panel: SailWebviewPanelModel,
+	panel: PanelModal,
 	variantSt: VariantFilterState,
 ): VariantFilterState {
 	const rows = getVariantDimensionsFromPanel(panel);

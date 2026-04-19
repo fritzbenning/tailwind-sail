@@ -1,5 +1,5 @@
 import { VARIANT_IDS } from "@ext/filter";
-import type { VariantFilterState } from "../types/filterStateTypes";
+import type { VariantFilterState } from "./types";
 
 /**
  * Builds a variant filter map with every known dimension set to `"all"` (no narrowing).

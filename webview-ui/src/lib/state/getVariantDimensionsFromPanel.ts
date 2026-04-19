@@ -1,17 +1,17 @@
 import type { FilterDimensionId } from "@ext/filter";
-import type { SailWebviewPanelModel } from "sail-protocol";
+import type { PanelModal } from "../../types";
 
 /**
  * Returns the set of variant dimensions that actually appear as filter rows for the current panel.
  *
  * @example
- * // Input panel.variantRows:
+ * // Input panel.variants:
  * //   [{ dimension: "screens", values: [...] }, { dimension: "theme", values: [...] }]
  * // Output:
  * //   Set { "screens", "theme" }
  */
 export function getVariantDimensionsFromPanel(
-	panel: SailWebviewPanelModel,
+	panel: PanelModal,
 ): Set<FilterDimensionId> {
-	return new Set(panel.variantRows.map((r) => r.dimension));
+	return new Set(panel.variants.map((r) => r.dimension));
 }

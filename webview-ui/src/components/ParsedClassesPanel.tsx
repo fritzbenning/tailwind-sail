@@ -1,13 +1,13 @@
 import { getActiveVariantClasses } from "@ext/filter";
-import type { Accessor } from "solid-js";
 import { createMemo, For, Show } from "solid-js";
-import { useFilter } from "../hooks/useFilter";
 import {
+	type ClientFilterState,
+	getDefaultFilterState,
 	getEffectiveVariantFilterState,
 	getVariantDimensionsFromPanel,
 	isClassItemVisibleForClientFilter,
 } from "../lib";
-import type { PanelModal, WebviewModal } from "../types";
+import type { PanelModal } from "../types";
 import { AddClassField } from "./AddClassField";
 import { ClassItem } from "./ClassItem";
 import { ClassSearchRow } from "./ClassSearchRow";
@@ -16,79 +16,81 @@ import { UtilityFilterBar } from "./UtilityFilterBar";
 import { VariantFilterRows } from "./VariantFilterRows";
 import { VariantPrefixToggle } from "./VariantPrefixToggle";
 
-export type ClassListProps = {
-	model: Accessor<WebviewModal>;
+export type ParsedClassesPanelProps = {
+	panel: PanelModal;
+	filter: ClientFilterState;
+	setFilter: (next: ClientFilterState) => void;
+	onPatchFilter: (patch: Partial<ClientFilterState>) => void;
 };
 
-export function ClassList(props: ClassListProps) {
-	const { filter, patchFilter, resetFilter } = useFilter(props.model);
-	const panel = createMemo(() => props.model() as PanelModal);
+export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
+	const resetFilters = () => props.setFilter(getDefaultFilterState());
 
 	const onUtilityChip = (id: string) => {
-		const st = filter();
+		const st = props.filter;
 		const nextUtil =
 			st.utility.t === "utility" && st.utility.v === id
 				? { t: "all" as const }
 				: { t: "utility" as const, v: id };
-		patchFilter({ utility: nextUtil });
+		props.onPatchFilter({ utility: nextUtil });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
-		const st = filter();
+		const st = props.filter;
 		const variant = { ...st.variant };
 		const cur = variant[dimension as keyof typeof variant] ?? "all";
 		variant[dimension as keyof typeof variant] = cur === value ? "all" : value;
-		patchFilter({ variant });
+		props.onPatchFilter({ variant });
 	};
 
 	const visibleClasses = createMemo(() =>
-		panel().classes.filter((c) =>
-			isClassItemVisibleForClientFilter(c, panel(), filter()),
+		props.panel.classes.filter((c) =>
+			isClassItemVisibleForClientFilter(c, props.panel, props.filter),
 		),
 	);
 
 	const showNoResult = () =>
-		panel().classes.length > 0 && visibleClasses().length === 0;
+		props.panel.classes.length > 0 && visibleClasses().length === 0;
 
 	const addClassVariantPrefix = createMemo(() =>
 		getActiveVariantClasses(
-			getVariantDimensionsFromPanel(panel()),
-			getEffectiveVariantFilterState(panel(), filter().variant),
+			getVariantDimensionsFromPanel(props.panel),
+			getEffectiveVariantFilterState(props.panel, props.filter.variant),
 		),
 	);
 
 	const addClassStripThemeLight = createMemo(
 		() =>
-			getEffectiveVariantFilterState(panel(), filter().variant).theme ===
-			"light",
+			getEffectiveVariantFilterState(props.panel, props.filter.variant)
+				.theme === "light",
 	);
 
 	return (
-		<div class="class-list flex min-h-0 min-w-0 flex-1 flex-col gap-0 overflow-hidden [--sail-class-row-gap:6px] [--sail-panel-block-gap:14px]">
+		<div class="parsed-classes-panel flex min-h-0 min-w-0 flex-1 flex-col gap-0 overflow-hidden [--sail-class-row-gap:6px] [--sail-panel-block-gap:14px]">
 			<ClassSearchRow
-				value={filter().classSearch}
-				onInput={(v) => patchFilter({ classSearch: v })}
-				onClear={() => patchFilter({ classSearch: "" })}
+				value={props.filter.classSearch}
+				onInput={(v) => props.onPatchFilter({ classSearch: v })}
+				onClear={() => props.onPatchFilter({ classSearch: "" })}
 			/>
 			<div
 				class="sail-search-class-divider mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
 			<UtilityFilterBar
-				panel={panel()}
-				utility={filter().utility}
+				panel={props.panel}
+				utility={props.filter.utility}
 				onUtilityChip={onUtilityChip}
 			/>
 			<VariantFilterRows
-				panel={panel()}
-				variant={filter().variant}
+				panel={props.panel}
+				variant={props.filter.variant}
 				onVariantChip={onVariantChip}
 			/>
-			<Show when={panel().showVariantPrefixToggle}>
+			<Show when={props.panel.showVariantPrefixToggle}>
 				<VariantPrefixToggle
-					checked={filter().hideMatchingVariantPrefixes}
+					checked={props.filter.hideMatchingVariantPrefixes}
 					onChange={(checked) =>
-						patchFilter({ hideMatchingVariantPrefixes: checked })
+						props.onPatchFilter({ hideMatchingVariantPrefixes: checked })
 					}
 				/>
 			</Show>
@@ -97,11 +99,11 @@ export function ClassList(props: ClassListProps) {
 				role="presentation"
 			/>
 			<Show when={showNoResult()}>
-				<NoResultState onReset={resetFilter} />
+				<NoResultState onReset={resetFilters} />
 			</Show>
 			<div class="sail-class-list-scroll box-border min-h-0 flex-1 overflow-x-hidden overflow-y-auto px-(--sail-panel-inline-pad) pt-(--sail-panel-block-gap) pb-(--sail-panel-block-gap)">
 				<ul class="class-token-list m-0 flex list-none flex-col gap-(--sail-class-row-gap) p-0">
-					<Show when={panel().classes.length === 0}>
+					<Show when={props.panel.classes.length === 0}>
 						<li
 							class="class-row muted relative text-(--vscode-descriptionForeground) opacity-[0.85]"
 							data-sail-no-token="true"
@@ -112,7 +114,11 @@ export function ClassList(props: ClassListProps) {
 					</Show>
 					<For each={visibleClasses()}>
 						{(item) => (
-							<ClassItem item={item} panel={panel()} filter={filter()} />
+							<ClassItem
+								item={item}
+								panel={props.panel}
+								filter={props.filter}
+							/>
 						)}
 					</For>
 				</ul>

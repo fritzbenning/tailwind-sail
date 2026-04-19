@@ -1,4 +1,4 @@
-import type { ClientFilterState } from "../types/filterStateTypes";
+import type { ClientFilterState } from "./types";
 
 export function mergeFilterState(
 	previous: ClientFilterState,

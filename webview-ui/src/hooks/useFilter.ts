@@ -1,4 +1,3 @@
-import type { SailWebviewViewModel } from "sail-protocol";
 import type { Accessor } from "solid-js";
 import { createEffect, createSignal } from "solid-js";
 import {
@@ -7,8 +6,9 @@ import {
 	mergeFilterState,
 	validateFilterState,
 } from "../lib";
+import type { WebviewModal } from "../types";
 
-export function useFilter(model: Accessor<SailWebviewViewModel>) {
+export function useFilter(model: Accessor<WebviewModal>) {
 	const [filter, setFilter] = createSignal<ClientFilterState>(
 		getDefaultFilterState(),
 	);

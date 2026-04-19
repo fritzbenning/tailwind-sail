@@ -1,14 +1,8 @@
-import type {
-	SailWebviewClassItem,
-	SailWebviewPanelModel,
-} from "sail-protocol";
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
-import {
-	type ClientFilterState,
-	getEffectiveVariantFilterState,
-} from "../lib";
+import { type ClientFilterState, getEffectiveVariantFilterState } from "../lib";
 import { tailwindColorSwatch } from "../tailwindColorSwatch";
+import type { ClassItem as ClassItemData, PanelModal } from "../types";
 import { vscode } from "../vscode";
 import { ButtonSlot } from "./ButtonSlot";
 import { ClassDot } from "./ClassDot";
@@ -17,8 +11,8 @@ import { Input } from "./Input";
 import { RemoveButton } from "./RemoveButton";
 
 export function ClassItem(props: {
-	item: SailWebviewClassItem;
-	panel: SailWebviewPanelModel;
+	item: ClassItemData;
+	panel: PanelModal;
 	filter: ClientFilterState;
 }) {
 	const variantEff = () =>

@@ -2,8 +2,7 @@
 	"files": [],
 	"compilerOptions": {
 		"paths": {
-			"@ext/*": ["./../src/tailwind/*"],
-			"sail-protocol": ["./src/sail-protocol.ts"]
+			"@ext/*": ["./../src/tailwind/*"]
 		}
 	},
 	"references": [

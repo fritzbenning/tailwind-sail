@@ -1,5 +1,5 @@
-import type { SailWebviewPanelModel } from "sail-protocol";
-import type { ClientFilterState } from "../types/filterStateTypes";
+import type { PanelModal } from "../../types";
+import type { ClientFilterState } from "./types";
 
 /**
  * Whether every selected utility chip and variant value still exists on the current panel model.
@@ -14,14 +14,14 @@ import type { ClientFilterState } from "../types/filterStateTypes";
  * // Output: false
  */
 export function validateFilterState(
-	panel: SailWebviewPanelModel,
+	panel: PanelModal,
 	filterState: ClientFilterState,
 ): boolean {
 	const utility = filterState.utility;
 	if (utility.t === "all") {
 		/* ok */
 	} else if (utility.t === "utility") {
-		const ok = panel.utilityChips.some((chip) => chip.id === utility.v);
+		const ok = panel.utilities.some((chip) => chip.id === utility.v);
 		if (!ok) {
 			return false;
 		}
@@ -29,7 +29,7 @@ export function validateFilterState(
 		return false;
 	}
 
-	for (const row of panel.variantRows) {
+	for (const row of panel.variants) {
 		const selectedVariant = filterState.variant[row.dimension] ?? "all";
 		if (selectedVariant === "all") {
 			continue;

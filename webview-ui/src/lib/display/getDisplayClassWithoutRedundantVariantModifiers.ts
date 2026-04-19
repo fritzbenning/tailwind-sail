@@ -3,7 +3,7 @@ import {
 	shouldStripModifierForVariantFilter,
 } from "@ext/filter";
 import { splitTailwindClassVariants } from "@ext/variants/splitTailwindClassVariants";
-import type { VariantFilterState } from "../types/filterStateTypes";
+import type { VariantFilterState } from "../state/types";
 
 /**
  * Rebuilds the class string for display by dropping variant modifiers that are redundant

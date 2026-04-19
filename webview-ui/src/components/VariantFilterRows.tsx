@@ -1,15 +1,15 @@
-import type { SailWebviewPanelModel } from "sail-protocol";
 import { createMemo, For } from "solid-js";
 import type { ClientFilterState } from "../lib";
+import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
 
 export function VariantFilterRows(props: {
-	panel: SailWebviewPanelModel;
+	panel: PanelModal;
 	variant: ClientFilterState["variant"];
 	onVariantChip: (dimension: string, value: string) => void;
 }) {
 	const rowsWithSelection = createMemo(() =>
-		props.panel.variantRows.map((row) => ({
+		props.panel.variants.map((row) => ({
 			row,
 			isActive: props.variant[row.dimension] ?? "all",
 		})),

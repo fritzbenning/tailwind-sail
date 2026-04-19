@@ -1,13 +1,13 @@
-import type { SailWebviewPanelModel } from "sail-protocol";
 import type { ClientFilterState } from "../lib";
+import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
 
 export function UtilityFilterBar(props: {
-	panel: SailWebviewPanelModel;
+	panel: PanelModal;
 	utility: ClientFilterState["utility"];
 	onUtilityChip: (id: string) => void;
 }) {
-	if (props.panel.utilityChips.length === 0) {
+	if (props.panel.utilities.length === 0) {
 		return null;
 	}
 	return (
@@ -23,7 +23,7 @@ export function UtilityFilterBar(props: {
 				role="toolbar"
 				aria-label="Tailwind utility category filters"
 			>
-				{props.panel.utilityChips.map((c) => {
+				{props.panel.utilities.map((c) => {
 					const isActive =
 						props.utility.t === "utility" && props.utility.v === c.id;
 					return (

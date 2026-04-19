@@ -1,25 +1,25 @@
 import type { FilterDimensionId, VariantBuckets } from "../tailwind/filter";
 
-export type SailWebviewViewModel =
+export type WebviewModal =
 	| { kind: "noString" }
 	| { kind: "noTailwind" }
-	| SailWebviewPanelModel;
+	| PanelModal;
 
-export interface SailWebviewPanelModel {
+export interface PanelModal {
 	readonly kind: "panel";
-	readonly utilityChips: readonly { readonly id: string }[];
-	readonly variantRows: readonly SailWebviewVariantRow[];
+	readonly utilities: readonly { readonly id: string }[];
+	readonly variants: readonly Variant[];
 	readonly showVariantPrefixToggle: boolean;
-	readonly classes: readonly SailWebviewClassItem[];
+	readonly classes: readonly ClassItem[];
 }
 
-export interface SailWebviewVariantRow {
+export interface Variant {
 	readonly dimension: FilterDimensionId;
 	readonly label: string;
 	readonly values: readonly string[];
 }
 
-export interface SailWebviewClassItem {
+export interface ClassItem {
 	readonly tokenIndex: number;
 	readonly fullClass: string;
 	readonly utility: string;

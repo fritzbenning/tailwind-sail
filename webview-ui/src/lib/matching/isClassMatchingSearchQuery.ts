@@ -1,4 +1,4 @@
-import type { SailWebviewClassItem } from "sail-protocol";
+import type { ClassItem } from "../../types";
 
 /**
  * Whether the full class string contains the search substring (already lowercased).
@@ -12,7 +12,7 @@ import type { SailWebviewClassItem } from "sail-protocol";
  * // Output: true
  */
 export function isClassMatchingSearchQuery(
-	item: SailWebviewClassItem,
+	item: ClassItem,
 	queryTrimmedLower: string,
 ): boolean {
 	if (queryTrimmedLower.length === 0) {

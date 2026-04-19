@@ -2,7 +2,7 @@ export type {
 	ClientFilterState,
 	UtilityFilter,
 	VariantFilterState,
-} from "./types/filterStateTypes";
+} from "./state/types";
 export { getDefaultFilterState } from "./state/getDefaultFilterState";
 export { getDisplayClassWithoutRedundantVariantModifiers } from "./display/getDisplayClassWithoutRedundantVariantModifiers";
 export { getEffectiveUtilityFilter } from "./state/getEffectiveUtilityFilter";

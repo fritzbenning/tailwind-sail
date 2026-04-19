@@ -17,11 +17,11 @@ import type { ParsedTailwindClass } from "../tailwind/parse/types";
 import { normalizeClass } from "../tailwind/utils/normalizeClass";
 import { splitTailwindClassVariants } from "../tailwind/variants/splitTailwindClassVariants";
 import type {
-	SailWebviewClassItem,
-	SailWebviewPanelModel,
-	SailWebviewVariantRow,
-	SailWebviewViewModel,
-} from "./protocol";
+	ClassItem,
+	PanelModal,
+	Variant,
+	WebviewModal,
+} from "./types";
 
 function mergePresentKeys(
 	target: Record<FilterDimensionId, Set<string>>,
@@ -36,8 +36,8 @@ function mergePresentKeys(
 
 function buildVariantRows(
 	presentKeys: Record<FilterDimensionId, Set<string>>,
-): SailWebviewVariantRow[] {
-	const rows: SailWebviewVariantRow[] = [];
+): Variant[] {
+	const rows: Variant[] = [];
 
 	for (const dim of VARIANT_FILTER_ROW_DIMENSIONS) {
 		const raw = Array.from(presentKeys[dim]);
@@ -78,7 +78,7 @@ function buildVariantRows(
 
 export function buildSailWebviewViewModel(
 	snapshot: SailEditorSnapshot,
-): SailWebviewViewModel {
+): WebviewModal {
 	const stringDetected = snapshot.extracted !== undefined;
 	const classes = snapshot.parsed?.classes ?? [];
 	const looksTw = snapshot.parsed?.looksLikeTailwind === true;
@@ -137,21 +137,21 @@ export function buildSailWebviewViewModel(
 		presentKeys.container.add("base");
 	}
 
-	const variantRows = buildVariantRows(presentKeys);
+	const variants = buildVariantRows(presentKeys);
 
 	const utilityCategoriesPresent = new Set<string>();
 	for (const c of classes) {
 		const utility = normalizeClass(splitTailwindClassVariants(c.name).utility);
 		utilityCategoriesPresent.add(classifyTailwindUtility(utility));
 	}
-	const utilityChips: { id: string }[] = [];
+	const utilities: { id: string }[] = [];
 	for (const cat of UTILITY_CATEGORIES) {
 		if (utilityCategoriesPresent.has(cat.id)) {
-			utilityChips.push({ id: cat.id });
+			utilities.push({ id: cat.id });
 		}
 	}
 
-	const classItems: SailWebviewClassItem[] = classes.map(
+	const classItems: ClassItem[] = classes.map(
 		(c: ParsedTailwindClass, tokenIndex: number) => {
 			const mods = perClassModifiers[tokenIndex] ?? [];
 			const utility = normalizeClass(
@@ -168,11 +168,11 @@ export function buildSailWebviewViewModel(
 		},
 	);
 
-	const panel: SailWebviewPanelModel = {
+	const panel: PanelModal = {
 		kind: "panel",
-		utilityChips,
-		variantRows,
-		showVariantPrefixToggle: variantRows.length > 0,
+		utilities,
+		variants,
+		showVariantPrefixToggle: variants.length > 0,
 		classes: classItems,
 	};
 

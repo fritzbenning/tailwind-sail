@@ -1,10 +1,7 @@
-import { variantBucketMatchesSelection, VARIANT_IDS } from "@ext/filter";
-import type {
-	SailWebviewClassItem,
-	SailWebviewPanelModel,
-} from "sail-protocol";
-import type { VariantFilterState } from "../types/filterStateTypes";
+import { VARIANT_IDS, variantBucketMatchesSelection } from "@ext/filter";
+import type { ClassItem, PanelModal } from "../../types";
 import { getVariantDimensionsFromPanel } from "../state/getVariantDimensionsFromPanel";
+import type { VariantFilterState } from "../state/types";
 
 /**
  * Whether the class’s variant buckets satisfy every narrowed dimension in the filter.
@@ -18,9 +15,9 @@ import { getVariantDimensionsFromPanel } from "../state/getVariantDimensionsFrom
  * // Output: false
  */
 export function isClassMatchingVariantFilters(
-	item: SailWebviewClassItem,
+	item: ClassItem,
 	variantEff: VariantFilterState,
-	panel: SailWebviewPanelModel,
+	panel: PanelModal,
 ): boolean {
 	const rows = getVariantDimensionsFromPanel(panel);
 	const buckets = item.variantBuckets;

@@ -1,10 +1,7 @@
-import type {
-	SailWebviewClassItem,
-	SailWebviewPanelModel,
-} from "sail-protocol";
+import type { ClassItem, PanelModal } from "../../types";
 import { getEffectiveUtilityFilter } from "../state/getEffectiveUtilityFilter";
 import { getEffectiveVariantFilterState } from "../state/getEffectiveVariantFilterState";
-import type { ClientFilterState } from "../types/filterStateTypes";
+import type { ClientFilterState } from "../state/types";
 import { isClassMatchingSearchQuery } from "./isClassMatchingSearchQuery";
 import { isClassMatchingUtilityFilter } from "./isClassMatchingUtilityFilter";
 import { isClassMatchingVariantFilters } from "./isClassMatchingVariantFilters";
@@ -22,8 +19,8 @@ import { isClassMatchingVariantFilters } from "./isClassMatchingVariantFilters";
  * // Output: false
  */
 export function isClassItemVisibleForClientFilter(
-	item: SailWebviewClassItem,
-	panel: SailWebviewPanelModel,
+	item: ClassItem,
+	panel: PanelModal,
 	st: ClientFilterState,
 ): boolean {
 	const utilEff = getEffectiveUtilityFilter(panel, st.utility);
