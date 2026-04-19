@@ -20,7 +20,7 @@ export function VariantFilters(props: {
 		<For each={rowsWithSelection()}>
 			{({ row, isActive }) => (
 				<div
-					class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)"
+					class="mb-4 box-border shrink-0 px-(--sidebarPadding)"
 					data-sail-filter-row={row.dimension}
 				>
 					<SectionTitle>{row.label}</SectionTitle>

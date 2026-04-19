@@ -13,7 +13,7 @@ export function UtilityFilters(props: {
 	}
 	return (
 		<div
-			class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)"
+			class="mb-4 box-border shrink-0 px-(--sidebarPadding)"
 			data-sail-filter-row="utility"
 		>
 			<SectionTitle>Utility</SectionTitle>

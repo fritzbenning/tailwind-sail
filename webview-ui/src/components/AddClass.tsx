@@ -1,6 +1,7 @@
 import { type Accessor, createEffect, createSignal } from "solid-js";
 import { applyVariantPrefix, getClassNameFromInputValue } from "../lib";
 import { vscode } from "../vscode";
+import { Divider } from "./Divider";
 import { Input } from "./Input";
 import { SectionTitle } from "./SectionTitle";
 
@@ -10,14 +11,14 @@ export function AddClass(props: { variantPrefix: Accessor<string> }) {
 	>();
 
 	createEffect(() => {
-		const el = inputElement();
+		const input = inputElement();
 		const variantPrefix = props.variantPrefix();
 
-		if (!el) {
+		if (!input) {
 			return;
 		}
 
-		applyVariantPrefix(el, variantPrefix);
+		applyVariantPrefix(input, variantPrefix);
 	});
 
 	function handleKeyDown(
@@ -54,11 +55,8 @@ export function AddClass(props: { variantPrefix: Accessor<string> }) {
 
 	return (
 		<>
-			<div
-				class="mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
-				role="presentation"
-			/>
-			<div class="box-border shrink-0 px-(--sail-panel-inline-pad)">
+			<Divider />
+			<div class="box-border shrink-0 px-(--sidebarPadding) pt-3">
 				<SectionTitle>Add</SectionTitle>
 				<Input
 					ref={setInputElement}

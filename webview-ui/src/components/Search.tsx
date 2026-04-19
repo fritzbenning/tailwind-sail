@@ -1,13 +1,13 @@
 import { IconX } from "./Icons";
 import { Input } from "./Input";
 
-export function ClassSearchRow(props: {
+export function Search(props: {
 	value: string;
 	onInput: (v: string) => void;
 	onClear: () => void;
 }) {
 	return (
-		<div class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)">
+		<div class="mb-4 box-border shrink-0 px-(--sidebarPadding)">
 			<div class="flex min-w-0 items-center gap-1.5">
 				<Input
 					type="text"

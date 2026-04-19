@@ -11,8 +11,10 @@ import {
 import type { PanelModal, WebviewModal } from "../types";
 import { AddClass } from "./AddClass";
 import { ClassItem } from "./ClassItem";
-import { ClassSearchRow } from "./ClassSearchRow";
+import { Divider } from "./Divider";
 import { NoResultState } from "./NoResultState";
+import { ScrollPanel } from "./ScrollPanel";
+import { Search } from "./Search";
 import { UtilityFilters } from "./UtilityFilters";
 import { VariantFilters } from "./VariantFilters";
 import { VariantPrefixToggle } from "./VariantPrefixToggle";
@@ -58,16 +60,13 @@ export function ClassList(props: ClassListProps) {
 	);
 
 	return (
-		<div class="flex min-h-0 min-w-0 flex-1 flex-col gap-0 overflow-hidden [--sail-class-row-gap:6px] [--sail-panel-block-gap:14px]">
-			<ClassSearchRow
+		<div class="flex flex-1 flex-col gap-0 overflow-hidden">
+			<Search
 				value={filter().search}
 				onInput={(v) => patchFilter({ search: v })}
 				onClear={() => patchFilter({ search: "" })}
 			/>
-			<div
-				class="mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
-				role="presentation"
-			/>
+			<Divider marginBottom />
 			<UtilityFilters
 				panel={panel()}
 				activeUtility={filter().activeUtility}
@@ -86,22 +85,19 @@ export function ClassList(props: ClassListProps) {
 					}
 				/>
 			</Show>
-			<div
-				class="m-0 box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
-				role="presentation"
-			/>
+			<Divider />
 			<Show when={currentClasses().length === 0}>
 				<NoResultState onReset={resetFilter} />
 			</Show>
-			<div class="box-border min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto px-(--sail-panel-inline-pad) pt-(--sail-panel-block-gap) pb-(--sail-panel-block-gap)">
-				<ul class="m-0 flex list-none flex-col gap-(--sail-class-row-gap) p-0">
+			<ScrollPanel>
+				<ul class="m-0 flex list-none flex-col p-0 gap-1">
 					<For each={currentClasses()}>
 						{(item) => (
 							<ClassItem item={item} panel={panel()} filter={filter()} />
 						)}
 					</For>
 				</ul>
-			</div>
+			</ScrollPanel>
 			<AddClass variantPrefix={addClassVariantPrefix} />
 		</div>
 	);
