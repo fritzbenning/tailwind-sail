@@ -1,29 +1,21 @@
-import type { SailWebviewPanelModel } from "sail-protocol";
 import { Match, Switch } from "solid-js";
+import { ClassList } from "./components/ClassList";
 import { EmptyState } from "./components/EmptyState";
-import { ParsedClassesPanel } from "./components/ParsedClassesPanel";
-import { useFilter } from "./hooks/useFilter";
 import { useWebviewModal } from "./hooks/useWebviewModal";
 
 export function App() {
 	const [model] = useWebviewModal();
-	const { filter, setFilter, patchFilter } = useFilter(model);
 
 	return (
 		<Switch>
-			<Match when={model().kind === "needString"}>
-				<EmptyState kind="needString" />
+			<Match when={model().kind === "noString"}>
+				<EmptyState kind="noString" />
 			</Match>
 			<Match when={model().kind === "noTailwind"}>
 				<EmptyState kind="noTailwind" />
 			</Match>
 			<Match when={model().kind === "panel"}>
-				<ParsedClassesPanel
-					panel={model() as SailWebviewPanelModel}
-					filter={filter()}
-					setFilter={setFilter}
-					onPatchFilter={patchFilter}
-				/>
+				<ClassList model={model} />
 			</Match>
 		</Switch>
 	);

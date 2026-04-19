@@ -1,7 +1,7 @@
 import type { FilterDimensionId, VariantBuckets } from "../tailwind/filter";
 
 export type SailWebviewViewModel =
-	| { kind: "needString" }
+	| { kind: "noString" }
 	| { kind: "noTailwind" }
 	| SailWebviewPanelModel;
 

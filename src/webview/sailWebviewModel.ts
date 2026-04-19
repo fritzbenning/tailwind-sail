@@ -84,7 +84,7 @@ export function buildSailWebviewViewModel(
 	const looksTw = snapshot.parsed?.looksLikeTailwind === true;
 
 	if (!stringDetected) {
-		return { kind: "needString" };
+		return { kind: "noString" };
 	}
 	if (!looksTw) {
 		return { kind: "noTailwind" };

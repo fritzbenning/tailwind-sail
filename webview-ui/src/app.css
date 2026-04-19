@@ -24,7 +24,7 @@
 		margin-right: var(--sail-panel-inline-pad);
 	}
 
-	.parsed-classes-panel > *:not(.sail-class-list-scroll) {
+	.class-list > *:not(.sail-class-list-scroll) {
 		flex-shrink: 0;
 	}
 

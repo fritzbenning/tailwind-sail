@@ -6,7 +6,7 @@ const CLASS_TOKEN_INPUT_CLASS = "class-token-input";
 // Host `sailUpdate` → model signal; defers applies while a class-token input is focused.
 export function useWebviewModal() {
 	const [model, setModel] = createSignal<SailWebviewViewModel>({
-		kind: "needString",
+		kind: "noString",
 	});
 
 	let deferModelApply = false;

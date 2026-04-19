@@ -26,5 +26,7 @@ export function useFilter(model: Accessor<SailWebviewViewModel>) {
 		setFilter((previous) => mergeFilterState(previous, patch));
 	};
 
-	return { filter, setFilter, patchFilter };
+	const resetFilter = () => setFilter(getDefaultFilterState());
+
+	return { filter, setFilter, patchFilter, resetFilter };
 }
