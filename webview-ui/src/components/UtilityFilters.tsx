@@ -3,7 +3,7 @@ import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
 import { SectionTitle } from "./SectionTitle";
 
-export function UtilityFilterBar(props: {
+export function UtilityFilters(props: {
 	panel: PanelModal;
 	activeUtility: FilterState["activeUtility"];
 	onUtilityChip: (id: string) => void;
@@ -13,12 +13,12 @@ export function UtilityFilterBar(props: {
 	}
 	return (
 		<div
-			class="sail-filter-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)"
+			class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)"
 			data-sail-filter-row="utility"
 		>
 			<SectionTitle>Utility</SectionTitle>
 			<div
-				class="sail-filter-bar flex flex-wrap items-center gap-1"
+				class="flex flex-wrap items-center gap-1"
 				role="toolbar"
 				aria-label="Tailwind utility category filters"
 			>

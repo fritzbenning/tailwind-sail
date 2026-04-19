@@ -1,7 +1,7 @@
 export function NoResultState(props: { onReset: () => void }) {
 	return (
 		<div
-			class="sail-filter-empty-state m-0 mt-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)"
+			class="m-0 mt-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)"
 			role="status"
 			aria-live="polite"
 		>

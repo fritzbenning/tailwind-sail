@@ -3,7 +3,7 @@ export function VariantPrefixToggle(props: {
 	onChange: (checked: boolean) => void;
 }) {
 	return (
-		<div class="sail-modifier-prefix-toggle-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)">
+		<div class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)">
 			<label class="relative m-0 inline-flex w-full cursor-pointer select-none items-center gap-2 py-0 pr-0 pl-9 text-[0.8em] leading-[1.35] text-(--vscode-descriptionForeground)">
 				<span class="absolute top-1/2 left-0 h-4 w-6 -translate-y-1/2">
 					<input

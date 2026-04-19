@@ -17,16 +17,6 @@
 		overflow: hidden;
 	}
 
-	#parsed-classes > .sail-message-box {
-		flex-shrink: 0;
-		margin-left: var(--sail-panel-inline-pad);
-		margin-right: var(--sail-panel-inline-pad);
-	}
-
-	.class-list > *:not(.sail-class-list-scroll) {
-		flex-shrink: 0;
-	}
-
 	* {
 		scrollbar-width: normal;
 		scrollbar-color: var(

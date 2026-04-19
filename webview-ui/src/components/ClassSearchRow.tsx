@@ -7,7 +7,7 @@ export function ClassSearchRow(props: {
 	onClear: () => void;
 }) {
 	return (
-		<div class="sail-search-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)">
+		<div class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)">
 			<div class="flex min-w-0 items-center gap-1.5">
 				<Input
 					type="text"

@@ -58,7 +58,7 @@ export function AddClass(props: { variantPrefix: Accessor<string> }) {
 				class="mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
-			<div class="sail-add-class-section box-border px-(--sail-panel-inline-pad)">
+			<div class="box-border shrink-0 px-(--sail-panel-inline-pad)">
 				<SectionTitle>Add</SectionTitle>
 				<Input
 					ref={setInputElement}

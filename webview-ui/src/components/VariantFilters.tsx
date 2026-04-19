@@ -4,7 +4,7 @@ import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
 import { SectionTitle } from "./SectionTitle";
 
-export function VariantFilterRows(props: {
+export function VariantFilters(props: {
 	panel: PanelModal;
 	activeVariants: FilterState["activeVariants"];
 	onVariantChip: (dimension: string, value: string) => void;
@@ -20,12 +20,12 @@ export function VariantFilterRows(props: {
 		<For each={rowsWithSelection()}>
 			{({ row, isActive }) => (
 				<div
-					class="sail-filter-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)"
+					class="mb-(--sail-panel-block-gap) box-border shrink-0 px-(--sail-panel-inline-pad)"
 					data-sail-filter-row={row.dimension}
 				>
 					<SectionTitle>{row.label}</SectionTitle>
 					<div
-						class="sail-filter-bar flex flex-wrap items-center gap-1"
+						class="flex flex-wrap items-center gap-1"
 						role="toolbar"
 						aria-label={`${row.label} filters`}
 					>
