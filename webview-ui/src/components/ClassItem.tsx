@@ -1,6 +1,6 @@
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
-import { type FilterState, getEffectiveVariantState } from "../lib";
+import { type FilterState, normalizeVariantState } from "../lib";
 import { getTailwindColorSwatch } from "../tailwindColorSwatch";
 import type { ClassItem as ClassItemData, PanelModal } from "../types";
 import { vscode } from "../vscode";
@@ -16,9 +16,9 @@ export function ClassItem(props: {
 	filter: FilterState;
 }) {
 	const variantState = () =>
-		getEffectiveVariantState(props.panel, props.filter.activeVariants);
+		normalizeVariantState(props.panel, props.filter.activeVariants);
 
-	const { shownValue, swatchClass, onFocus, onBlur, onDraftInput } =
+	const { inputValue, swatchClass, onFocus, onBlur, onDraftInput } =
 		useClassValue({
 			fullClass: () => props.item.fullClass,
 			hideMatchingVariantPrefixes: () =>
@@ -38,7 +38,7 @@ export function ClassItem(props: {
 						type="text"
 						spellcheck={false}
 						data-token-index={props.item.tokenIndex}
-						value={shownValue()}
+						value={inputValue()}
 						onFocus={onFocus}
 						onBlur={onBlur}
 						onInput={(e) => {

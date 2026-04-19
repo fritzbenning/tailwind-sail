@@ -1,6 +1,6 @@
 import type { ClassItem, PanelModal } from "../../types";
 import { getEffectiveUtilityState } from "../state/getEffectiveUtilityState";
-import { getEffectiveVariantState } from "../state/getEffectiveVariantState";
+import { normalizeVariantState } from "../state/normalizeVariantState";
 import type { FilterState } from "../state/types";
 import { isClassMatchingSearchQuery } from "./isClassMatchingSearchQuery";
 import { isClassMatchingUtilityState } from "./isClassMatchingUtilityState";
@@ -24,7 +24,7 @@ export function isClassItemVisibleForClientFilter(
 	st: FilterState,
 ): boolean {
 	const utilEff = getEffectiveUtilityState(panel, st.activeUtility);
-	const varEff = getEffectiveVariantState(panel, st.activeVariants);
+	const varEff = normalizeVariantState(panel, st.activeVariants);
 	const queryTrimmedLower = st.search.trim().toLowerCase();
 	return (
 		isClassMatchingUtilityState(item, utilEff) &&

@@ -7,7 +7,7 @@ export { isClassMatchingVariantState } from "./matching/isClassMatchingVariantSt
 export { applyVariantPrefix } from "./state/applyVariantPrefix";
 export { getDefaultFilterState } from "./state/getDefaultFilterState";
 export { getEffectiveUtilityState } from "./state/getEffectiveUtilityState";
-export { getEffectiveVariantState } from "./state/getEffectiveVariantState";
+export { normalizeVariantState } from "./state/normalizeVariantState";
 export { getEmptyVariantState } from "./state/getEmptyVariantState";
 export { getVariantDimensionsFromPanel } from "./state/getVariantDimensionsFromPanel";
 export { mergeFilterState } from "./state/mergeFilterState";

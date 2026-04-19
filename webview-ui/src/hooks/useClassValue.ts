@@ -11,8 +11,8 @@ import {
  *
  * @param options.fullClass - Authoritative class string from the host model
  * @param options.hideMatchingVariantPrefixes - When true and blurred, strip variants that match the effective state
- * @param options.variantState - Normalized variant axes (`getEffectiveVariantState(panel, activeVariants)`)
- * @returns Input/swatch helpers: `shownValue`, `swatchClass`, and focus/draft handlers
+ * @param options.variantState - Normalized variant axes (`normalizeVariantState(panel, activeVariants)`)
+ * @returns Input/swatch helpers: `inputValue`, `swatchClass`, and focus/draft handlers
  */
 export function useClassValue(options: {
 	fullClass: Accessor<string>;
@@ -36,7 +36,7 @@ export function useClassValue(options: {
 		}
 	});
 
-	const shownValue = () => (focused() ? draft() : displayWhenBlurred());
+	const inputValue = () => (focused() ? draft() : displayWhenBlurred());
 	const swatchClass = () => (focused() ? draft() : options.fullClass());
 
 	const onFocus = () => {
@@ -53,7 +53,7 @@ export function useClassValue(options: {
 	};
 
 	return {
-		shownValue,
+		inputValue,
 		swatchClass,
 		onFocus,
 		onBlur,

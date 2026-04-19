@@ -1,6 +1,6 @@
 import type { ClassItem, PanelModal } from "../../types";
 import { getEffectiveUtilityState } from "../state/getEffectiveUtilityState";
-import { getEffectiveVariantState } from "../state/getEffectiveVariantState";
+import { normalizeVariantState } from "../state/normalizeVariantState";
 import type { FilterState } from "../state/types";
 import { isClassMatchingSearchQuery } from "./isClassMatchingSearchQuery";
 import { isClassMatchingUtilityState } from "./isClassMatchingUtilityState";
@@ -28,7 +28,7 @@ export function isClassInScope(
 		filterState.activeUtility,
 	);
 
-	const activeVariants = getEffectiveVariantState(
+	const activeVariants = normalizeVariantState(
 		panel,
 		filterState.activeVariants,
 	);

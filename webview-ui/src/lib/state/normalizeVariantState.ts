@@ -12,7 +12,7 @@ import type { VariantState } from "./types";
  * // Input: panel exposes only "screens", variantState.screens = "md", variantState.theme = "dark"
  * // Output: { ..., screens: "md", theme: "all", ... }  // theme reset because not on panel
  */
-export function getEffectiveVariantState(
+export function normalizeVariantState(
 	panel: PanelModal,
 	variantState: VariantState,
 ): VariantState {

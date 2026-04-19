@@ -3,7 +3,7 @@ import type { Accessor } from "solid-js";
 import { createMemo } from "solid-js";
 import {
 	type FilterState,
-	getEffectiveVariantState,
+	normalizeVariantState,
 	getVariantDimensionsFromPanel,
 	stripLightPrefix,
 } from "../lib";
@@ -26,7 +26,7 @@ export function useVariantPrefix(
 		stripLightPrefix(
 			getActiveVariantClasses(
 				getVariantDimensionsFromPanel(panel()),
-				getEffectiveVariantState(panel(), filter().activeVariants),
+				normalizeVariantState(panel(), filter().activeVariants),
 			),
 		),
 	);
