@@ -1,6 +1,7 @@
 import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
+import { SectionTitle } from "./SectionTitle";
 
 export function UtilityFilterBar(props: {
 	panel: PanelModal;
@@ -15,9 +16,7 @@ export function UtilityFilterBar(props: {
 			class="sail-filter-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)"
 			data-sail-filter-row="utility"
 		>
-			<div class="sail-panel-title mb-2 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-(--vscode-descriptionForeground)">
-				Utility
-			</div>
+			<SectionTitle>Utility</SectionTitle>
 			<div
 				class="sail-filter-bar flex flex-wrap items-center gap-1"
 				role="toolbar"

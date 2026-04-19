@@ -2,6 +2,7 @@ import { type Accessor, createEffect, createSignal } from "solid-js";
 import { applyVariantPrefix, getClassNameFromInputValue } from "../lib";
 import { vscode } from "../vscode";
 import { Input } from "./Input";
+import { SectionTitle } from "./SectionTitle";
 
 export function AddClassField(props: { variantPrefix: Accessor<string> }) {
 	const [inputElement, setInputElement] = createSignal<
@@ -58,9 +59,7 @@ export function AddClassField(props: { variantPrefix: Accessor<string> }) {
 				role="presentation"
 			/>
 			<div class="sail-add-class-section box-border px-(--sail-panel-inline-pad)">
-				<div class="sail-panel-title mb-2.5 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-(--vscode-descriptionForeground)">
-					Add
-				</div>
+				<SectionTitle class="mb-2.5">Add</SectionTitle>
 				<Input
 					ref={setInputElement}
 					type="text"
