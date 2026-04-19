@@ -1,4 +1,5 @@
 import { IconX } from "./Icons";
+import { Input } from "./Input";
 
 export function ClassSearchRow(props: {
 	value: string;
@@ -8,9 +9,8 @@ export function ClassSearchRow(props: {
 	return (
 		<div class="sail-search-section mb-[var(--sail-panel-block-gap)] box-border px-[var(--sail-panel-inline-pad)]">
 			<div class="flex min-w-0 items-center gap-1.5">
-				<input
+				<Input
 					type="text"
-					class="box-border m-0 min-w-0 flex-1 rounded-sm border border-[var(--vscode-input-border,var(--vscode-widget-border))] bg-[var(--vscode-input-background)] px-1.5 py-1 text-[0.85em] leading-[1.35] text-[var(--vscode-input-foreground)] outline-none [font-family:var(--vscode-editor-font-family)] focus:border-[var(--vscode-focusBorder)]"
 					spellcheck={false}
 					autocomplete="off"
 					placeholder="Filter classes"
