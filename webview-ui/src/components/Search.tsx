@@ -1,5 +1,6 @@
 import { ClearButton } from "./ClearButton";
 import { Input } from "./Input";
+import { Section } from "./Section";
 
 export function Search(props: {
 	value: string;
@@ -20,7 +21,7 @@ export function Search(props: {
 	}
 
 	return (
-		<div class="mb-4 box-border shrink-0 px-(--sidebarPadding) flex gap-1.5 items-center">
+		<Section class="flex gap-1.5 items-center">
 			<Input
 				type="text"
 				spellcheck={false}
@@ -36,6 +37,6 @@ export function Search(props: {
 			>
 				<ClearButton onClick={props.onClear} />
 			</div>
-		</div>
+		</Section>
 	);
 }

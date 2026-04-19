@@ -2,6 +2,7 @@ import { createMemo, For } from "solid-js";
 import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
+import { Section } from "./Section";
 import { SectionTitle } from "./SectionTitle";
 
 export function VariantFilters(props: {
@@ -19,10 +20,7 @@ export function VariantFilters(props: {
 	return (
 		<For each={rowsWithSelection()}>
 			{({ row, isActive }) => (
-				<div
-					class="mb-4 box-border shrink-0 px-(--sidebarPadding)"
-					data-sail-filter-row={row.dimension}
-				>
+				<Section data-sail-filter-row={row.dimension}>
 					<SectionTitle>{row.label}</SectionTitle>
 					<div
 						class="flex flex-wrap items-center gap-1"
@@ -43,7 +41,7 @@ export function VariantFilters(props: {
 							)}
 						</For>
 					</div>
-				</div>
+				</Section>
 			)}
 		</For>
 	);

@@ -1,6 +1,7 @@
 import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
+import { Section } from "./Section";
 import { SectionTitle } from "./SectionTitle";
 
 export function UtilityFilters(props: {
@@ -12,10 +13,7 @@ export function UtilityFilters(props: {
 		return null;
 	}
 	return (
-		<div
-			class="mb-4 box-border shrink-0 px-(--sidebarPadding)"
-			data-sail-filter-row="utility"
-		>
+		<Section>
 			<SectionTitle>Utility</SectionTitle>
 			<div
 				class="flex flex-wrap items-center gap-1"
@@ -38,6 +36,6 @@ export function UtilityFilters(props: {
 					);
 				})}
 			</div>
-		</div>
+		</Section>
 	);
 }
