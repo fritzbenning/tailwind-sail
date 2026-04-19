@@ -32,21 +32,21 @@ export function ClassList(props: ClassListProps) {
 
 	const onUtilityChip = (id: string) => {
 		const filterState = filter();
-		const nextUtil =
+		const nextUtility =
 			filterState.activeUtility.t === "utility" &&
 			filterState.activeUtility.v === id
 				? { t: "all" as const }
 				: { t: "utility" as const, v: id };
-		patchFilter({ activeUtility: nextUtil });
+		patchFilter({ activeUtility: nextUtility });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
 		const filterState = filter();
 		const activeVariants = { ...filterState.activeVariants };
-		const cur =
+		const activeValue =
 			activeVariants[dimension as keyof typeof activeVariants] ?? "all";
 		activeVariants[dimension as keyof typeof activeVariants] =
-			cur === value ? "all" : value;
+			activeValue === value ? "all" : value;
 		patchFilter({ activeVariants });
 	};
 
