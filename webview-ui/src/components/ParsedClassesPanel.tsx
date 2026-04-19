@@ -1,36 +1,38 @@
 import { getActiveVariantClasses } from "@ext/filter";
-import type { SailWebviewPanelModel } from "@sail/protocol";
+import type { SailWebviewPanelModel } from "sail-protocol";
 import { createMemo, For, Show } from "solid-js";
 import {
 	type ClientFilterState,
-	classItemVisible,
-	defaultClientFilterState,
-	effectiveVariantState,
-	presentVariantDimensions,
-} from "../matchClasses";
+	getDefaultFilterState,
+	getEffectiveVariantFilterState,
+	getVariantDimensionsFromPanel,
+	isClassItemVisibleForClientFilter,
+} from "../lib";
 import { AddClassField } from "./AddClassField";
-import { ClassRow } from "./ClassRow";
+import { ClassItem } from "./ClassItem";
 import { ClassSearchRow } from "./ClassSearchRow";
 import { NoResultState } from "./NoResultState";
-import { SemanticFilterBar } from "./SemanticFilterBar";
+import { UtilityFilterBar } from "./UtilityFilterBar";
 import { VariantFilterRows } from "./VariantFilterRows";
 import { VariantPrefixToggle } from "./VariantPrefixToggle";
 
-export function ParsedClassesPanel(props: {
+export type ParsedClassesPanelProps = {
 	panel: SailWebviewPanelModel;
 	filter: ClientFilterState;
 	setFilter: (next: ClientFilterState) => void;
 	onPatchFilter: (patch: Partial<ClientFilterState>) => void;
-}) {
-	const resetFilters = () => props.setFilter(defaultClientFilterState());
+};
 
-	const onSemanticChip = (id: string) => {
+export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
+	const resetFilters = () => props.setFilter(getDefaultFilterState());
+
+	const onUtilityChip = (id: string) => {
 		const st = props.filter;
-		const nextSem =
-			st.semantic.t === "semantic" && st.semantic.v === id
+		const nextUtil =
+			st.utility.t === "utility" && st.utility.v === id
 				? { t: "all" as const }
-				: { t: "semantic" as const, v: id };
-		props.onPatchFilter({ semantic: nextSem });
+				: { t: "utility" as const, v: id };
+		props.onPatchFilter({ utility: nextUtil });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
@@ -43,7 +45,7 @@ export function ParsedClassesPanel(props: {
 
 	const visibleClasses = createMemo(() =>
 		props.panel.classes.filter((c) =>
-			classItemVisible(c, props.panel, props.filter),
+			isClassItemVisibleForClientFilter(c, props.panel, props.filter),
 		),
 	);
 
@@ -52,15 +54,15 @@ export function ParsedClassesPanel(props: {
 
 	const addClassVariantPrefix = createMemo(() =>
 		getActiveVariantClasses(
-			presentVariantDimensions(props.panel),
-			effectiveVariantState(props.panel, props.filter.variant),
+			getVariantDimensionsFromPanel(props.panel),
+			getEffectiveVariantFilterState(props.panel, props.filter.variant),
 		),
 	);
 
 	const addClassStripThemeLight = createMemo(
 		() =>
-			effectiveVariantState(props.panel, props.filter.variant).theme ===
-			"light",
+			getEffectiveVariantFilterState(props.panel, props.filter.variant)
+				.theme === "light",
 	);
 
 	return (
@@ -74,10 +76,10 @@ export function ParsedClassesPanel(props: {
 				class="sail-search-class-divider mb-(--sail-panel-block-gap) box-border h-px shrink-0 border-0 bg-(--vscode-widget-border) p-0"
 				role="presentation"
 			/>
-			<SemanticFilterBar
+			<UtilityFilterBar
 				panel={props.panel}
-				semantic={props.filter.semantic}
-				onSemanticChip={onSemanticChip}
+				utility={props.filter.utility}
+				onUtilityChip={onUtilityChip}
 			/>
 			<VariantFilterRows
 				panel={props.panel}
@@ -105,14 +107,18 @@ export function ParsedClassesPanel(props: {
 						<li
 							class="class-row muted relative text-(--vscode-descriptionForeground) opacity-[0.85]"
 							data-sail-no-token="true"
-							data-sail-semantic="others"
+							data-sail-utility="others"
 						>
 							(no classes)
 						</li>
 					</Show>
 					<For each={visibleClasses()}>
 						{(item) => (
-							<ClassRow item={item} panel={props.panel} filter={props.filter} />
+							<ClassItem
+								item={item}
+								panel={props.panel}
+								filter={props.filter}
+							/>
 						)}
 					</For>
 				</ul>

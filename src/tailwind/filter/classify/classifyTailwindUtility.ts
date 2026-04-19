@@ -1,7 +1,7 @@
 import { UTILITY_CATEGORIES } from "../categories";
 
 /**
- * Returns a semantic category id for a utility segment (variants already split off).
+ * Returns a utility category id for a utility segment (variants already split off).
  */
 export function classifyTailwindUtility(utility: string): string {
 	if (!utility) {

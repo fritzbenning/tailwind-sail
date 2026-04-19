@@ -1,19 +1,19 @@
-import type { SailWebviewPanelModel } from "@sail/protocol";
-import type { ClientFilterState } from "../matchClasses";
+import type { SailWebviewPanelModel } from "sail-protocol";
+import type { ClientFilterState } from "../lib";
 import { Chip } from "./Chip";
 
-export function SemanticFilterBar(props: {
+export function UtilityFilterBar(props: {
 	panel: SailWebviewPanelModel;
-	semantic: ClientFilterState["semantic"];
-	onSemanticChip: (id: string) => void;
+	utility: ClientFilterState["utility"];
+	onUtilityChip: (id: string) => void;
 }) {
-	if (props.panel.semanticChips.length === 0) {
+	if (props.panel.utilityChips.length === 0) {
 		return null;
 	}
 	return (
 		<div
 			class="sail-filter-section mb-(--sail-panel-block-gap) box-border px-(--sail-panel-inline-pad)"
-			data-sail-filter-row="semantic"
+			data-sail-filter-row="utility"
 		>
 			<div class="sail-panel-title mb-2 mt-0 text-[0.7em] font-semibold uppercase tracking-[0.05em] text-(--vscode-descriptionForeground)">
 				Utility
@@ -23,15 +23,15 @@ export function SemanticFilterBar(props: {
 				role="toolbar"
 				aria-label="Tailwind utility category filters"
 			>
-				{props.panel.semanticChips.map((c) => {
+				{props.panel.utilityChips.map((c) => {
 					const isActive =
-						props.semantic.t === "semantic" && props.semantic.v === c.id;
+						props.utility.t === "utility" && props.utility.v === c.id;
 					return (
 						<Chip
 							isActive={isActive}
-							data-sail-filter-kind="semantic"
-							data-sail-semantic={c.id}
-							onClick={() => props.onSemanticChip(c.id)}
+							data-sail-filter-kind="utility"
+							data-sail-utility={c.id}
+							onClick={() => props.onUtilityChip(c.id)}
 						>
 							{c.id}
 						</Chip>

@@ -2,8 +2,8 @@ import type { Accessor } from "solid-js";
 import { createEffect, createSignal } from "solid-js";
 import {
 	type VariantFilterState,
-	stripMatchingVariantPrefixesForDisplay,
-} from "../matchClasses";
+	getDisplayClassWithoutRedundantVariantModifiers,
+} from "../lib";
 
 export function useClassValue(options: {
 	fullClass: Accessor<string>;
@@ -12,7 +12,7 @@ export function useClassValue(options: {
 }) {
 	const displayWhenBlurred = () =>
 		options.hideMatchingVariantPrefixes()
-			? stripMatchingVariantPrefixesForDisplay(
+			? getDisplayClassWithoutRedundantVariantModifiers(
 					options.fullClass(),
 					options.variantEff(),
 				)

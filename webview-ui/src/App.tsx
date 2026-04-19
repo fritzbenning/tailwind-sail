@@ -1,7 +1,7 @@
 import type {
 	SailWebviewPanelModel,
 	SailWebviewViewModel,
-} from "@sail/protocol";
+} from "sail-protocol";
 import {
 	createEffect,
 	createSignal,
@@ -14,9 +14,9 @@ import { EmptyState } from "./components/EmptyState";
 import { ParsedClassesPanel } from "./components/ParsedClassesPanel";
 import {
 	type ClientFilterState,
-	defaultClientFilterState,
-	filterStateIsAvailable,
-} from "./matchClasses";
+	getDefaultFilterState,
+	isClientFilterStateValidForPanel,
+} from "./lib";
 
 let deferRender = false;
 let pendingModel: SailWebviewViewModel | null = null;
@@ -26,7 +26,7 @@ function mergeFilter(
 	patch: Partial<ClientFilterState>,
 ): ClientFilterState {
 	return {
-		semantic: patch.semantic ?? prev.semantic,
+		utility: patch.utility ?? prev.utility,
 		variant: patch.variant ?? prev.variant,
 		classSearch: patch.classSearch ?? prev.classSearch,
 		hideMatchingVariantPrefixes:
@@ -38,8 +38,9 @@ export function App() {
 	const [model, setModel] = createSignal<SailWebviewViewModel>({
 		kind: "needString",
 	});
+
 	const [filter, setFilter] = createSignal<ClientFilterState>(
-		defaultClientFilterState(),
+		getDefaultFilterState(),
 	);
 
 	const receiveModel = (m: SailWebviewViewModel) => {
@@ -105,8 +106,8 @@ export function App() {
 	createEffect(() => {
 		const m = model();
 		const f = filter();
-		if (m.kind === "panel" && !filterStateIsAvailable(m, f)) {
-			setFilter(defaultClientFilterState());
+		if (m.kind === "panel" && !isClientFilterStateValidForPanel(m, f)) {
+			setFilter(getDefaultFilterState());
 		}
 	});
 

@@ -1,6 +1,6 @@
-import type { SailWebviewPanelModel } from "@sail/protocol";
+import type { SailWebviewPanelModel } from "sail-protocol";
 import { createMemo, For } from "solid-js";
-import type { ClientFilterState } from "../matchClasses";
+import type { ClientFilterState } from "../lib";
 import { Chip } from "./Chip";
 
 export function VariantFilterRows(props: {

@@ -139,15 +139,15 @@ export function buildSailWebviewViewModel(
 
 	const variantRows = buildVariantRows(presentKeys);
 
-	const semanticPresent = new Set<string>();
+	const utilityCategoriesPresent = new Set<string>();
 	for (const c of classes) {
 		const utility = normalizeClass(splitTailwindClassVariants(c.name).utility);
-		semanticPresent.add(classifyTailwindUtility(utility));
+		utilityCategoriesPresent.add(classifyTailwindUtility(utility));
 	}
-	const semanticChips: { id: string }[] = [];
+	const utilityChips: { id: string }[] = [];
 	for (const cat of UTILITY_CATEGORIES) {
-		if (semanticPresent.has(cat.id)) {
-			semanticChips.push({ id: cat.id });
+		if (utilityCategoriesPresent.has(cat.id)) {
+			utilityChips.push({ id: cat.id });
 		}
 	}
 
@@ -157,12 +157,12 @@ export function buildSailWebviewViewModel(
 			const utility = normalizeClass(
 				splitTailwindClassVariants(c.name).utility,
 			);
-			const semantic = classifyTailwindUtility(utility);
+			const utilityCategory = classifyTailwindUtility(utility);
 			const buckets = getVariantBuckets(mods);
 			return {
 				tokenIndex,
 				fullClass: c.name,
-				semantic,
+				utility: utilityCategory,
 				variantBuckets: buckets,
 			};
 		},
@@ -170,7 +170,7 @@ export function buildSailWebviewViewModel(
 
 	const panel: SailWebviewPanelModel = {
 		kind: "panel",
-		semanticChips,
+		utilityChips,
 		variantRows,
 		showVariantPrefixToggle: variantRows.length > 0,
 		classes: classItems,

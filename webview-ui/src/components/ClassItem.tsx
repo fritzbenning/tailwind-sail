@@ -1,10 +1,13 @@
 import type {
 	SailWebviewClassItem,
 	SailWebviewPanelModel,
-} from "@sail/protocol";
+} from "sail-protocol";
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
-import { type ClientFilterState, effectiveVariantState } from "../matchClasses";
+import {
+	type ClientFilterState,
+	getEffectiveVariantFilterState,
+} from "../lib";
 import { tailwindColorSwatch } from "../tailwindColorSwatch";
 import { vscode } from "../vscode";
 import { ButtonSlot } from "./ButtonSlot";
@@ -13,13 +16,13 @@ import { ColorSwatch } from "./ColorSwatch";
 import { Input } from "./Input";
 import { RemoveButton } from "./RemoveButton";
 
-export function ClassRow(props: {
+export function ClassItem(props: {
 	item: SailWebviewClassItem;
 	panel: SailWebviewPanelModel;
 	filter: ClientFilterState;
 }) {
 	const variantEff = () =>
-		effectiveVariantState(props.panel, props.filter.variant);
+		getEffectiveVariantFilterState(props.panel, props.filter.variant);
 
 	const classValue = useClassValue({
 		fullClass: () => props.item.fullClass,

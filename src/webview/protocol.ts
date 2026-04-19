@@ -7,7 +7,7 @@ export type SailWebviewViewModel =
 
 export interface SailWebviewPanelModel {
 	readonly kind: "panel";
-	readonly semanticChips: readonly { readonly id: string }[];
+	readonly utilityChips: readonly { readonly id: string }[];
 	readonly variantRows: readonly SailWebviewVariantRow[];
 	readonly showVariantPrefixToggle: boolean;
 	readonly classes: readonly SailWebviewClassItem[];
@@ -22,6 +22,6 @@ export interface SailWebviewVariantRow {
 export interface SailWebviewClassItem {
 	readonly tokenIndex: number;
 	readonly fullClass: string;
-	readonly semantic: string;
+	readonly utility: string;
 	readonly variantBuckets: VariantBuckets;
 }

@@ -1,0 +1,22 @@
+import { VARIANT_IDS } from "@ext/filter";
+import type { VariantFilterState } from "../types/filterStateTypes";
+
+/**
+ * Builds a variant filter map with every known dimension set to `"all"` (no narrowing).
+ *
+ * @example
+ * // Input: (none — uses Tailwind dimension ids from VARIANT_IDS)
+ * // Output:
+ * // {
+ * //   screens: "all",
+ * //   theme: "all",
+ * //   ...
+ * // }
+ */
+export function getEmptyVariantFilterState(): VariantFilterState {
+	const o = {} as VariantFilterState;
+	for (const id of VARIANT_IDS) {
+		o[id] = "all";
+	}
+	return o;
+}

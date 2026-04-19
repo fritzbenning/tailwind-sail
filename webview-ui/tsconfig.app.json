@@ -8,7 +8,7 @@
 		"skipLibCheck": true,
 		"paths": {
 			"@ext/*": ["./../src/tailwind/*"],
-			"@sail/protocol": ["./../src/webview/protocol.ts"]
+			"sail-protocol": ["./src/sail-protocol.ts"]
 		},
 
 		/* Bundler mode */
