@@ -1,11 +1,11 @@
 import { createMemo, For } from "solid-js";
-import type { ClientFilterState } from "../lib";
+import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
 
 export function VariantFilterRows(props: {
 	panel: PanelModal;
-	variant: ClientFilterState["variant"];
+	variant: FilterState["variant"];
 	onVariantChip: (dimension: string, value: string) => void;
 }) {
 	const rowsWithSelection = createMemo(() =>

@@ -5,7 +5,7 @@ import { useFilter } from "../hooks/useFilter";
 import {
 	getEffectiveVariantFilterState,
 	getVariantDimensionsFromPanel,
-	isClassItemVisibleForClientFilter,
+	isClassItemVisibleForFilter,
 } from "../lib";
 import type { PanelModal, WebviewModal } from "../types";
 import { AddClassField } from "./AddClassField";
@@ -21,21 +21,22 @@ export type ClassListProps = {
 };
 
 export function ClassList(props: ClassListProps) {
-	const { filter, patchFilter, resetFilter } = useFilter(props.model);
 	const panel = createMemo(() => props.model() as PanelModal);
 
+	const { filter, patchFilter, resetFilter } = useFilter(props.model);
+
 	const onUtilityChip = (id: string) => {
-		const st = filter();
+		const filterState = filter();
 		const nextUtil =
-			st.utility.t === "utility" && st.utility.v === id
+			filterState.utility.t === "utility" && filterState.utility.v === id
 				? { t: "all" as const }
 				: { t: "utility" as const, v: id };
 		patchFilter({ utility: nextUtil });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
-		const st = filter();
-		const variant = { ...st.variant };
+		const filterState = filter();
+		const variant = { ...filterState.variant };
 		const cur = variant[dimension as keyof typeof variant] ?? "all";
 		variant[dimension as keyof typeof variant] = cur === value ? "all" : value;
 		patchFilter({ variant });
@@ -43,7 +44,7 @@ export function ClassList(props: ClassListProps) {
 
 	const visibleClasses = createMemo(() =>
 		panel().classes.filter((c) =>
-			isClassItemVisibleForClientFilter(c, panel(), filter()),
+			isClassItemVisibleForFilter(c, panel(), filter()),
 		),
 	);
 

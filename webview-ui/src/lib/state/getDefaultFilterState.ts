@@ -1,4 +1,4 @@
-import type { ClientFilterState } from "./types";
+import type { FilterState } from "./types";
 import { getEmptyVariantFilterState } from "./getEmptyVariantFilterState";
 
 /**
@@ -14,7 +14,7 @@ import { getEmptyVariantFilterState } from "./getEmptyVariantFilterState";
  * //   hideMatchingVariantPrefixes: false
  * // }
  */
-export function getDefaultFilterState(): ClientFilterState {
+export function getDefaultFilterState(): FilterState {
 	return {
 		utility: { t: "all" },
 		variant: getEmptyVariantFilterState(),

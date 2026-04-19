@@ -7,9 +7,9 @@ export type UtilityFilter = { t: "all" } | { t: "utility"; v: string };
 export type VariantFilterState = Record<FilterDimensionId, string>;
 
 /**
- * Full client filter state for the parsed-classes panel (utility chips, variant rows, search, display toggle).
+ * Full filter state for the parsed-classes panel (utility chips, variant rows, search, display toggle).
  */
-export interface ClientFilterState {
+export interface FilterState {
 	utility: UtilityFilter;
 	variant: VariantFilterState;
 	classSearch: string;

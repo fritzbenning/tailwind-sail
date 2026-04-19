@@ -1,11 +1,11 @@
 import { getActiveVariantClasses } from "@ext/filter";
 import { createMemo, For, Show } from "solid-js";
 import {
-	type ClientFilterState,
+	type FilterState,
 	getDefaultFilterState,
 	getEffectiveVariantFilterState,
 	getVariantDimensionsFromPanel,
-	isClassItemVisibleForClientFilter,
+	isClassItemVisibleForFilter,
 } from "../lib";
 import type { PanelModal } from "../types";
 import { AddClassField } from "./AddClassField";
@@ -18,26 +18,26 @@ import { VariantPrefixToggle } from "./VariantPrefixToggle";
 
 export type ParsedClassesPanelProps = {
 	panel: PanelModal;
-	filter: ClientFilterState;
-	setFilter: (next: ClientFilterState) => void;
-	onPatchFilter: (patch: Partial<ClientFilterState>) => void;
+	filter: FilterState;
+	setFilter: (next: FilterState) => void;
+	onPatchFilter: (patch: Partial<FilterState>) => void;
 };
 
 export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 	const resetFilters = () => props.setFilter(getDefaultFilterState());
 
 	const onUtilityChip = (id: string) => {
-		const st = props.filter;
+		const filterState = props.filter;
 		const nextUtil =
-			st.utility.t === "utility" && st.utility.v === id
+			filterState.utility.t === "utility" && filterState.utility.v === id
 				? { t: "all" as const }
 				: { t: "utility" as const, v: id };
 		props.onPatchFilter({ utility: nextUtil });
 	};
 
 	const onVariantChip = (dimension: string, value: string) => {
-		const st = props.filter;
-		const variant = { ...st.variant };
+		const filterState = props.filter;
+		const variant = { ...filterState.variant };
 		const cur = variant[dimension as keyof typeof variant] ?? "all";
 		variant[dimension as keyof typeof variant] = cur === value ? "all" : value;
 		props.onPatchFilter({ variant });
@@ -45,7 +45,7 @@ export function ParsedClassesPanel(props: ParsedClassesPanelProps) {
 
 	const visibleClasses = createMemo(() =>
 		props.panel.classes.filter((c) =>
-			isClassItemVisibleForClientFilter(c, props.panel, props.filter),
+			isClassItemVisibleForFilter(c, props.panel, props.filter),
 		),
 	);
 

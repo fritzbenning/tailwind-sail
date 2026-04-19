@@ -1,7 +1,7 @@
 import type { Accessor } from "solid-js";
 import { createEffect, createSignal } from "solid-js";
 import {
-	type ClientFilterState,
+	type FilterState,
 	getDefaultFilterState,
 	mergeFilterState,
 	validateFilterState,
@@ -9,7 +9,7 @@ import {
 import type { WebviewModal } from "../types";
 
 export function useFilter(model: Accessor<WebviewModal>) {
-	const [filter, setFilter] = createSignal<ClientFilterState>(
+	const [filter, setFilter] = createSignal<FilterState>(
 		getDefaultFilterState(),
 	);
 
@@ -22,7 +22,7 @@ export function useFilter(model: Accessor<WebviewModal>) {
 		}
 	});
 
-	const patchFilter = (patch: Partial<ClientFilterState>) => {
+	const patchFilter = (patch: Partial<FilterState>) => {
 		setFilter((previous) => mergeFilterState(previous, patch));
 	};
 

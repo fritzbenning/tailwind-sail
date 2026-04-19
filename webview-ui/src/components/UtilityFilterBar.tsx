@@ -1,10 +1,10 @@
-import type { ClientFilterState } from "../lib";
+import type { FilterState } from "../lib";
 import type { PanelModal } from "../types";
 import { Chip } from "./Chip";
 
 export function UtilityFilterBar(props: {
 	panel: PanelModal;
-	utility: ClientFilterState["utility"];
+	utility: FilterState["utility"];
 	onUtilityChip: (id: string) => void;
 }) {
 	if (props.panel.utilities.length === 0) {

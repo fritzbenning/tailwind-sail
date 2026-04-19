@@ -1,5 +1,5 @@
 import type { PanelModal } from "../../types";
-import type { ClientFilterState } from "./types";
+import type { FilterState } from "./types";
 
 /**
  * Whether every selected utility chip and variant value still exists on the current panel model.
@@ -15,7 +15,7 @@ import type { ClientFilterState } from "./types";
  */
 export function validateFilterState(
 	panel: PanelModal,
-	filterState: ClientFilterState,
+	filterState: FilterState,
 ): boolean {
 	const utility = filterState.utility;
 	if (utility.t === "all") {

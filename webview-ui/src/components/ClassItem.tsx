@@ -1,6 +1,6 @@
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
-import { type ClientFilterState, getEffectiveVariantFilterState } from "../lib";
+import { type FilterState, getEffectiveVariantFilterState } from "../lib";
 import { tailwindColorSwatch } from "../tailwindColorSwatch";
 import type { ClassItem as ClassItemData, PanelModal } from "../types";
 import { vscode } from "../vscode";
@@ -13,7 +13,7 @@ import { RemoveButton } from "./RemoveButton";
 export function ClassItem(props: {
 	item: ClassItemData;
 	panel: PanelModal;
-	filter: ClientFilterState;
+	filter: FilterState;
 }) {
 	const variantEff = () =>
 		getEffectiveVariantFilterState(props.panel, props.filter.variant);

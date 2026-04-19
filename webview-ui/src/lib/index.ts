@@ -1,5 +1,5 @@
 export type {
-	ClientFilterState,
+	FilterState,
 	UtilityFilter,
 	VariantFilterState,
 } from "./state/types";
@@ -10,7 +10,7 @@ export { getEffectiveVariantFilterState } from "./state/getEffectiveVariantFilte
 export { getEmptyVariantFilterState } from "./state/getEmptyVariantFilterState";
 export { mergeFilterState } from "./state/mergeFilterState";
 export { getVariantDimensionsFromPanel } from "./state/getVariantDimensionsFromPanel";
-export { isClassItemVisibleForClientFilter } from "./matching/isClassItemVisibleForClientFilter";
+export { isClassItemVisibleForFilter } from "./matching/isClassItemVisibleForFilter";
 export { isClassMatchingSearchQuery } from "./matching/isClassMatchingSearchQuery";
 export { isClassMatchingUtilityFilter } from "./matching/isClassMatchingUtilityFilter";
 export { isClassMatchingVariantFilters } from "./matching/isClassMatchingVariantFilters";

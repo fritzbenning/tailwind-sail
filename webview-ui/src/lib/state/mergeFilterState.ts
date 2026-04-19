@@ -1,9 +1,9 @@
-import type { ClientFilterState } from "./types";
+import type { FilterState } from "./types";
 
 export function mergeFilterState(
-	previous: ClientFilterState,
-	patch: Partial<ClientFilterState>,
-): ClientFilterState {
+	previous: FilterState,
+	patch: Partial<FilterState>,
+): FilterState {
 	return {
 		utility: patch.utility ?? previous.utility,
 		variant: patch.variant ?? previous.variant,
