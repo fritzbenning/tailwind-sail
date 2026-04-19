@@ -4,7 +4,7 @@ import { vscode } from "../vscode";
 import { Input } from "./Input";
 import { SectionTitle } from "./SectionTitle";
 
-export function AddClassField(props: { variantPrefix: Accessor<string> }) {
+export function AddClass(props: { variantPrefix: Accessor<string> }) {
 	const [inputElement, setInputElement] = createSignal<
 		HTMLInputElement | undefined
 	>();

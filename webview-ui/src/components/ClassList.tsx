@@ -9,7 +9,7 @@ import {
 	stripLightPrefix,
 } from "../lib";
 import type { PanelModal, WebviewModal } from "../types";
-import { AddClassField } from "./AddClassField";
+import { AddClass } from "./AddClass";
 import { ClassItem } from "./ClassItem";
 import { ClassSearchRow } from "./ClassSearchRow";
 import { NoResultState } from "./NoResultState";
@@ -111,7 +111,7 @@ export function ClassList(props: ClassListProps) {
 					</For>
 				</ul>
 			</div>
-			<AddClassField variantPrefix={addClassVariantPrefix} />
+			<AddClass variantPrefix={addClassVariantPrefix} />
 		</div>
 	);
 }
