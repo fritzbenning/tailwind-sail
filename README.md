@@ -1,71 +1,36 @@
-# sail README
+# Sail
 
-This is the README for your extension "sail". After writing up a brief description, we recommend including the following sections.
+**Sail** is a Visual Studio Code extension that gives you a live, structured view of **Tailwind CSS** class strings in your code. Place the cursor inside a string that holds Tailwind utilities, and the **Sail** sidebar breaks the string into tokens you can browse, filter, search, and edit—without leaving the editor.
 
-## Features
+## Commands
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+| Command | Description |
+|--------|-------------|
+| **Sail: Show Sidebar** | Focuses the secondary side bar and opens the Sail view. |
+| **Sail: Refresh** | Immediately re-runs extraction and parsing for the current editor. |
 
-For example if there is an image subfolder under your extension project workspace:
+## Settings
 
-\!\[feature X\]\(images/feature-x.png\)
+| Setting | Default | Description |
+|--------|---------|-------------|
+| `sail.updateDebounceMs` | `20` | Milliseconds to wait after cursor or document changes before Sail re-runs string detection and Tailwind parsing. |
+| `sail.highlightActiveString` | `true` | Underline the string literal Sail is currently using. |
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Development
 
-## Requirements
+This repo is a **pnpm workspace**: the VS Code extension lives at the root, and the sidebar UI is the `ui` package (SolidJS + Vite + Tailwind). See [ui/README.md](ui/README.md) for UI-specific workflows.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+From the repository root:
 
-## Extension Settings
+```bash
+pnpm install
+pnpm run compile
+```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+- **Run the extension** — Open this folder in VS Code and start **Run Extension** (F5). The default build task runs TypeScript in watch mode; run `pnpm run compile` once so `dist/ui` exists before the first launch, or after UI changes if you are not rebuilding the UI separately.
 
-For example:
+```bash
+pnpm run lint
+pnpm test
+```
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
