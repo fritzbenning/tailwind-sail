@@ -19,10 +19,10 @@ export function isClassMatchingVariantState(
 	variantEff: VariantState,
 	panel: PanelModal,
 ): boolean {
-	const rows = getVariantDimensionsFromPanel(panel);
+	const variants = getVariantDimensionsFromPanel(panel);
 	const buckets = item.variantBuckets;
 	for (const dim of VARIANT_IDS) {
-		if (!rows.has(dim)) {
+		if (!variants.has(dim)) {
 			continue;
 		}
 		const sel = variantEff[dim] ?? "all";

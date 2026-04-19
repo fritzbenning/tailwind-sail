@@ -2,7 +2,7 @@ import type { FilterDimensionId } from "@ext/filter";
 import type { PanelModal } from "../../types";
 
 /**
- * Returns the set of variant dimensions that actually appear as filter rows for the current panel.
+ * Returns the set of variant dimensions configured on the current panel (from `panel.variants`).
  *
  * @example
  * // Input panel.variants:
@@ -13,5 +13,5 @@ import type { PanelModal } from "../../types";
 export function getVariantDimensionsFromPanel(
 	panel: PanelModal,
 ): Set<FilterDimensionId> {
-	return new Set(panel.variants.map((r) => r.dimension));
+	return new Set(panel.variants.map((variant) => variant.dimension));
 }

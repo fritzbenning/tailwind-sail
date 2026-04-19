@@ -244,7 +244,7 @@ function colorTailForSolidBg(prefix: string, rest: string): string | null {
 	return null;
 }
 
-export function tailwindColorSwatch(
+export function getTailwindColorSwatch(
 	className: string,
 ): TailwindColorSwatch | null {
 	const base = baseUtility(className);

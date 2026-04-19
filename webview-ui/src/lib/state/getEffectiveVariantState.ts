@@ -5,22 +5,22 @@ import { getVariantDimensionsFromPanel } from "./getVariantDimensionsFromPanel";
 import type { VariantState } from "./types";
 
 /**
- * Normalizes the client variant map: dimensions without a row in the panel are forced to `"all"`;
- * dimensions with rows keep the client value (or `"all"` if unset).
+ * Normalizes the client variant map: dimensions the panel does not expose are forced to `"all"`;
+ * exposed dimensions keep the client value (or `"all"` if unset).
  *
  * @example
- * // Input: panel has only a "screens" row, variantState.screens = "md", variantState.theme = "dark"
- * // Output: { ..., screens: "md", theme: "all", ... }  // theme reset because no row
+ * // Input: panel exposes only "screens", variantState.screens = "md", variantState.theme = "dark"
+ * // Output: { ..., screens: "md", theme: "all", ... }  // theme reset because not on panel
  */
 export function getEffectiveVariantState(
 	panel: PanelModal,
 	variantState: VariantState,
 ): VariantState {
-	const rows = getVariantDimensionsFromPanel(panel);
+	const variants = getVariantDimensionsFromPanel(panel);
 	const out = getEmptyVariantState();
 
 	for (const id of VARIANT_IDS) {
-		out[id] = rows.has(id) ? (variantState[id] ?? "all") : "all";
+		out[id] = variants.has(id) ? (variantState[id] ?? "all") : "all";
 	}
 
 	return out;
