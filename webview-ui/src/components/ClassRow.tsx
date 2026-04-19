@@ -2,12 +2,9 @@ import type {
 	SailWebviewClassItem,
 	SailWebviewPanelModel,
 } from "@sail/protocol";
-import { createEffect, createMemo, createSignal, Show } from "solid-js";
-import {
-	type ClientFilterState,
-	effectiveVariantState,
-	stripMatchingVariantPrefixesForDisplay,
-} from "../matchClasses";
+import { createMemo, Show } from "solid-js";
+import { useClassValue } from "../hooks/useClassValue";
+import { type ClientFilterState, effectiveVariantState } from "../matchClasses";
 import { tailwindColorSwatch } from "../tailwindColorSwatch";
 import { vscode } from "../vscode";
 import { ButtonSlot } from "./ButtonSlot";
@@ -15,9 +12,6 @@ import { ClassDot } from "./ClassDot";
 import { ColorSwatch } from "./ColorSwatch";
 import { Input } from "./Input";
 import { RemoveButton } from "./RemoveButton";
-
-const labelStackClass =
-	"inline-flex w-full max-w-full min-h-[1.35em] min-w-0 items-center gap-1.5";
 
 export function ClassRow(props: {
 	item: SailWebviewClassItem;
@@ -28,55 +22,34 @@ export function ClassRow(props: {
 	const variantEff = () =>
 		effectiveVariantState(props.panel, props.filter.variant);
 
-	const displayWhenBlurred = () =>
-		props.filter.hideMatchingVariantPrefixes
-			? stripMatchingVariantPrefixesForDisplay(
-					props.item.fullClass,
-					variantEff(),
-				)
-			: props.item.fullClass;
-
-	const [focused, setFocused] = createSignal(false);
-	const [draft, setDraft] = createSignal(props.item.fullClass);
-
-	createEffect(() => {
-		if (!focused()) {
-			setDraft(props.item.fullClass);
-		}
+	const classValue = useClassValue({
+		fullClass: () => props.item.fullClass,
+		hideMatchingVariantPrefixes: () => props.filter.hideMatchingVariantPrefixes,
+		variantEff,
 	});
 
-	const shownValue = () => (focused() ? draft() : displayWhenBlurred());
-
-	const classForSwatch = () => (focused() ? draft() : props.item.fullClass);
-	const swatch = createMemo(() => tailwindColorSwatch(classForSwatch()));
+	const swatch = createMemo(() =>
+		tailwindColorSwatch(classValue.classForSwatch()),
+	);
 
 	return (
-		<li
-			class="relative group class-row--editable"
-			data-sail-semantic={props.item.semantic}
-			hidden={!props.visible}
-		>
+		<li class="relative group" hidden={!props.visible}>
 			<ClassDot />
 			<div class="group/line flex min-w-0 items-center gap-1.5">
 				<div class="relative min-w-0 flex-1">
-					<div class={labelStackClass}>
+					<div class="inline-flex w-full max-w-full min-h-[1.35em] min-w-0 items-center gap-1.5">
 						<Input
 							variant="inline"
 							swatch={Boolean(swatch())}
 							type="text"
 							spellcheck={false}
 							data-token-index={props.item.tokenIndex}
-							value={shownValue()}
-							onFocus={() => {
-								setFocused(true);
-								setDraft(props.item.fullClass);
-							}}
-							onBlur={() => {
-								setFocused(false);
-							}}
+							value={classValue.shownValue()}
+							onFocus={classValue.onFocus}
+							onBlur={classValue.onBlur}
 							onInput={(e) => {
 								const v = e.currentTarget.value;
-								setDraft(v);
+								classValue.onDraftInput(v);
 								vscode.postMessage({
 									type: "sailEditClass",
 									tokenIndex: props.item.tokenIndex,
