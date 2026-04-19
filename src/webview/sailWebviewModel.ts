@@ -1,5 +1,4 @@
 import type { SailEditorSnapshot } from "../editor/types";
-import { rawSpanToDocOffsets } from "../string/utils/rawSpanToDocOffsets";
 import {
 	type FilterDimensionId,
 	getVariantBuckets,
@@ -160,20 +159,11 @@ export function buildSailWebviewViewModel(
 			);
 			const semantic = classifyTailwindUtility(utility);
 			const buckets = getVariantBuckets(mods);
-			const canMap =
-				snapshot.extracted &&
-				rawSpanToDocOffsets(
-					snapshot.extracted.rawToDocSegments,
-					c.startInRaw,
-					c.endInRaw,
-				) !== undefined;
-			const editable = Boolean(stringDetected && looksTw && canMap);
 			return {
 				tokenIndex,
 				fullClass: c.name,
 				semantic,
 				variantBuckets: buckets,
-				editable,
 			};
 		},
 	);

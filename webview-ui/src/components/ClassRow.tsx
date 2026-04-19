@@ -52,68 +52,53 @@ export function ClassRow(props: {
 
 	return (
 		<li
-			class={`relative group ${props.item.editable ? "class-row--editable" : ""}`}
+			class="relative group class-row--editable"
 			data-sail-semantic={props.item.semantic}
 			hidden={!props.visible}
 		>
 			<ClassDot />
-			{props.item.editable ? (
-				<div class="group/line flex min-w-0 items-center gap-1.5">
-					<div class="relative min-w-0 flex-1">
-						<div class={labelStackClass}>
-							<Input
-								variant="inline"
-								swatch={Boolean(swatch())}
-								type="text"
-								spellcheck={false}
-								data-token-index={props.item.tokenIndex}
-								value={shownValue()}
-								onFocus={() => {
-									setFocused(true);
-									setDraft(props.item.fullClass);
-								}}
-								onBlur={() => {
-									setFocused(false);
-								}}
-								onInput={(e) => {
-									const v = e.currentTarget.value;
-									setDraft(v);
-									vscode.postMessage({
-										type: "sailEditClass",
-										tokenIndex: props.item.tokenIndex,
-										newValue: v,
-									});
-								}}
-								onKeyDown={(e) => {
-									if (e.key === "Enter" || e.key === "Escape") {
-										e.preventDefault();
-										(e.target as HTMLInputElement).blur();
-									}
-								}}
-							/>
-							<Show when={swatch()}>
-								{(spec) => <ColorSwatch spec={spec()} />}
-							</Show>
-						</div>
+			<div class="group/line flex min-w-0 items-center gap-1.5">
+				<div class="relative min-w-0 flex-1">
+					<div class={labelStackClass}>
+						<Input
+							variant="inline"
+							swatch={Boolean(swatch())}
+							type="text"
+							spellcheck={false}
+							data-token-index={props.item.tokenIndex}
+							value={shownValue()}
+							onFocus={() => {
+								setFocused(true);
+								setDraft(props.item.fullClass);
+							}}
+							onBlur={() => {
+								setFocused(false);
+							}}
+							onInput={(e) => {
+								const v = e.currentTarget.value;
+								setDraft(v);
+								vscode.postMessage({
+									type: "sailEditClass",
+									tokenIndex: props.item.tokenIndex,
+									newValue: v,
+								});
+							}}
+							onKeyDown={(e) => {
+								if (e.key === "Enter" || e.key === "Escape") {
+									e.preventDefault();
+									(e.target as HTMLInputElement).blur();
+								}
+							}}
+						/>
 					</div>
+				</div>
+				<div class="flex items-center gap-2 px-1">
 					<ButtonSlot>
 						<RemoveButton tokenIndex={props.item.tokenIndex} />
 					</ButtonSlot>
-				</div>
-			) : (
-				<span
-					class={
-						swatch()
-							? labelStackClass
-							: "inline-flex min-h-[1.35em] min-w-0 max-w-full items-center"
-					}
-				>
-					<span class="text-[0.95em] [font-family:var(--vscode-editor-font-family)]">
-						{displayWhenBlurred()}
-					</span>
 					<Show when={swatch()}>{(spec) => <ColorSwatch spec={spec()} />}</Show>
-				</span>
-			)}
+				</div>
+			</div>
 		</li>
 	);
 }

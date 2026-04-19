@@ -10,7 +10,8 @@
 	},
 	"dependencies": {
 		"class-variance-authority": "^0.7.1",
-		"solid-js": "^1.9.12"
+		"solid-js": "^1.9.12",
+		"tailwind-merge": "^3.5.0"
 	},
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.2.2",

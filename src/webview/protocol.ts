@@ -24,5 +24,4 @@ export interface SailWebviewClassItem {
 	readonly fullClass: string;
 	readonly semantic: string;
 	readonly variantBuckets: VariantBuckets;
-	readonly editable: boolean;
 }
