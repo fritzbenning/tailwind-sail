@@ -6,22 +6,22 @@ import type { ClientFilterState } from "../types/filterStateTypes";
  * Used to reset client state when the underlying class list or chip metadata changes.
  *
  * @example
- * // Input: st.utility = { t: "utility", v: "text" }, panel has a utility chip with id "text"
+ * // Input: filterState.utility = { t: "utility", v: "text" }, panel has a utility chip with id "text"
  * // Output: true
  *
  * @example
- * // Input: st.utility = { t: "utility", v: "bogus" }, panel chips don’t include "bogus"
+ * // Input: filterState.utility = { t: "utility", v: "bogus" }, panel chips don’t include "bogus"
  * // Output: false
  */
-export function isClientFilterStateValidForPanel(
+export function validateFilterState(
 	panel: SailWebviewPanelModel,
-	st: ClientFilterState,
+	filterState: ClientFilterState,
 ): boolean {
-	const utility = st.utility;
+	const utility = filterState.utility;
 	if (utility.t === "all") {
 		/* ok */
 	} else if (utility.t === "utility") {
-		const ok = panel.utilityChips.some((c) => c.id === utility.v);
+		const ok = panel.utilityChips.some((chip) => chip.id === utility.v);
 		if (!ok) {
 			return false;
 		}
@@ -30,11 +30,11 @@ export function isClientFilterStateValidForPanel(
 	}
 
 	for (const row of panel.variantRows) {
-		const sel = st.variant[row.dimension] ?? "all";
-		if (sel === "all") {
+		const selectedVariant = filterState.variant[row.dimension] ?? "all";
+		if (selectedVariant === "all") {
 			continue;
 		}
-		if (!row.values.includes(sel)) {
+		if (!row.values.includes(selectedVariant)) {
 			return false;
 		}
 	}

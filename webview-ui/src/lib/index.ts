@@ -13,4 +13,4 @@ export { isClassItemVisibleForClientFilter } from "./matching/isClassItemVisible
 export { isClassMatchingSearchQuery } from "./matching/isClassMatchingSearchQuery";
 export { isClassMatchingUtilityFilter } from "./matching/isClassMatchingUtilityFilter";
 export { isClassMatchingVariantFilters } from "./matching/isClassMatchingVariantFilters";
-export { isClientFilterStateValidForPanel } from "./state/isClientFilterStateValidForPanel";
+export { validateFilterState } from "./state/validateFilterState";
