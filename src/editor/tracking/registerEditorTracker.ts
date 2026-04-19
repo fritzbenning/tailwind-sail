@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { SailTailwindViewProvider } from "../../webview/SailTailwindViewProvider";
+import { ViewProvider } from "../../webview/ViewProvider";
 import type { StringHighlighterHandle } from "../highlight/registerStringHighlighter";
 import { refreshNow as runImmediateRefresh } from "../utils/refreshNow";
 import { scheduleUpdate } from "../utils/scheduleUpdate";
@@ -17,7 +17,7 @@ export interface EditorTrackerHandle {
  * webview. Uses the **primary** selection’s active position (not the selection range extent).
  */
 export function registerEditorTracker(
-	viewProvider: SailTailwindViewProvider,
+	viewProvider: ViewProvider,
 	stringHighlighter: StringHighlighterHandle,
 	context: vscode.ExtensionContext,
 ): EditorTrackerHandle {

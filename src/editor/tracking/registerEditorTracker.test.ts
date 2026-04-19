@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import type { SailTailwindViewProvider } from "../../webview/SailTailwindViewProvider";
+import type { ViewProvider } from "../../webview/ViewProvider";
 import type { StringHighlighterHandle } from "../highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../types";
 import { registerEditorTracker } from "./registerEditorTracker";
@@ -29,7 +29,7 @@ suite("registerEditorTracker", () => {
 			update(snapshot: SailEditorSnapshot) {
 				last = snapshot;
 			},
-		} as unknown as SailTailwindViewProvider;
+		} as unknown as ViewProvider;
 		const stringHighlighter: StringHighlighterHandle = {
 			refresh(snapshot: SailEditorSnapshot) {
 				last = snapshot;

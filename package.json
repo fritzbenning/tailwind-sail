@@ -19,7 +19,7 @@
 				{
 					"id": "sail",
 					"title": "Sail",
-					"icon": "media/sail-icon.svg"
+					"icon": "assets/sail-icon.svg"
 				}
 			]
 		},
@@ -51,20 +51,20 @@
 					"type": "number",
 					"default": 20,
 					"minimum": 0,
-					"markdownDescription": "Delay in milliseconds before Sail re-runs string detection and Tailwind parsing after cursor or document changes. Lower values feel snappier; higher values reduce work while typing."
+					"markdownDescription": "Delay in milliseconds before Sail re-runs string detection and Tailwind parsing after cursor position or document changes."
 				},
 				"sail.highlightActiveString": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Underline the string literal in the active editor that Sail’s sidebar is showing Tailwind info for."
+					"markdownDescription": "Underline the active string literal in the editor."
 				}
 			}
 		}
 	},
 	"scripts": {
 		"vscode:prepublish": "pnpm run compile",
-		"compile": "pnpm run compile:webview && tsc -p ./",
-		"compile:webview": "pnpm --filter webview-ui run build",
+		"compile": "pnpm run compile:ui && tsc -p ./",
+		"compile:ui": "pnpm --filter ui run build",
 		"watch": "tsc -watch -p ./",
 		"pretest": "pnpm run compile && pnpm run lint",
 		"lint": "biome check .",

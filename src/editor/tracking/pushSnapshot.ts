@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
 import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
 import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
-import { SailTailwindViewProvider } from "../../webview/SailTailwindViewProvider";
+import { ViewProvider } from "../../webview/ViewProvider";
 import type { StringHighlighterHandle } from "../highlight/registerStringHighlighter";
 import { SailEditorSnapshot } from "../types";
 
 export function pushSnapshot(
-	viewProvider: SailTailwindViewProvider,
+	viewProvider: ViewProvider,
 	stringHighlighter: StringHighlighterHandle,
 ): void {
 	const editor = vscode.window.activeTextEditor;

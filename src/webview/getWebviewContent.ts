@@ -7,10 +7,10 @@ export function getWebviewContent(
 ): string {
 	const cspSource = getCspSource(webview);
 	const scriptUri = webview.asWebviewUri(
-		vscode.Uri.joinPath(extensionUri, "dist", "webview", "index.js"),
+		vscode.Uri.joinPath(extensionUri, "dist", "ui", "index.js"),
 	);
 	const styleUri = webview.asWebviewUri(
-		vscode.Uri.joinPath(extensionUri, "dist", "webview", "index.css"),
+		vscode.Uri.joinPath(extensionUri, "dist", "ui", "index.css"),
 	);
 	const csp = [
 		`default-src 'none'`,

@@ -1,7 +1,7 @@
 /**
  * Sail — activation entrypoint.
  *
- * - Registers the sidebar {@link SailTailwindViewProvider}.
+ * - Registers the sidebar {@link ViewProvider}.
  * - Registers {@link registerEditorTracker} to follow the active editor + primary cursor.
  * - Wires the “Sail: Refresh” and “Sail: Show Sidebar” commands (see `package.json`).
  *
@@ -10,13 +10,10 @@
 import * as vscode from "vscode";
 import { registerStringHighlighter } from "../editor/highlight/registerStringHighlighter";
 import { registerEditorTracker } from "../editor/tracking/registerEditorTracker";
-import { SailTailwindViewProvider } from "../webview/SailTailwindViewProvider";
+import { ViewProvider } from "../webview/ViewProvider";
 
 export function activate(context: vscode.ExtensionContext): void {
-	const viewProvider = new SailTailwindViewProvider(
-		context.extensionUri,
-		context,
-	);
+	const viewProvider = new ViewProvider(context.extensionUri, context);
 	const stringHighlighter = registerStringHighlighter(context, () =>
 		viewProvider.isSailViewVisible(),
 	);
@@ -24,7 +21,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(
-			SailTailwindViewProvider.viewId,
+			ViewProvider.viewId,
 			viewProvider,
 			{
 				webviewOptions: {

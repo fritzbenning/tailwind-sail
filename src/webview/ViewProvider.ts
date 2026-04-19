@@ -5,7 +5,7 @@ import { updateString } from "../editor/edits/updateString";
 import type { StringHighlighterHandle } from "../editor/highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../editor/types";
 import { getWebviewContent } from "./getWebviewContent";
-import { buildSailWebviewViewModel } from "./sailWebviewModel";
+import { buildSailWebviewViewModel } from "./webviewModal";
 
 /**
  * Sidebar WebviewView hosted in the **secondary** side bar under the “Sail” container.
@@ -16,7 +16,7 @@ import { buildSailWebviewViewModel } from "./sailWebviewModel";
  *
  * This is intentionally a Webview**View** (sidebar) rather than a Webview panel (editor tab).
  */
-export class SailTailwindViewProvider implements vscode.WebviewViewProvider {
+export class ViewProvider implements vscode.WebviewViewProvider {
 	public static readonly viewId = "sail.sidebar";
 
 	private view?: vscode.WebviewView;

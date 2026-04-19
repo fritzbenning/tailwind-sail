@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import type { SailTailwindViewProvider } from "../../webview/SailTailwindViewProvider";
+import type { ViewProvider } from "../../webview/ViewProvider";
 import type { StringHighlighterHandle } from "../highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../types";
 import { pushSnapshot } from "./pushSnapshot";
@@ -15,7 +15,7 @@ suite("pushSnapshot", () => {
 			update(snapshot: SailEditorSnapshot) {
 				viewSnap = snapshot;
 			},
-		} as unknown as SailTailwindViewProvider;
+		} as unknown as ViewProvider;
 		const stringHighlighter: StringHighlighterHandle = {
 			refresh(snapshot: SailEditorSnapshot) {
 				highSnap = snapshot;
@@ -50,7 +50,7 @@ suite("pushSnapshot", () => {
 			update(snapshot: SailEditorSnapshot) {
 				viewSnap = snapshot;
 			},
-		} as unknown as SailTailwindViewProvider;
+		} as unknown as ViewProvider;
 		const stringHighlighter: StringHighlighterHandle = {
 			refresh(snapshot: SailEditorSnapshot) {
 				highSnap = snapshot;

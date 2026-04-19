@@ -25,8 +25,8 @@
 		{
 			"includes": [
 				"src/**/*.ts",
-				"webview-ui/src/**/*.ts",
-				"webview-ui/src/**/*.tsx"
+				"ui/src/**/*.ts",
+				"ui/src/**/*.tsx"
 			],
 			"linter": {
 				"rules": {
