@@ -3,7 +3,7 @@ import { LinkButton } from "./LinkButton";
 export function NoResultState(props: { onReset: () => void }) {
 	return (
 		<div
-			class="m-0 mt-4 box-border shrink-0 px-(--sidebarPadding)"
+			class="m-0 mt-4 box-border shrink-0 px-(--sidebarPaddingX)"
 			role="status"
 			aria-live="polite"
 		>

@@ -8,6 +8,8 @@
 |--------|-------------|
 | **Tailwind Sail: Show Sidebar** | Focuses the secondary side bar and opens the Tailwind Sail view. |
 | **Tailwind Sail: Refresh** | Immediately re-runs extraction and parsing for the current editor. |
+| **Tailwind Sail: Set Sidebar Horizontal Padding…** | Chooses **compact** or **loose** horizontal inset for the sidebar (updates `tailwind-sail.layout`). |
+| **Tailwind Sail: Set Sidebar Top Padding…** | Chooses **compact** or **loose** top padding for the sidebar (updates `tailwind-sail.paddingTop`). |
 
 ## Settings
 
@@ -15,6 +17,8 @@
 |--------|---------|-------------|
 | `tailwind-sail.updateDebounceMs` | `20` | Milliseconds to wait after cursor or document changes before Tailwind Sail re-runs string detection and Tailwind parsing. |
 | `tailwind-sail.highlightActiveString` | `true` | Underline the string literal Tailwind Sail is currently using. |
+| `tailwind-sail.layout` | `loose` | Horizontal inset: **`loose`** (roomier) or **`compact`** (tighter). |
+| `tailwind-sail.paddingTop` | `compact` | Top padding above content: **`loose`** (roomier) or **`compact`** (tighter). |
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) to build from source or contribute.
 

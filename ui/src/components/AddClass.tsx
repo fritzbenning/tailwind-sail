@@ -56,7 +56,7 @@ export function AddClass(props: { variantPrefix: Accessor<string> }) {
 	return (
 		<>
 			<Divider />
-			<div class="box-border shrink-0 px-(--sidebarPadding) pt-3">
+			<div class="box-border shrink-0 px-(--sidebarPaddingX) py-4">
 				<SectionTitle>Add</SectionTitle>
 				<Input
 					ref={setInputElement}

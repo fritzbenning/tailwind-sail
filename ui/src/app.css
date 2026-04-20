@@ -7,16 +7,6 @@
 @source inline("bg-{slate,gray,zinc,neutral,stone,red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-{50,{100..900..100},950}");
 
 @layer base {
-	#parsed-classes {
-		--sidebarPadding: 8px;
-		box-sizing: border-box;
-		flex: 1 1 auto;
-		min-height: 0;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-	}
-
 	* {
 		scrollbar-width: normal;
 		scrollbar-color: var(
@@ -81,5 +71,15 @@ body {
 	background: var(--vscode-sideBar-background);
 	border-right: 1px solid
 		var(--vscode-sideBar-border, var(--vscode-widget-border));
-	padding: 10px 0 !important;
+	padding: var(--sidebarPaddingTop) 0 0 0 !important;
+}
+
+/** Solid mount root (`getWebviewContent`). */
+#tailwind-sail-ui {
+	box-sizing: border-box;
+	display: flex;
+	min-height: 0;
+	flex: 1 1 0%;
+	flex-direction: column;
+	overflow: hidden;
 }

@@ -5,7 +5,12 @@ import { updateString } from "../editor/edits/updateString";
 import type { StringHighlighterHandle } from "../editor/highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../editor/types";
 import { getWebviewContent } from "./getWebviewContent";
+import {
+	readTailwindSailLayout,
+	readTailwindSailPaddingTop,
+} from "./readTailwindSailLayout";
 import { buildSailWebviewViewModel } from "./webviewModal";
+import { webviewShellForLayout } from "./webviewShell";
 
 export class ViewProvider implements vscode.WebviewViewProvider {
 	public static readonly viewId = "tailwind-sail.sidebar";
@@ -27,7 +32,31 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			new vscode.Disposable(() => {
 				this.messageSubscription?.dispose();
 			}),
+			vscode.workspace.onDidChangeConfiguration((e) => {
+				if (e.affectsConfiguration("tailwind-sail")) {
+					this.postWebviewShell();
+				}
+			}),
 		);
+	}
+
+	private buildWebviewShell() {
+		return webviewShellForLayout(
+			readTailwindSailLayout(),
+			readTailwindSailPaddingTop(),
+		);
+	}
+
+	private postWebviewShell(): void {
+		if (!this.view) {
+			return;
+		}
+		const shell = this.buildWebviewShell();
+		void this.view.webview.postMessage({
+			type: "tailwind-sail-shell",
+			sidebarPaddingXPx: shell.sidebarPaddingXPx,
+			sidebarPaddingTopPx: shell.sidebarPaddingTopPx,
+		});
 	}
 
 	public isTailwindSailViewVisible(): boolean {
@@ -46,10 +75,16 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			enableScripts: true,
 		};
 
-		webview.html = getWebviewContent(webview, this.extensionUri);
+		const shell = this.buildWebviewShell();
+		webview.html = getWebviewContent(webview, this.extensionUri, shell);
 		void webview.postMessage({
 			type: "tailwind-sail-update",
 			model: buildSailWebviewViewModel(this.lastSnapshot),
+		});
+		void webview.postMessage({
+			type: "tailwind-sail-shell",
+			sidebarPaddingXPx: shell.sidebarPaddingXPx,
+			sidebarPaddingTopPx: shell.sidebarPaddingTopPx,
 		});
 
 		this.messageSubscription?.dispose();

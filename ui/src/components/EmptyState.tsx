@@ -9,7 +9,7 @@ const copy: Record<"noString" | "noTailwind", string> = {
 export function EmptyState(props: { kind: "noString" | "noTailwind" }) {
 	return (
 		<div
-			class="box-border mx-(--sidebarPadding) flex shrink-0 items-center gap-2.5 rounded border border-(--vscode-widget-border) px-3 py-2.5 text-[0.95em] leading-[1.45] text-(--vscode-descriptionForeground)"
+			class="box-border mx-(--sidebarPaddingX) flex shrink-0 items-center gap-2.5 rounded border border-(--vscode-widget-border) px-3 py-2.5 text-[0.95em] leading-[1.45] text-(--vscode-descriptionForeground)"
 			role="status"
 		>
 			<span

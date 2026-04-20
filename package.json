@@ -4,7 +4,7 @@
 	"displayName": "Tailwind Sail",
 	"icon": "assets/icon.png",
 	"description": "Tailwind sidebar for browsing, filtering, and editing class strings.",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -66,6 +66,16 @@
 				"command": "tailwind-sail.refresh",
 				"title": "Tailwind Sail: Refresh",
 				"category": "Tailwind Sail"
+			},
+			{
+				"command": "tailwind-sail.setLayout",
+				"title": "Tailwind Sail: Set Sidebar Horizontal Padding…",
+				"category": "Tailwind Sail"
+			},
+			{
+				"command": "tailwind-sail.setPaddingTop",
+				"title": "Tailwind Sail: Set Sidebar Top Padding…",
+				"category": "Tailwind Sail"
 			}
 		],
 		"configuration": {
@@ -81,6 +91,24 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Underline the active string literal Tailwind Sail is using in the editor."
+				},
+				"tailwind-sail.layout": {
+					"type": "string",
+					"enum": [
+						"compact",
+						"loose"
+					],
+					"default": "loose",
+					"markdownDescription": "Horizontal inset for sidebar content: **loose** (roomier) or **compact** (tighter)."
+				},
+				"tailwind-sail.paddingTop": {
+					"type": "string",
+					"enum": [
+						"compact",
+						"loose"
+					],
+					"default": "compact",
+					"markdownDescription": "Top padding above sidebar content: **loose** (roomier) or **compact** (tighter)."
 				}
 			}
 		}

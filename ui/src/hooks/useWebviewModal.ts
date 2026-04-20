@@ -34,6 +34,21 @@ export function useWebviewModal() {
 			const d = ev.data;
 			if (d?.type === "tailwind-sail-update" && d.model) {
 				receiveModel(d.model as WebviewModal);
+				return;
+			}
+			if (d?.type === "tailwind-sail-shell") {
+				if (typeof d.sidebarPaddingXPx === "number") {
+					document.documentElement.style.setProperty(
+						"--sidebarPaddingX",
+						`${d.sidebarPaddingXPx}px`,
+					);
+				}
+				if (typeof d.sidebarPaddingTopPx === "number") {
+					document.documentElement.style.setProperty(
+						"--sidebarPaddingTop",
+						`${d.sidebarPaddingTopPx}px`,
+					);
+				}
 			}
 		};
 		window.addEventListener("message", onMessage);

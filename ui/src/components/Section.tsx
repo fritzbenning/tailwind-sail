@@ -13,7 +13,7 @@ export function Section(props: SectionProps) {
 	return (
 		<section
 			class={twMerge(
-				"mb-4 box-border shrink-0 px-(--sidebarPadding)",
+				"mb-4 box-border shrink-0 px-(--sidebarPaddingX)",
 				local.class,
 			)}
 			{...rest}

@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.1.2] - 2026-04-20
+
+### New features
+
+- Setting **`tailwind-sail.layout`**: choose **Loose** or **Compact** horizontal inset for the sidebar (CSS variable `--sidebarPaddingX`).
+- Setting **`tailwind-sail.paddingTop`** (default **compact**): **compact** or **loose** top padding on the sidebar body (`--sidebarPaddingTop`).
+- Commands **Tailwind Sail: Set Sidebar Horizontal Padding…** and **Tailwind Sail: Set Sidebar Top Padding…** to change those options from the Command Palette.
+
 ## [0.1.0] - 2026-04-20
 
 ### New features

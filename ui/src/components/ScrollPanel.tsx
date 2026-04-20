@@ -13,7 +13,7 @@ export function ScrollPanel(props: ScrollPanelProps) {
 	return (
 		<div
 			class={twMerge(
-				"box-border min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto px-(--sidebarPadding) pt-4 pb-4",
+				"box-border min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto px-(--sidebarPaddingX) pt-4 pb-4",
 				local.class,
 			)}
 			{...rest}
