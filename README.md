@@ -1,6 +1,13 @@
 # Tailwind Sail
 
-**Tailwind Sail** is a Visual Studio Code extension that gives you a live, structured view of **Tailwind CSS** class strings in your code. Place the cursor inside a string that holds Tailwind utilities, and the **Tailwind Sail** sidebar breaks the string into tokens you can browse, filter, search, and edit—without leaving the editor.
+**Tailwind Sail** gives you a panel next to your current file that displays long Tailwind class strings in a much more accessible way. You can filter them by utility, state, or breakpoint to see which styles are applied for specific variants. You can even add new classes directly from the panel.
+
+No more headaches when editing long Tailwind class strings — Tailwind Sail brings back the overview you need to create beautiful interfaces that AI can only dream about.
+
+<video controls>
+  <source src="assets/tailwind-sail-demo.webm" type="video/webm" />
+  <source src="assets/tailwind-sail-demo.mp4" type="video/mp4" />
+</video>
 
 ## Commands
 
