@@ -35,3 +35,12 @@ export function readTailwindSailPaddingTop(): TailwindSailLayout {
 		.get<string>("paddingTop", "compact");
 	return parseTailwindSailLayoutSetting(raw);
 }
+
+/**
+ * Reads `tailwind-sail.showSidebarRightBorder` (default `false`).
+ */
+export function readTailwindSailShowSidebarRightBorder(): boolean {
+	return vscode.workspace
+		.getConfiguration("tailwind-sail")
+		.get<boolean>("showSidebarRightBorder", false);
+}

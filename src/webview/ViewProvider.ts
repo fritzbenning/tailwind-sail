@@ -8,6 +8,7 @@ import { getWebviewContent } from "./getWebviewContent";
 import {
 	readTailwindSailLayout,
 	readTailwindSailPaddingTop,
+	readTailwindSailShowSidebarRightBorder,
 } from "./readTailwindSailLayout";
 import { buildSailWebviewViewModel } from "./webviewModal";
 import { webviewShellForLayout } from "./webviewShell";
@@ -44,6 +45,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 		return webviewShellForLayout(
 			readTailwindSailLayout(),
 			readTailwindSailPaddingTop(),
+			readTailwindSailShowSidebarRightBorder(),
 		);
 	}
 
@@ -56,6 +58,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			type: "tailwind-sail-shell",
 			sidebarPaddingXPx: shell.sidebarPaddingXPx,
 			sidebarPaddingTopPx: shell.sidebarPaddingTopPx,
+			showSidebarRightBorder: shell.showSidebarRightBorder,
 		});
 	}
 
@@ -85,6 +88,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			type: "tailwind-sail-shell",
 			sidebarPaddingXPx: shell.sidebarPaddingXPx,
 			sidebarPaddingTopPx: shell.sidebarPaddingTopPx,
+			showSidebarRightBorder: shell.showSidebarRightBorder,
 		});
 
 		this.messageSubscription?.dispose();

@@ -13,14 +13,18 @@ export type WebviewShell = {
 	sidebarPaddingXPx: number;
 	/** Top padding on the webview body (px). */
 	sidebarPaddingTopPx: number;
+	/** When true, the webview body shows a right border (theme separator). */
+	showSidebarRightBorder: boolean;
 };
 
 export function webviewShellForLayout(
 	horizontal: TailwindSailLayout = "loose",
 	paddingTop: TailwindSailLayout = "compact",
+	showSidebarRightBorder = false,
 ): WebviewShell {
 	return {
 		sidebarPaddingXPx: sidebarPaddingXPxForLayout(horizontal),
 		sidebarPaddingTopPx: sidebarPaddingTopPxForLayout(paddingTop),
+		showSidebarRightBorder,
 	};
 }

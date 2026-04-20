@@ -69,9 +69,12 @@ body {
 	font-weight: var(--vscode-font-weight);
 	color: var(--vscode-foreground);
 	background: var(--vscode-sideBar-background);
+	padding: var(--sidebarPaddingTop) 0 0 0 !important;
+}
+
+html.with-border-right body {
 	border-right: 1px solid
 		var(--vscode-sideBar-border, var(--vscode-widget-border));
-	padding: var(--sidebarPaddingTop) 0 0 0 !important;
 }
 
 /** Solid mount root (`getWebviewContent`). */

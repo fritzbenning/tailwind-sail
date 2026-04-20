@@ -20,8 +20,12 @@ export function getWebviewContent(
 		`script-src ${cspSource}`,
 	].join("; ");
 
+	const sidebarBorderClass = shell.showSidebarRightBorder
+		? "with-border-right"
+		: "";
+
 	return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en"${sidebarBorderClass ? ` class="${sidebarBorderClass}"` : ""}>
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Security-Policy" content="${csp}" />

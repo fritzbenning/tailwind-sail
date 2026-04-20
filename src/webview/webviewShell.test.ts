@@ -6,6 +6,7 @@ suite("webviewShellForLayout", () => {
 		assert.deepStrictEqual(webviewShellForLayout("loose", "loose"), {
 			sidebarPaddingXPx: 20,
 			sidebarPaddingTopPx: 12,
+			showSidebarRightBorder: false,
 		});
 	});
 
@@ -13,6 +14,7 @@ suite("webviewShellForLayout", () => {
 		assert.deepStrictEqual(webviewShellForLayout("compact"), {
 			sidebarPaddingXPx: 8,
 			sidebarPaddingTopPx: 4,
+			showSidebarRightBorder: false,
 		});
 	});
 
@@ -20,6 +22,7 @@ suite("webviewShellForLayout", () => {
 		assert.deepStrictEqual(webviewShellForLayout(), {
 			sidebarPaddingXPx: 20,
 			sidebarPaddingTopPx: 4,
+			showSidebarRightBorder: false,
 		});
 	});
 
@@ -27,6 +30,7 @@ suite("webviewShellForLayout", () => {
 		assert.deepStrictEqual(webviewShellForLayout("compact", "loose"), {
 			sidebarPaddingXPx: 8,
 			sidebarPaddingTopPx: 12,
+			showSidebarRightBorder: false,
 		});
 	});
 
@@ -34,6 +38,7 @@ suite("webviewShellForLayout", () => {
 		assert.deepStrictEqual(webviewShellForLayout("loose", "compact"), {
 			sidebarPaddingXPx: 20,
 			sidebarPaddingTopPx: 4,
+			showSidebarRightBorder: false,
 		});
 	});
 
@@ -41,6 +46,15 @@ suite("webviewShellForLayout", () => {
 		assert.deepStrictEqual(webviewShellForLayout("compact", "compact"), {
 			sidebarPaddingXPx: 8,
 			sidebarPaddingTopPx: 4,
+			showSidebarRightBorder: false,
+		});
+	});
+
+	test("showSidebarRightBorder can be enabled", () => {
+		assert.deepStrictEqual(webviewShellForLayout("compact", "compact", true), {
+			sidebarPaddingXPx: 8,
+			sidebarPaddingTopPx: 4,
+			showSidebarRightBorder: true,
 		});
 	});
 });

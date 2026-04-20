@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { registerStringHighlighter } from "./editor/highlight/registerStringHighlighter";
 import { registerEditorTracker } from "./editor/tracking/registerEditorTracker";
+import { readTailwindSailShowSidebarRightBorder } from "./webview/readTailwindSailLayout";
 import { ViewProvider } from "./webview/ViewProvider";
 import type { TailwindSailLayout } from "./webview/webviewShell";
 
@@ -109,6 +110,18 @@ export function activate(context: vscode.ExtensionContext): void {
 				.getConfiguration("tailwind-sail")
 				.update("paddingTop", choice.layout, vscode.ConfigurationTarget.Global);
 		}),
+		vscode.commands.registerCommand(
+			"tailwind-sail.toggleSidebarRightBorder",
+			async () => {
+				const config = vscode.workspace.getConfiguration("tailwind-sail");
+				const next = !readTailwindSailShowSidebarRightBorder();
+				await config.update(
+					"showSidebarRightBorder",
+					next,
+					vscode.ConfigurationTarget.Global,
+				);
+			},
+		),
 	);
 }
 

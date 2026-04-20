@@ -49,6 +49,12 @@ export function useWebviewModal() {
 						`${d.sidebarPaddingTopPx}px`,
 					);
 				}
+				if (typeof d.showSidebarRightBorder === "boolean") {
+					document.documentElement.classList.toggle(
+						"with-border-right",
+						d.showSidebarRightBorder,
+					);
+				}
 			}
 		};
 		window.addEventListener("message", onMessage);

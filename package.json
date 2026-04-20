@@ -4,7 +4,7 @@
 	"displayName": "Tailwind Sail",
 	"icon": "assets/icon.png",
 	"description": "Tailwind sidebar for browsing, filtering, and editing class strings.",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -76,6 +76,11 @@
 				"command": "tailwind-sail.setPaddingTop",
 				"title": "Tailwind Sail: Set Sidebar Top Padding…",
 				"category": "Tailwind Sail"
+			},
+			{
+				"command": "tailwind-sail.toggleSidebarRightBorder",
+				"title": "Tailwind Sail: Toggle Sidebar Right Border",
+				"category": "Tailwind Sail"
 			}
 		],
 		"configuration": {
@@ -109,6 +114,11 @@
 					],
 					"default": "compact",
 					"markdownDescription": "Top padding above sidebar content: **loose** (roomier) or **compact** (tighter)."
+				},
+				"tailwind-sail.showSidebarRightBorder": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Draw a 1px right border on the Tailwind Sail webview. Off by default for a cleaner look in VS Code; turn on in hosts such as Cursor if the auxiliary bar needs a visible separator."
 				}
 			}
 		}
