@@ -4,7 +4,7 @@
 	"displayName": "Tailwind Sail",
 	"icon": "assets/icon.png",
 	"description": "Tailwind sidebar for browsing, filtering, and editing class strings.",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
