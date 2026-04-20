@@ -104,7 +104,7 @@
 						"loose"
 					],
 					"default": "loose",
-					"markdownDescription": "Horizontal inset for sidebar content: **loose** (roomier) or **compact** (tighter)."
+					"markdownDescription": "Horizontal inset for sidebar content: **loose** or **compact**."
 				},
 				"tailwind-sail.paddingTop": {
 					"type": "string",
@@ -113,7 +113,7 @@
 						"loose"
 					],
 					"default": "compact",
-					"markdownDescription": "Top padding above sidebar content: **loose** (roomier) or **compact** (tighter)."
+					"markdownDescription": "Top padding above sidebar content: **loose** or **compact**."
 				},
 				"tailwind-sail.showSidebarRightBorder": {
 					"type": "boolean",

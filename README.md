@@ -6,7 +6,11 @@ No more headaches when editing long Tailwind class strings — Tailwind Sail bri
 
 ![Tailwind Sail demo](assets/tailwind-sail-demo.gif)
 
-Demo in higher quality: [MP4](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4) · [WebM](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.webm).
+Demo in higher quality: [MP4](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4) · [WebM](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.webm)
+
+## Support
+
+If you find Tailwind Sail useful, you can [buy me a coffee](https://buymeacoffee.com/friddle) to help maintain the extension and fund new features. 
 
 ## Commands
 
