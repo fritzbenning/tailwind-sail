@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.1.4] - 2026-04-22
+
+### Fixed
+
+- Sidebar class field lost focus after each keystroke while editing.
+
 ## [0.1.3] - 2026-04-21
 
 ### New features

@@ -1,5 +1,5 @@
 import type { Accessor } from "solid-js";
-import { createMemo, For, Show } from "solid-js";
+import { createMemo, Index, Show } from "solid-js";
 import { useCurrentClasses } from "../hooks/useCurrentClasses";
 import { useFilter } from "../hooks/useFilter";
 import { useFilterHandlers } from "../hooks/useFilterHandlers";
@@ -69,9 +69,12 @@ export function ClassList(props: ClassListProps) {
 			</Show>
 			<ScrollPanel>
 				<ul class="m-0 flex list-none flex-col p-0 gap-1">
-					<For each={currentClasses()}>
-						{(item) => <ClassItem item={item} panel={panel} filter={filter} />}
-					</For>
+					{/* <Index>: host sends new class object refs each update; <For> matches by reference and remounts rows. */}
+					<Index each={currentClasses()}>
+						{(item) => (
+							<ClassItem item={item()} panel={panel} filter={filter} />
+						)}
+					</Index>
 				</ul>
 			</ScrollPanel>
 			<AddClass variantPrefix={variantPrefix} />
