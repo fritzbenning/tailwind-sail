@@ -5,11 +5,11 @@
 No more headaches when editing long Tailwind class strings — Tailwind Sail brings back the overview you need to create beautiful interfaces that AI can only dream about.
 
 <video controls width="100%">
-  <source src="https://raw.githubusercontent.com/fritzbenning/tailwind-sail/main/assets/tailwind-sail-demo.webm" type="video/webm" />
   <source src="https://raw.githubusercontent.com/fritzbenning/tailwind-sail/main/assets/tailwind-sail-demo.mp4" type="video/mp4" />
+  <source src="https://raw.githubusercontent.com/fritzbenning/tailwind-sail/main/assets/tailwind-sail-demo.webm" type="video/webm" />
 </video>
 
-If the player doesn’t appear, open the demo on GitHub: [MP4](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4) · [WebM](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.webm).
+Demo in higher quality: [MP4](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4) · [WebM](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.webm).
 
 ## Commands
 
