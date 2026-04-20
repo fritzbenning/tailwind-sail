@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.1.3] - 2026-04-21
+
+### New features
+
+- Setting **`tailwind-sail.showSidebarRightBorder`** (default **off**): optional 1px right border on the sidebar webview for hosts where the auxiliary bar has no native separator (for example **Cursor**). VS Code users can leave it off for a cleaner edge.
+- Command **Tailwind Sail: Toggle Sidebar Right Border** to flip **`tailwind-sail.showSidebarRightBorder`** from the Command Palette.
+
 ## [0.1.2] - 2026-04-20
 
 ### New features
