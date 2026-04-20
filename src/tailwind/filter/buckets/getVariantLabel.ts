@@ -2,15 +2,12 @@ import { VARIANTS } from "..";
 import type { FilterDimensionId } from "../variants";
 
 /**
- * Readable sidebar label for a dimension id.
+ * Human-readable sidebar title for a filter dimension.
  *
- * @example
- * // Input: `'breakpoints'`
- * // Output: `'Breakpoints'`
+ * @param id - Filter dimension id.
+ * @returns Label from config, or `id` if unknown.
  *
- * @example
- * // Input: `'form'`
- * // Output: `'Forms'`
+ * @example getVariantLabel("breakpoints") => "Breakpoints"
  */
 export function getVariantLabel(id: FilterDimensionId): string {
 	const found = VARIANTS.find(

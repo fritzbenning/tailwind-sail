@@ -24,7 +24,7 @@ export function getWebviewContent(
 	<meta charset="UTF-8" />
 	<meta http-equiv="Content-Security-Policy" content="${csp}" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Sail</title>
+	<title>Tailwind Sail</title>
 	<link rel="stylesheet" href="${styleUri}" />
 </head>
 <body>

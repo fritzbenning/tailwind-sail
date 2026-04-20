@@ -1,14 +1,10 @@
-/**
- * Shared constants (Tailwind heuristics, regexes). Keep magic values out of logic files.
- *
- * Tailwind’s full utility set is not enumerable here; namespaces are a **heuristic** subset.
- */
+/** Heuristic Tailwind detection helpers (not exhaustive). */
 
-/** Regex: common one-word Tailwind utilities. */
+/** Matches common single-word utilities. */
 export const COMMON_UTILITIES =
 	/^(?:flex|grid|inline|block|inline-block|inline-flex|table|table-cell|hidden|visible|static|fixed|absolute|relative|sticky|contents|border|underline|overline|ring|snap|isolate|contain|box-border|box-content|antialiased|subpixel-antialiased|italic|not-italic|uppercase|lowercase|capitalize|normal-case|truncate|resize|transition|transform|select-none|select-text|select-all|select-auto|sr-only|not-sr-only|clearfix|decoration-slice|decoration-clone|break-normal|break-words|break-all|break-keep|indent-0|outline-none)$/;
 
-/** First segment of hyphenated utilities — extend per project/plugins. */
+/** Common first segment of hyphenated utilities (extend for plugins). */
 export const COMMON_PREFIXES: readonly string[] = [
 	"p",
 	"px",
@@ -134,5 +130,5 @@ export const COMMON_UTILITY_NAMESPACE: ReadonlySet<string> = new Set(
 	COMMON_PREFIXES,
 );
 
-/** Bracket chunks that usually mean arbitrary values / selectors in Tailwind v3+. */
+/** Arbitrary value / selector bracket substrings `[…]`. */
 export const ARBITRARY_BRACKETS = /\[[^\]]+\]/;

@@ -14,14 +14,8 @@ import {
 import { UTILITY_CATEGORIES } from "../tailwind/filter/categories";
 import { classifyTailwindUtility } from "../tailwind/filter/classify/classifyTailwindUtility";
 import type { ParsedTailwindClass } from "../tailwind/parse/types";
-import { normalizeClass } from "../tailwind/utils/normalizeClass";
-import { splitTailwindClassVariants } from "../tailwind/variants/splitTailwindClassVariants";
-import type {
-	ClassItem,
-	PanelModal,
-	Variant,
-	WebviewModal,
-} from "./types";
+import { prepareTailwindClassForFilter } from "../tailwind/variants/prepareTailwindClassForFilter";
+import type { ClassItem, PanelModal, Variant, WebviewModal } from "./types";
 
 function mergePresentKeys(
 	target: Record<FilterDimensionId, Set<string>>,
@@ -90,8 +84,9 @@ export function buildSailWebviewViewModel(
 		return { kind: "noTailwind" };
 	}
 
-	const perClassModifiers = classes.map(
-		(c) => splitTailwindClassVariants(c.name).modifiers,
+	const prepared = classes.map((c) => prepareTailwindClassForFilter(c.name));
+	const variantBucketsPerClass = prepared.map((p) =>
+		getVariantBuckets(p.modifiers),
 	);
 
 	const presentKeys: Record<FilterDimensionId, Set<string>> = {
@@ -117,8 +112,7 @@ export function buildSailWebviewViewModel(
 	let offerBreakpointsBaseChip = false;
 	let offerContainerBaseChip = false;
 
-	for (const mods of perClassModifiers) {
-		const buckets = getVariantBuckets(mods);
+	for (const buckets of variantBucketsPerClass) {
 		mergePresentKeys(presentKeys, buckets);
 		if (buckets.state.length === 0) {
 			presentKeys.state.add("idle");
@@ -140,9 +134,8 @@ export function buildSailWebviewViewModel(
 	const variants = buildVariantRows(presentKeys);
 
 	const utilityCategoriesPresent = new Set<string>();
-	for (const c of classes) {
-		const utility = normalizeClass(splitTailwindClassVariants(c.name).utility);
-		utilityCategoriesPresent.add(classifyTailwindUtility(utility));
+	for (const p of prepared) {
+		utilityCategoriesPresent.add(classifyTailwindUtility(p.utilityNormalized));
 	}
 	const utilities: { id: string }[] = [];
 	for (const cat of UTILITY_CATEGORIES) {
@@ -153,12 +146,9 @@ export function buildSailWebviewViewModel(
 
 	const classItems: ClassItem[] = classes.map(
 		(c: ParsedTailwindClass, tokenIndex: number) => {
-			const mods = perClassModifiers[tokenIndex] ?? [];
-			const utility = normalizeClass(
-				splitTailwindClassVariants(c.name).utility,
-			);
-			const utilityCategory = classifyTailwindUtility(utility);
-			const buckets = getVariantBuckets(mods);
+			const p = prepared[tokenIndex]!;
+			const utilityCategory = classifyTailwindUtility(p.utilityNormalized);
+			const buckets = variantBucketsPerClass[tokenIndex]!;
 			return {
 				tokenIndex,
 				fullClass: c.name,

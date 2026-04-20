@@ -1,13 +1,12 @@
 /**
- * `true` for `data-…:` attribute variants.
+ * Whether `segment` is a `data-…:` variant key.
  *
- * @example
- * // Input: `'data-ui-open'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for `data-*` prefixes.
  *
- * @example
- * // Input: `'hover'`
- * // Output: `false`
+ * @example isDataSegment("data-ui-open") => true
+ *
+ * @example isDataSegment("hover") => false
  */
 export function isDataSegment(segment: string): boolean {
 	return segment.toLowerCase().startsWith("data-");

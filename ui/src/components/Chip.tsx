@@ -11,8 +11,7 @@ const chipVariants = cva(
 	{
 		variants: {
 			isActive: {
-				true:
-					"border-(--vscode-focusBorder) bg-(--vscode-toolbar-hoverBackground) hover:bg-(--vscode-toolbar-hoverBackground)",
+				true: "border-(--vscode-focusBorder) bg-(--vscode-toolbar-hoverBackground) hover:bg-(--vscode-toolbar-hoverBackground)",
 				false:
 					"border-(--vscode-widget-border) bg-(--vscode-button-secondaryBackground,var(--vscode-input-background)) hover:bg-(--vscode-toolbar-hoverBackground)",
 			},
@@ -23,8 +22,15 @@ const chipVariants = cva(
 	},
 );
 
+/**
+ * Props for {@link Chip}.
+ *
+ * @property isActive - `true` when this filter option is applied.
+ *
+ * @property children - Chip label.
+ * @example `{ isActive: true, children: "Text" }`
+ */
 export type ChipProps = {
-	/** `true` when this filter option is currently applied (utility category or variant value). */
 	isActive: boolean;
 	children: JSX.Element;
 } & Omit<
@@ -32,6 +38,14 @@ export type ChipProps = {
 	"type" | "children" | "aria-pressed"
 >;
 
+/**
+ * Sidebar filter chip (utility category or variant value).
+ *
+ * @param props - Extends button HTML attributes with `isActive` and `children`.
+ * @returns Pressable chip with `aria-pressed` from `isActive`.
+ *
+ * @example `<Chip isActive={filter.kind !== "all"}>Text</Chip>`
+ */
 export function Chip(props: ChipProps) {
 	const [local, rest] = splitProps(props, ["isActive", "children", "class"]);
 	return (

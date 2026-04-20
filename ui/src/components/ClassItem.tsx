@@ -1,3 +1,4 @@
+import type { Accessor } from "solid-js";
 import { createMemo, Show } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
 import { type FilterState, normalizeVariantState } from "../lib";
@@ -12,15 +13,15 @@ import { RemoveButton } from "./RemoveButton";
 
 export function ClassItem(props: {
 	item: ClassItemData;
-	panel: PanelModal;
-	filter: FilterState;
+	panel: Accessor<PanelModal>;
+	filter: Accessor<FilterState>;
 }) {
-	const activeVariants = props.filter.activeVariants;
-	const variantState = () => normalizeVariantState(props.panel, activeVariants);
+	const variantState = () =>
+		normalizeVariantState(props.panel(), props.filter().activeVariants);
 
 	const { inputValue, classValue, onFocus, onBlur, onUpdate } = useClassValue({
 		fullClass: () => props.item.fullClass,
-		hideVariantPrefixes: () => props.filter.hideVariantPrefixes,
+		hideVariantPrefixes: () => props.filter().hideVariantPrefixes,
 		variantState,
 	});
 
@@ -44,7 +45,7 @@ export function ClassItem(props: {
 						const value = event.currentTarget.value;
 						onUpdate(value);
 						vscode.postMessage({
-							type: "sailEditClass",
+							type: "tailwind-sail-edit-class",
 							tokenIndex: props.item.tokenIndex,
 							newValue: value,
 						});

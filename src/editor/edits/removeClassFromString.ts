@@ -5,8 +5,13 @@ import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses"
 import { removeRange } from "./removeRange";
 
 /**
- * Deletes the token at `tokenIndex` in the string under the primary cursor.
- * Returns whether an edit was applied.
+ * Removes the class token at `tokenIndex` in the active string literal.
+ *
+ * @param editor - Active text editor.
+ * @param tokenIndex - Index in the parsed class list.
+ * @returns Whether the document edit applied.
+ *
+ * @example await removeClassFromString(editor, 0) => true
  */
 export async function removeClassFromString(
 	editor: vscode.TextEditor,

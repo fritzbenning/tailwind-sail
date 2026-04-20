@@ -1,24 +1,30 @@
 import { type FilterDimensionId, VARIANT_IDS } from "../filter/variants";
 import { getSegmentForSelection } from "./getSegmentForSelection";
 
-/** Matches sidebar variant filter state: one selected chip key (or `'all'`) per dimension. */
+/** Effective variant filter: selected chip key per dimension (`"all"` when none). */
 export type VariantFilterEff = Record<FilterDimensionId, string>;
 
 /**
- * Returns the concatenated Tailwind variant prefix for the active sidebar filters (e.g. `dark:hover:`),
- * in {@link VARIANT_IDS} order. Only dimensions that currently have a filter row in the panel are included.
+ * Concatenates active variant prefixes in {@link VARIANT_IDS} order (e.g. `dark:hover:`), skipping dimensions with no sidebar row.
+ *
+ * @param presentRowDimensions - Dimensions that currently show a filter row.
+ * @param variantEff - Selected chip key per dimension (`"all"` when unset).
+ * @returns Concatenated variant prefix (e.g. `dark:hover:`) in filter order.
+ *
+ * @example Theme `dark` and state `hover` with both rows present yields `"dark:hover:"` (see `getActiveVariantClasses.test.ts` for full `eff`).
  */
 export function getActiveVariantClasses(
 	presentRowDimensions: ReadonlySet<FilterDimensionId>,
 	variantEff: VariantFilterEff,
 ): string {
 	const parts: string[] = [];
+
 	for (const dim of VARIANT_IDS) {
 		if (!presentRowDimensions.has(dim)) {
 			continue;
 		}
-		const sel = variantEff[dim] ?? "all";
-		const seg = getSegmentForSelection(dim, sel);
+		const selection = variantEff[dim] ?? "all";
+		const seg = getSegmentForSelection(dim, selection);
 		if (seg) {
 			parts.push(seg);
 		}

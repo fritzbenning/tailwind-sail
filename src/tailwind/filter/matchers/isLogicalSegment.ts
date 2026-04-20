@@ -1,13 +1,12 @@
 /**
- * `true` for `:has` / `:not` style arbitrary logical variants (`has-…`, `not-…`).
+ * Whether `segment` is a `has-…` / `not-…` logical variant key.
  *
- * @example
- * // Input: `'has-[.x]'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for `has-*` or `not-*` prefixes.
  *
- * @example
- * // Input: `'not-hover'`
- * // Output: `true`
+ * @example isLogicalSegment("has-[.x]") => true
+ *
+ * @example isLogicalSegment("not-hover") => true
  */
 export function isLogicalSegment(segment: string): boolean {
 	const l = segment.toLowerCase();

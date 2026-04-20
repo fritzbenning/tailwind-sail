@@ -4,8 +4,13 @@ import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
 import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 
 /**
- * Appends a new class token to the string under the primary cursor (or replaces whitespace-only
- * content when there are no tokens). Returns whether an edit was applied.
+ * Appends a class token to the active string literal (or replaces whitespace when there are no tokens).
+ *
+ * @param editor - Active text editor.
+ * @param newClass - Single class token (no whitespace).
+ * @returns Whether the document edit applied.
+ *
+ * @example await addClassToString(editor, "p-4") => true
  */
 export async function addClassToString(
 	editor: vscode.TextEditor,

@@ -1,9 +1,10 @@
 /**
  * Orders container-query chips: synthetic `base` first, then locale sort.
  *
- * @example
- * // Input: `['@md', 'base']`
- * // Output: `['base', '@md']`
+ * @param keys - Raw chip keys.
+ * @returns Sorted keys for the container row.
+ *
+ * @example sortContainerChipKeys(["@md", "base"]) => ["base", "@md"]
  */
 export function sortContainerChipKeys(keys: readonly string[]): string[] {
 	const base = "base";

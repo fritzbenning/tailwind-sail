@@ -1,8 +1,13 @@
 import type { ParsedTailwindClass } from "../../tailwind/parse/types";
 
 /**
- * Half-open **[startInRaw, endInRaw)** in the raw class string: clear this slice to remove
- * `classes[tokenIndex]`, including adjacent spaces so the rest stays space-separated.
+ * Raw span to delete for `classes[tokenIndex]`, including adjacent spaces between neighbors.
+ *
+ * @param classes - Parsed tokens in document order.
+ * @param tokenIndex - Index of the token to remove.
+ * @returns Half-open raw span, or `undefined` when out of range.
+ *
+ * @example removeRange([{ name: "p-4", startInRaw: 0, endInRaw: 3 }], 0) => { startInRaw: 0, endInRaw: 3 }
  */
 export function removeRange(
 	classes: readonly ParsedTailwindClass[],

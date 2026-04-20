@@ -1,15 +1,14 @@
 import { FORM_VARIANT_EXACT } from "../constants";
 
 /**
- * `true` when the segment is a form / field pseudo-class variant (`disabled:`, `checked:`, …).
+ * Whether `segment` is a form/control pseudo variant key (`disabled`, `checked`, …).
  *
- * @example
- * // Input: `'disabled'` (from `disabled:`)
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` when listed in {@link FORM_VARIANT_EXACT}.
  *
- * @example
- * // Input: `'hover'`
- * // Output: `false`
+ * @example isFormVariantSegment("disabled") => true
+ *
+ * @example isFormVariantSegment("hover") => false
  */
 export function isFormVariantSegment(segment: string): boolean {
 	return FORM_VARIANT_EXACT.has(segment.toLowerCase());

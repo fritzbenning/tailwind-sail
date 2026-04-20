@@ -1,18 +1,11 @@
 /**
- * Advances past a `//` line comment starting at `start`. Stops at `\n`, `\r`, or EOF without
- * consuming the newline (so the caller continues scanning from the line break).
+ * Skips a `//` comment from the first `/`; leaves the line terminator unconsumed.
  *
- * @param text - Full source text
- * @param start - Index of `//`
- * @returns Index of the newline that terminated the comment, or `text.length` if none
+ * @param text - Full source.
+ * @param start - Index of the first `/` of `//`.
+ * @returns Index of the newline ending the comment, or `text.length` if none.
  *
- * @example
- * skipLineComment('a // hi\nb', 2);
- * // → 7  // index of `\n` before `b`
- *
- * @example
- * skipLineComment('a // eof', 2);
- * // → 8  // `text.length` (no newline)
+ * @example skipLineComment("a // hi\nb", 2) => 7
  */
 export function skipLineComment(text: string, start: number): number {
 	let i = start + 2;

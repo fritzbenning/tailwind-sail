@@ -1,18 +1,3 @@
-/**
- * Config-driven grouping of Tailwind variant prefixes (segments ending with `:` from
- * `splitTailwindClassVariants`) into sidebar filter rows.
- *
- * Order matters: the first matching dimension wins (see `classifyVariantModifier`).
- *
- * @example
- * // Input: segment `'md'` (from class prefix `md:`)
- * // Output: row `breakpoints` matches first among ordered defs → dimension `breakpoints`
- *
- * @example
- * // Input: segment `'@md'` (from `@md:`)
- * // Output: row `container` matches (`startsWith('@')`) before later rows → `container`
- */
-
 import { isBreakpointSegment } from "./breakpoints/isBreakpointSegment";
 import { isAriaSegment } from "./matchers/isAriaSegment";
 import { isDataSegment } from "./matchers/isDataSegment";
@@ -28,7 +13,13 @@ import { isSupportsSegment } from "./matchers/isSupportsSegment";
 import { isThemeSegment } from "./matchers/isThemeSegment";
 
 /**
- * Dimension definitions: id, UI label, and `match(segment)` without trailing `:`.
+ * Config-driven sidebar rows: id, label, and `match(segment)` (no trailing `:`).
+ *
+ * First match wins in {@link classifyVariantModifier}.
+ *
+ * @returns Readonly ordered matcher definitions.
+ *
+ * @example VARIANTS[0].id => "breakpoints"
  */
 export const VARIANTS = [
 	{
@@ -105,17 +96,26 @@ export const VARIANTS = [
 		id: "other" as const,
 		label: "Other variants",
 		/**
-		 * Arbitrary variants `[…]`.
+		 * Arbitrary variants (segment starts with `[`).
 		 *
-		 * @example
-		 * // Input: `'[&_svg]'` (from `[&_svg]:`)
-		 * // Output: `true`
+		 * @param segment - Without trailing `:`.
+		 * @returns `true` for arbitrary bracket variants.
+		 *
+		 * @example segment => segment.startsWith("[") — `[&_svg]` matches.
 		 */
 		match: (segment: string): boolean => segment.startsWith("["),
 	},
 	{
 		id: "misc" as const,
 		label: "More",
+		/**
+		 * Fallback row for unmatched segments.
+		 *
+		 * @param _segment - Unused.
+		 * @returns Always `true`.
+		 *
+		 * @example misc `match` accepts any remaining segment.
+		 */
 		match: (_segment: string): boolean => true,
 	},
 ] as const;
@@ -123,18 +123,16 @@ export const VARIANTS = [
 /**
  * Union of all dimension ids in {@link VARIANTS}.
  *
- * @example
- * // Input: dimension id `'pseudo'`
- * // Output: label `'Pseudo-elements'` (via `getVariantLabel`)
+ * @example `"breakpoints"` satisfies `FilterDimensionId` when present in {@link VARIANTS}.
  */
 export type FilterDimensionId = (typeof VARIANTS)[number]["id"];
 
 /**
  * Full dimension order for client filter state (every row, including those hidden from the toolbar).
  *
- * @example
- * // Input: `VARIANT_IDS.length`
- * // Output: `16`
+ * @returns Readonly ids aligned with {@link VARIANTS}.
+ *
+ * @example VARIANT_IDS.length => 16
  */
 export const VARIANT_IDS: readonly FilterDimensionId[] = VARIANTS.map(
 	(d) => d.id,

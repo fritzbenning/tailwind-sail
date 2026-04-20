@@ -1,15 +1,14 @@
 import { BREAKPOINT_NAMES } from "../constants";
 
 /**
- * `true` when the segment (no trailing `:`) is a responsive / min-max breakpoint style prefix.
+ * Whether the segment (no trailing `:`) is a responsive / min-max breakpoint style prefix.
  *
- * @example
- * // Input: `'md'` (from `md:`)
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for breakpoint-like keys.
  *
- * @example
- * // Input: `'hover'` (from `hover:`)
- * // Output: `false`
+ * @example isBreakpointSegment("md") => true
+ *
+ * @example isBreakpointSegment("hover") => false
  */
 export function isBreakpointSegment(segment: string): boolean {
 	const s = segment.toLowerCase();

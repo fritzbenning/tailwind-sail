@@ -7,10 +7,12 @@ import {
 } from "./constants";
 
 /**
- * True if `token` plausibly resembles one Tailwind utility token (after variants).
- * False negatives/positives are expected; use for UX hints only.
+ * Heuristic: whether `token` looks like a Tailwind utility (not config-validated).
  *
- * Limitations: see top-level comment in `constants.ts` and Tailwind docs — not exhaustive validation.
+ * @param token - Single class token (may include variants).
+ * @returns `true` if the token matches built-in heuristics.
+ *
+ * @example isTailwindClass("p-4") => true
  */
 export function isTailwindClass(token: string): boolean {
 	const t = token.trim();

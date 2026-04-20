@@ -1,8 +1,10 @@
 /**
  * Tailwind utility grouping for sidebar filters. Order matters: the first category whose prefix
+ *
  * matches wins; `others` must stay last and catches everything else.
  *
  * Prefixes assume the utility was canonicalized for matching (trim, `!`, lowercase, leading `-`/`_`)
+ *
  * at the filter boundary — see `canonicalTailwindUtilityForMatch` in `../heuristics/`.
  */
 export const UTILITY_CATEGORIES: readonly {

@@ -3,13 +3,12 @@ import type { ClassItem } from "../../types";
 /**
  * Whether the full class string contains the search substring (already lowercased).
  *
- * @example
- * // Input: item.fullClass = "text-red-500", queryTrimmedLower = "red"
- * // Output: true
+ * @param item - Parsed class row.
+ * @param queryTrimmedLower - Search string (trimmed, lowercased); empty matches all.
+ * @returns `true` when the substring matches or the query is empty.
  *
- * @example
- * // Input: item.fullClass = "p-4", queryTrimmedLower = ""
- * // Output: true
+ * @example isClassMatchingSearchQuery({ fullClass: "text-red-500", ... }, "red") => true
+ * @example isClassMatchingSearchQuery(item, "") => true
  */
 export function isClassMatchingSearchQuery(
 	item: ClassItem,

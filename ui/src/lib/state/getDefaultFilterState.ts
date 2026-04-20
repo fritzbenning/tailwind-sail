@@ -4,15 +4,9 @@ import type { FilterState } from "./types";
 /**
  * Default filter state when the panel loads or after an invalid selection is reset.
  *
- * @example
- * // Input: (none)
- * // Output:
- * // {
- * //   activeUtility: { kind: "all" },
- * //   activeVariants: { screens: "all", theme: "all", ... },
- * //   search: "",
- * //   hideVariantPrefixes: false
- * // }
+ * @returns Fresh {@link FilterState} with all variants `"all"` and empty search.
+ *
+ * @example getDefaultFilterState().search => ""
  */
 export function getDefaultFilterState(): FilterState {
 	return {

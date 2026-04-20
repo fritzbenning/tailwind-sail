@@ -1,30 +1,18 @@
-import { tryDoubleQuote } from "../try/tryDoubleQuote";
-import { trySingleQuote } from "../try/trySingleQuote";
-import { tryTemplateLiteral } from "../try/tryTemplateLiteral";
 import type { ExtractedStringOffsets } from "../types";
+import { tryDoubleQuote } from "../utils/try/tryDoubleQuote";
+import { trySingleQuote } from "../utils/try/trySingleQuote";
+import { tryTemplateLiteral } from "../utils/try/tryTemplateLiteral";
 import { skipBlockComment } from "./skipBlockComment";
 import { skipLineComment } from "./skipLineComment";
 
 /**
- * Walks `text` from the start, skipping line/block comments, and tries each string literal
- * (`"`, `'`, `` ` ``). Returns the first literal for which `offset` is inside the extracted
- * content (per {@link tryDoubleQuote}, {@link trySingleQuote}, {@link tryTemplateLiteral}).
+ * Scans top-level code (skipping comments) and returns the first string literal that contains `offset`.
  *
- * @param text - Full source text
- * @param offset - Cursor/index that must fall inside a literal’s extractable region
- * @returns Extracted offsets or `undefined` if no matching literal appears before EOF
+ * @param text - Full source text.
+ * @param offset - Cursor index to resolve.
+ * @returns Extracted string offsets, or `undefined` if none match.
  *
- * @example
- * // Finds the string containing the cursor even when earlier code exists
- * const src = 'const x = 1;\nconst y = "hi";';
- * scanTopLevelCode(src, src.indexOf('i'));
- * // → { rawContent: 'hi', startOffset: 23, endOffset: 27, rawToDocSegments: [...] }
- *
- * @example
- * // Strings inside comments are ignored
- * const src2 = '// const fake = "nope"\nconst y = "yes";';
- * scanTopLevelCode(src2, src2.indexOf('yes'));
- * // → { rawContent: 'yes', ... }  // not the commented-out "nope"
+ * @example scanTopLevelCode('const y = "yes";', 15)?.rawContent => "yes"
  */
 export function scanTopLevelCode(
 	text: string,

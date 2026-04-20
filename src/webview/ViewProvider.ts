@@ -7,17 +7,8 @@ import type { SailEditorSnapshot } from "../editor/types";
 import { getWebviewContent } from "./getWebviewContent";
 import { buildSailWebviewViewModel } from "./webviewModal";
 
-/**
- * Sidebar WebviewView hosted in the **secondary** side bar under the “Sail” container.
- *
- * Where to look in the UI:
- * - **Secondary Side Bar** (right): the “Sail” view shows live Tailwind info for the string under the cursor.
- * - Use **View → Appearance → Secondary Side Bar** (or the layout control) if the right bar is hidden.
- *
- * This is intentionally a Webview**View** (sidebar) rather than a Webview panel (editor tab).
- */
 export class ViewProvider implements vscode.WebviewViewProvider {
-	public static readonly viewId = "sail.sidebar";
+	public static readonly viewId = "tailwind-sail.sidebar";
 
 	private view?: vscode.WebviewView;
 	private lastSnapshot: SailEditorSnapshot = {
@@ -39,12 +30,10 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 		);
 	}
 
-	/** Whether the Sail webview is currently shown (sidebar view visible, not only registered). */
-	public isSailViewVisible(): boolean {
+	public isTailwindSailViewVisible(): boolean {
 		return this.view?.visible ?? false;
 	}
 
-	/** Wired from activation after `registerStringHighlighter` (avoids circular wiring). */
 	public setStringHighlighter(highlighter: StringHighlighterHandle): void {
 		this.stringHighlighter = highlighter;
 	}
@@ -59,7 +48,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 
 		webview.html = getWebviewContent(webview, this.extensionUri);
 		void webview.postMessage({
-			type: "sailUpdate",
+			type: "tailwind-sail-update",
 			model: buildSailWebviewViewModel(this.lastSnapshot),
 		});
 
@@ -75,21 +64,21 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				if (!editor) {
 					return;
 				}
-				if (message.type === "sailRemoveClass") {
+				if (message.type === "tailwind-sail-remove-class") {
 					if (typeof message.tokenIndex !== "number") {
 						return;
 					}
 					void removeClassFromString(editor, message.tokenIndex);
 					return;
 				}
-				if (message.type === "sailAddClass") {
+				if (message.type === "tailwind-sail-add-class") {
 					if (typeof message.className !== "string") {
 						return;
 					}
 					void addClassToString(editor, message.className);
 					return;
 				}
-				if (message.type !== "sailEditClass") {
+				if (message.type !== "tailwind-sail-edit-class") {
 					return;
 				}
 				if (
@@ -122,6 +111,9 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			return;
 		}
 		const model = buildSailWebviewViewModel(snapshot);
-		void this.view.webview.postMessage({ type: "sailUpdate", model });
+		void this.view.webview.postMessage({
+			type: "tailwind-sail-update",
+			model,
+		});
 	}
 }

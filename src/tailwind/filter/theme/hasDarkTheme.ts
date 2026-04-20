@@ -1,15 +1,12 @@
 import type { VariantBuckets } from "../buckets/getEmptyVariantBuckets";
 
 /**
- * `true` when the variant buckets include a `dark` theme segment.
+ * Whether the variant buckets include a `dark` theme segment.
  *
- * @example
- * // Input: `getVariantBuckets(['dark:'])`
- * // Output: `hasDarkTheme(…)` → `true`
+ * @param buckets - Per-dimension keys for the current class.
+ * @returns `true` if `theme` includes `"dark"`.
  *
- * @example
- * // Input: `getVariantBuckets(['light:'])` (or `[]`)
- * // Output: `hasDarkTheme(…)` → `false`
+ * @example hasDarkTheme(getVariantBuckets(["dark:"])) => true
  */
 export function hasDarkTheme(buckets: VariantBuckets): boolean {
 	return buckets.theme.includes("dark");

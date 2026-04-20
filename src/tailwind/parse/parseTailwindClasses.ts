@@ -1,29 +1,13 @@
-/**
- * Parses Tailwind `class` attribute text: whitespace-separated tokens with source spans, plus
- * {@link ParsedTailwindResult.looksLikeTailwind | looksLikeTailwind} from prefix heuristics (not
- * validation against a project config). Shared by editor and webview code.
- */
-
-import { containTailwindClasses } from "../detect/containTailwindClasses";
+import { hasTailwindClasses } from "../detect/hasTailwindClasses";
 import type { ParsedTailwindClass, ParsedTailwindResult } from "./types";
 
 /**
- * Splits on whitespace into class tokens and records each token’s half-open span `[startInRaw, endInRaw)` in `input`.
+ * Tokenizes a class string on whitespace with half-open `[startInRaw, endInRaw)` spans and a {@link ParsedTailwindResult.looksLikeTailwind} hint.
  *
- * @param input - Raw `class` string (content only; no surrounding quotes).
- * @returns {@link ParsedTailwindResult} with every non-empty token and a coarse Tailwind-like hint.
+ * @param input - Raw `class` value (no surrounding quotes).
+ * @returns Parsed tokens and Tailwind-like flag.
  *
- * @example
- * ```ts
- * parseTailwindClasses('  p-4   m-2 ')
- * // {
- * //   classes: [
- * //     { name: 'p-4', startInRaw: 2, endInRaw: 5 },
- * //     { name: 'm-2', startInRaw: 8, endInRaw: 11 },
- * //   ],
- * //   looksLikeTailwind: true,
- * // }
- * ```
+ * @example parseTailwindClasses("  p-4   m-2 ").classes.length => 2
  */
 export function parseTailwindClasses(input: string): ParsedTailwindResult {
 	const classes: ParsedTailwindClass[] = [];
@@ -45,7 +29,7 @@ export function parseTailwindClasses(input: string): ParsedTailwindResult {
 		const name = input.slice(startInRaw, endInRaw);
 		classes.push({ name, startInRaw, endInRaw } satisfies ParsedTailwindClass);
 	}
-	const looksLikeTailwind = containTailwindClasses(input);
+	const looksLikeTailwind = hasTailwindClasses(input);
 
 	return {
 		classes,

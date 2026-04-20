@@ -1,34 +1,15 @@
 import type { ExtractedStringOffsets, ScanResult } from "../types";
 
 /**
- * Builds a {@link ScanResult} for a fully scanned single- or double-quoted string when the closing
- * delimiter is known. If `offset` lies inside the literal (including immediately before the
- * closing quote, matching VS Code caret semantics), returns `extracted` with `rawContent` and
- * segment mapping; otherwise returns only `end` so scanning can continue.
+ * Completes a quoted literal: returns `extracted` when `offset` is inside `(open, close]` (VS Code caret rules), else `{ end }` only.
  *
- * @param text - Full source text
- * @param openIdx - Index of the opening `"` or `'`
- * @param closeIdx - Index of the closing quote (not included in `rawContent`)
- * @param offset - Cursor/index to test for “inside the literal”
- * @returns Scan result ending at `closeIdx + 1`, optionally with extracted offsets
+ * @param text - Full source.
+ * @param openIdx - Index of the opening quote.
+ * @param closeIdx - Index of the closing quote.
+ * @param offset - Cursor index being tested.
+ * @returns Scan result with optional `extracted` offsets.
  *
- * @example
- * // Cursor inside the string → includes `extracted` with content between quotes
- * finalizeQuoted('const x = "flex gap-2";', 10, 21, 15);
- * // → {
- * //   end: 22,
- * //   extracted: {
- * //     rawContent: 'flex gap-2',
- * //     startOffset: 10,
- * //     endOffset: 22,
- * //     rawToDocSegments: [{ rawStart: 0, rawEnd: 10, docStart: 11, docEnd: 21 }],
- * //   },
- * // }
- *
- * @example
- * // Cursor before the opening quote → not inside; only advances past the literal
- * finalizeQuoted('const x = "flex";', 10, 15, 5);
- * // → { end: 16 }
+ * @example finalizeQuoted('x="ab";', 2, 5, 4).end => 6
  */
 export function finalizeQuoted(
 	text: string,

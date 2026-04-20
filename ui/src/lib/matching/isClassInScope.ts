@@ -9,14 +9,12 @@ import { isClassMatchingVariantState } from "./isClassMatchingVariantState";
 /**
  * Whether a single parsed class is in scope for the full filter (utility, variants, search).
  *
- * @example
- * // Input: item matches utility + variants; filterState.search = "flex"
- * // item.fullClass = "md:flex"
- * // Output: true
+ * @param item - Parsed class row from the snapshot.
+ * @param panel - Panel model for effective filters.
+ * @param filterState - Client utility, variant, and search state.
+ * @returns `true` when utility, variant, and search predicates all pass.
  *
- * @example
- * // Input: same item; filterState.search = "grid"
- * // Output: false
+ * @example isClassInScope({ fullClass: "md:flex", ... }, panel, { ...search: "flex" }) => true for matching filters.
  */
 export function isClassInScope(
 	item: ClassItem,

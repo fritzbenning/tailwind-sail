@@ -1,13 +1,12 @@
 /**
- * `true` for theme variants (`dark:`, `light:`, `theme-…:`).
+ * Whether `segment` is `dark`, `light`, or `theme-…`.
  *
- * @example
- * // Input: `'dark'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for theme-related keys.
  *
- * @example
- * // Input: `'theme-midnight'`
- * // Output: `true`
+ * @example isThemeSegment("dark") => true
+ *
+ * @example isThemeSegment("theme-midnight") => true
  */
 export function isThemeSegment(segment: string): boolean {
 	const l = segment.toLowerCase();

@@ -1,10 +1,6 @@
-/**
- * Shared data for variant sidebar filters: breakpoint scale, matcher word lists, and toolbar row order.
- */
+/** Variant filter metadata: breakpoint order, matcher sets, toolbar rows. */
 
-/**
- * Default min-width scale order (smallest → largest). Used for filter chip order, not theme values.
- */
+/** Min-width breakpoint id order for chip sorting (not theme values). */
 export const BREAKPOINT_SCALE_ORDER = [
 	"xs",
 	"sm",
@@ -20,14 +16,10 @@ export const BREAKPOINT_SCALE_ORDER = [
 	"screen",
 ] as const;
 
-/**
- * Breakpoint names from {@link BREAKPOINT_SCALE_ORDER} for O(1) lookup.
- */
+/** Set of ids in {@link BREAKPOINT_SCALE_ORDER}. */
 export const BREAKPOINT_NAMES = new Set<string>(BREAKPOINT_SCALE_ORDER);
 
-/**
- * Form / control pseudo-class variant names (segment without trailing `:`).
- */
+/** Form/control pseudo variant keys (no trailing `:`). */
 export const FORM_VARIANT_EXACT = new Set([
 	"autofill",
 	"blank",
@@ -50,9 +42,7 @@ export const FORM_VARIANT_EXACT = new Set([
 	"valid",
 ]);
 
-/**
- * Structural pseudo-class / sibling-order names (segment without trailing `:`).
- */
+/** Structural / sibling-order variant keys. */
 export const STRUCTURAL_EXACT = new Set([
 	"empty",
 	"even",
@@ -66,9 +56,7 @@ export const STRUCTURAL_EXACT = new Set([
 	"root",
 ]);
 
-/**
- * Pseudo-element variant names (segment without trailing `:`).
- */
+/** Pseudo-element variant keys. */
 export const PSEUDO_EXACT = new Set([
 	"after",
 	"backdrop",
@@ -81,9 +69,7 @@ export const PSEUDO_EXACT = new Set([
 	"selection",
 ]);
 
-/**
- * Media / `@media` feature style variants (e.g. `print:`, `motion-reduce:`).
- */
+/** Media-query feature variant keys (`print`, `motion-reduce`, …). */
 export const MEDIA_FEATURE_EXACT = new Set([
 	"any-hover",
 	"any-hover-none",
@@ -109,9 +95,7 @@ export const MEDIA_FEATURE_EXACT = new Set([
 	"scripting-none",
 ]);
 
-/**
- * Simple interaction pseudo-classes (`hover:`, `focus:`, …) used by the State row matcher.
- */
+/** State/interaction pseudo keys for the State row. */
 export const INTERACTION_EXACT = new Set([
 	"active",
 	"focus",
@@ -122,9 +106,7 @@ export const INTERACTION_EXACT = new Set([
 	"visited",
 ]);
 
-/**
- * Sidebar toolbar row order (subset of dimensions). Rows with no matching classes are hidden.
- */
+/** Sidebar row order; rows with no classes are hidden. */
 export const VARIANT_FILTER_ROW_DIMENSIONS = [
 	"state",
 	"breakpoints",

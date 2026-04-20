@@ -6,13 +6,12 @@ import type { VariantState } from "../state/types";
 /**
  * Whether the class’s variant buckets satisfy every narrowed dimension in the filter.
  *
- * @example
- * // Input: variantEff.screens = "md", item.variantBuckets.screens = ["md"]
- * // Output: true
+ * @param item - Parsed class with `variantBuckets`.
+ * @param variantEff - Client variant selections per dimension.
+ * @param panel - Panel model (row visibility).
+ * @returns `true` when every non-`all` dimension matches buckets.
  *
- * @example
- * // Input: variantEff.screens = "md", item.variantBuckets.screens = ["lg"]
- * // Output: false
+ * @example isClassMatchingVariantState(item, variantEff, panel) — true when every pinned dimension matches `item.variantBuckets` (see tests).
  */
 export function isClassMatchingVariantState(
 	item: ClassItem,
@@ -25,12 +24,12 @@ export function isClassMatchingVariantState(
 		if (!variants.has(dim)) {
 			continue;
 		}
-		const sel = variantEff[dim] ?? "all";
-		if (sel === "all") {
+		const selection = variantEff[dim] ?? "all";
+		if (selection === "all") {
 			continue;
 		}
 		const arr = buckets[dim] ?? [];
-		if (!variantBucketMatchesSelection(dim, sel, arr)) {
+		if (!variantBucketMatchesSelection(dim, selection, arr)) {
 			return false;
 		}
 	}

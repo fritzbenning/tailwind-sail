@@ -17,11 +17,25 @@ const dividerVariants = cva(
 	},
 );
 
+/**
+ * Props for {@link Divider}.
+ *
+ * @property marginBottom - Adds `mb-4` below the rule (section separators).
+ *
+ * @example `{ marginBottom: true }`
+ */
 export type DividerProps = {
-	/** Adds `mb-4` below the rule (matches section separators). */
 	marginBottom?: boolean;
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, "class" | "role">;
 
+/**
+ * Horizontal separator with optional bottom margin.
+ *
+ * @param props - Passed to the `<div>`; controls `marginBottom` variant.
+ * @returns Rule with `role="presentation"`.
+ *
+ * @example `<Divider marginBottom />`
+ */
 export function Divider(props: DividerProps) {
 	const [local, rest] = splitProps(props, ["marginBottom"]);
 

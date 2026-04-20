@@ -33,10 +33,10 @@ suite("registerStringHighlighter", () => {
 
 	test("refresh returns early when highlightActiveString is disabled", async () => {
 		const prev = vscode.workspace
-			.getConfiguration("sail")
+			.getConfiguration("tailwind-sail")
 			.get<boolean>("highlightActiveString");
 		await vscode.workspace
-			.getConfiguration("sail")
+			.getConfiguration("tailwind-sail")
 			.update(
 				"highlightActiveString",
 				false,
@@ -61,7 +61,7 @@ suite("registerStringHighlighter", () => {
 		} finally {
 			if (prev !== undefined) {
 				await vscode.workspace
-					.getConfiguration("sail")
+					.getConfiguration("tailwind-sail")
 					.update(
 						"highlightActiveString",
 						prev,

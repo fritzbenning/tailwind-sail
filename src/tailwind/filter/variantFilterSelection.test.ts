@@ -4,8 +4,8 @@ import {
 	variantBucketMatchesSelection,
 } from "./variantFilterSelection";
 
-describe("variantBucketMatchesSelection", () => {
-	it("state idle matches empty bucket only", () => {
+suite("variantBucketMatchesSelection", () => {
+	test("state idle matches empty bucket only", () => {
 		assert.strictEqual(
 			variantBucketMatchesSelection("state", "idle", []),
 			true,
@@ -16,7 +16,7 @@ describe("variantBucketMatchesSelection", () => {
 		);
 	});
 
-	it("theme light matches when dark is absent", () => {
+	test("theme light matches when dark is absent", () => {
 		assert.strictEqual(
 			variantBucketMatchesSelection("theme", "light", []),
 			true,
@@ -27,7 +27,7 @@ describe("variantBucketMatchesSelection", () => {
 		);
 	});
 
-	it("breakpoints base matches empty bucket only", () => {
+	test("breakpoints base matches empty bucket only", () => {
 		assert.strictEqual(
 			variantBucketMatchesSelection("breakpoints", "base", []),
 			true,
@@ -38,7 +38,7 @@ describe("variantBucketMatchesSelection", () => {
 		);
 	});
 
-	it("container base matches empty bucket only", () => {
+	test("container base matches empty bucket only", () => {
 		assert.strictEqual(
 			variantBucketMatchesSelection("container", "base", []),
 			true,
@@ -49,7 +49,7 @@ describe("variantBucketMatchesSelection", () => {
 		);
 	});
 
-	it("non-synthetic selection requires key in bucket", () => {
+	test("non-synthetic selection requires key in bucket", () => {
 		assert.strictEqual(
 			variantBucketMatchesSelection("state", "hover", ["hover"]),
 			true,
@@ -65,15 +65,15 @@ describe("variantBucketMatchesSelection", () => {
 	});
 });
 
-describe("shouldStripModifierForVariantFilter", () => {
-	it("never strips when selection is all", () => {
+suite("shouldStripModifierForVariantFilter", () => {
+	test("never strips when selection is all", () => {
 		assert.strictEqual(
 			shouldStripModifierForVariantFilter("all", "state", "hover"),
 			false,
 		);
 	});
 
-	it("does not strip for synthetic idle / base selections", () => {
+	test("does not strip for synthetic idle / base selections", () => {
 		assert.strictEqual(
 			shouldStripModifierForVariantFilter("idle", "state", "hover"),
 			false,
@@ -88,7 +88,7 @@ describe("shouldStripModifierForVariantFilter", () => {
 		);
 	});
 
-	it("strips when selection equals classified modifier key", () => {
+	test("strips when selection equals classified modifier key", () => {
 		assert.strictEqual(
 			shouldStripModifierForVariantFilter("hover", "state", "hover"),
 			true,
@@ -103,7 +103,7 @@ describe("shouldStripModifierForVariantFilter", () => {
 		);
 	});
 
-	it("theme has no synthetic strip exemption; uses equality like other dimensions", () => {
+	test("theme has no synthetic strip exemption; uses equality like other dimensions", () => {
 		assert.strictEqual(
 			shouldStripModifierForVariantFilter("light", "theme", "light"),
 			true,

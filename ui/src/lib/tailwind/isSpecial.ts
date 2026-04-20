@@ -6,14 +6,10 @@ import { SPECIAL_COLOR } from "./constants";
  * @param rest — Color tail after the utility prefix; opacity `/` suffix is ignored for the check.
  * @returns `true` if the first segment is a special color keyword.
  *
- * @example
- * Input: `"black"` → Output: `true`
+ * @example isSpecial("black") => true
  *
- * @example
- * Input: `"white/50"` → Output: `true`
- *
- * @example
- * Input: `"red-500"` → Output: `false`
+ * @example isSpecial("white/50") => true
+ * @example isSpecial("red-500") => false
  */
 export function isSpecial(rest: string): boolean {
 	const head = (rest.split("/")[0] ?? "").split("-")[0] ?? "";

@@ -1,15 +1,14 @@
 import { PSEUDO_EXACT } from "../constants";
 
 /**
- * `true` when the segment is a pseudo-element variant (`before:`, `after:`, …).
+ * Whether `segment` is a pseudo-element variant key (`before`, `after`, …).
  *
- * @example
- * // Input: `'before'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` when listed in {@link PSEUDO_EXACT}.
  *
- * @example
- * // Input: `'first'` (structural, not pseudo-element here)
- * // Output: `false`
+ * @example isPseudoSegment("before") => true
+ *
+ * @example isPseudoSegment("first") => false
  */
 export function isPseudoSegment(segment: string): boolean {
 	return PSEUDO_EXACT.has(segment.toLowerCase());

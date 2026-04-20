@@ -1,7 +1,10 @@
 /**
- * Splits a Tailwind class token into stacked variant prefixes (each ending with `:`) and the
- * remaining utility. Colons inside `[…]` (arbitrary variants / values) are not treated as
- * variant separators, so URLs and similar stay intact.
+ * Splits variant prefixes (`foo:bar:`) from the utility; ignores colons inside `[…]`.
+ *
+ * @param fullClass - Tailwind class token including variants.
+ * @returns Variant segments (each with trailing `:`) and bare utility.
+ *
+ * @example splitTailwindClassVariants("hover:bg-red-500").utility => "bg-red-500"
  */
 export function splitTailwindClassVariants(fullClass: string): {
 	modifiers: string[];

@@ -3,15 +3,14 @@ import type { FilterState } from "./types";
 
 /**
  * Whether every selected utility chip and variant value still exists on the current panel model.
+ *
  * Used to reset client state when the underlying class list or chip metadata changes.
  *
- * @example
- * // Input: filterState.activeUtility = { kind: "utility", id: "text" }, panel has a utility chip with id "text"
- * // Output: true
+ * @param panel - Current panel model.
+ * @param filterState - Client filter snapshot.
+ * @returns `true` when all selections are still valid options.
  *
- * @example
- * // Input: filterState.activeUtility = { kind: "utility", id: "bogus" }, panel chips don’t include "bogus"
- * // Output: false
+ * @example validateFilterState(panel, getDefaultFilterState()) => true for a matching panel.
  */
 export function validateFilterState(
 	panel: PanelModal,

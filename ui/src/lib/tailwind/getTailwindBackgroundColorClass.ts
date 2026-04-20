@@ -8,8 +8,9 @@ import { isSpecial } from "./isSpecial";
 /**
  * Descriptor for a solid preview swatch: a single Tailwind `bg-*` class (palette or arbitrary).
  *
- * @example
- * `{ className: "bg-red-500" }`
+ * @property className - One `bg-*` utility for the swatch.
+ *
+ * @example { className: "bg-red-500" }
  */
 export type TailwindBackgroundClass = {
 	className: string;
@@ -17,22 +18,16 @@ export type TailwindBackgroundClass = {
 
 /**
  * Detect Tailwind color utilities and derive the matching `bg-*` class for a solid preview
+ *
  * (variants stripped). Non-`bg` utilities map to the equivalent `bg-{color}` class.
  *
- * @param className — Full class string as authored (may include variants and `!`).
- * @returns `{ className }` with one `bg-*` utility, or `null` if the class is not a supported solid color.
+ * @param className - Full class string as authored (may include variants and `!`).
+ * @returns `{ className }` with one `bg-*` utility, or `null` if not a supported solid color.
  *
- * @example
- * Input: `"text-red-500"` → Output: `{ className: "bg-red-500" }`
- *
- * @example
- * Input: `"md:hover:border-blue-600"` → Output: `{ className: "bg-blue-600" }`
- *
- * @example
- * Input: `"text-[#f97316]"` → Output: `{ className: "bg-[#f97316]" }`
- *
- * @example
- * Input: `"text-center"` → Output: `null`
+ * @example getTailwindBackgroundColorClass("text-red-500") => { className: "bg-red-500" }
+ * @example getTailwindBackgroundColorClass("md:hover:border-blue-600") => { className: "bg-blue-600" }
+ * @example getTailwindBackgroundColorClass("text-[#f97316]") => { className: "bg-[#f97316]" }
+ * @example getTailwindBackgroundColorClass("text-center") => null
  */
 export function getTailwindBackgroundColorClass(
 	className: string,

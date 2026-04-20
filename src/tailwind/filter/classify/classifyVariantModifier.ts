@@ -2,31 +2,30 @@ import type { FilterDimensionId } from "../variants";
 import { VARIANTS } from "../variants";
 
 /**
- * Result of classifying one variant prefix (segment) for the sidebar filters.
+ * Classified variant segment for filter UI.
  *
- * @example
- * // Input: `classifyVariantModifier('md:')`
- * // Output: `{ dimension: 'breakpoints', key: 'md', label: 'md' }`
+ * @property dimension - Sidebar row id for this segment.
+ *
+ * @property key - Filter key without trailing `:`.
+ * @property label - Chip label text.
+ *
+ * @example classifyVariantModifier("hover:") => { dimension: "state", key: "hover", label: "hover" }
  */
 export interface ClassifiedVariant {
 	readonly dimension: FilterDimensionId;
-	/** Stable key for data attributes and filtering (segment without trailing `:`). */
 	readonly key: string;
-	/** Human-readable chip label (no trailing `:`). */
 	readonly label: string;
 }
 
 /**
- * Maps a single variant segment (with or without trailing `:`) to a filter dimension and key.
- * The first matching row in {@link VARIANTS} wins.
+ * Maps one variant segment (optional trailing `:`) to a dimension/key; first {@link VARIANTS} match wins.
  *
- * @example
- * // Input: `'hover:'`
- * // Output: `{ dimension: 'state', key: 'hover', label: 'hover' }`
+ * @param modifierWithColon - Raw variant segment from a class token.
+ * @returns Dimension, key, and label for filter chips.
  *
- * @example
- * // Input: `'dark:'`
- * // Output: `{ dimension: 'theme', key: 'dark', label: 'dark' }`
+ * @example classifyVariantModifier("hover:").key => "hover"
+ *
+ * @example classifyVariantModifier("dark:").dimension => "theme"
  */
 export function classifyVariantModifier(
 	modifierWithColon: string,
@@ -45,7 +44,9 @@ export function classifyVariantModifier(
 		}
 	}
 
-	throw new Error(
-		`classifyVariantModifier: no dimension matched for segment ${JSON.stringify(segment)}`,
-	);
+	return {
+		dimension: "other",
+		key: segment,
+		label: segment,
+	};
 }

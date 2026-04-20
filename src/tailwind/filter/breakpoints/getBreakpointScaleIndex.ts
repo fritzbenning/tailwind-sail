@@ -3,13 +3,12 @@ import { BREAKPOINT_SCALE_ORDER } from "../constants";
 /**
  * Index of a named breakpoint in {@link BREAKPOINT_SCALE_ORDER}, or `-1` if unknown.
  *
- * @example
- * // Input: `'md'`
- * // Output: `2`
+ * @param name - Breakpoint name without variant prefix.
+ * @returns Index in the scale, or `-1`.
  *
- * @example
- * // Input: `'unknown'`
- * // Output: `-1`
+ * @example getBreakpointScaleIndex("md") => 2
+ *
+ * @example getBreakpointScaleIndex("unknown") => -1
  */
 export function getBreakpointScaleIndex(name: string): number {
 	return BREAKPOINT_SCALE_ORDER.indexOf(

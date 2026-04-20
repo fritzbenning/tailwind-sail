@@ -1,9 +1,14 @@
 import { stripImportantPrefix } from "./stripImportantPrefix";
 
 /**
- * Canonical form for filter matching: trim, strip `!`, lowercase, drop leading `-`/`_` (negative
- * spacing etc.) so category prefix lists stay simple. Call once where utilities enter the filter
- * pipeline (same idea as splitting variants before variant dimensions).
+ * Trims, lowercases, strips `!`, and removes leading `-`/`_` for stable filter matching.
+ *
+ * @param utility - Raw class token or utility segment.
+ * @returns Normalized string for matching and deduplication.
+ *
+ * @example normalizeClass("  !-MT-4  ") => "mt-4"
+ *
+ * @example normalizeClass("bg-red-500") => "bg-red-500"
  */
 export function normalizeClass(utility: string): string {
 	const u = stripImportantPrefix(utility.trim()).toLowerCase();

@@ -7,14 +7,24 @@ import { onDocumentChange } from "./onDocumentChange";
 import { onSelectionChange } from "./onSelectionChange";
 import { pushSnapshot } from "./pushSnapshot";
 
+/**
+ * Subscription bundle for editor-driven Sail updates.
+ *
+ * @property refreshNow - Runs an immediate snapshot (Tailwind Sail: Refresh).
+ */
 export interface EditorTrackerHandle {
-	/** Forces an immediate refresh (used by the “Sail: Refresh” command). */
 	refreshNow: () => void;
 }
 
 /**
- * Subscribes to editor/selection/document updates, debounces work, and pushes snapshots to the
- * webview. Uses the **primary** selection’s active position (not the selection range extent).
+ * Debounced editor, selection, and document listeners feeding the webview snapshot (primary caret only).
+ *
+ * @param viewProvider - Webview bridge.
+ * @param stringHighlighter - Highlight refresh target.
+ * @param context - Extension context for subscriptions.
+ * @returns Handle with debounced and immediate refresh entry points.
+ *
+ * @example registerEditorTracker(provider, highlighter, context).refreshNow() — fires immediate snapshot.
  */
 export function registerEditorTracker(
 	viewProvider: ViewProvider,
@@ -42,8 +52,8 @@ export function registerEditorTracker(
 		),
 		vscode.workspace.onDidChangeConfiguration((e) => {
 			if (
-				e.affectsConfiguration("sail.updateDebounceMs") ||
-				e.affectsConfiguration("sail.highlightActiveString")
+				e.affectsConfiguration("tailwind-sail.updateDebounceMs") ||
+				e.affectsConfiguration("tailwind-sail.highlightActiveString")
 			) {
 				runSchedule();
 			}

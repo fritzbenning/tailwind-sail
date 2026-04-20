@@ -1,74 +1,101 @@
 {
-	"name": "sail",
-	"displayName": "Sail",
-	"description": "the missing sail for Tailwind",
-	"version": "0.0.1",
+	"name": "tailwind-sail",
+	"publisher": "Friddle",
+	"displayName": "Tailwind Sail",
+	"icon": "assets/icon.png",
+	"description": "Tailwind sidebar for browsing, filtering, and editing class strings.",
+	"version": "0.1.1",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fritzbenning/tailwind-sail"
+	},
+	"homepage": "https://github.com/fritzbenning/tailwind-sail#readme",
+	"bugs": {
+		"url": "https://github.com/fritzbenning/tailwind-sail/issues"
+	},
 	"engines": {
 		"vscode": "^1.105.0"
 	},
 	"categories": [
-		"Other"
+		"Visualization"
+	],
+	"keywords": [
+		"tailwind",
+		"tailwindcss",
+		"css",
+		"utilities"
+	],
+	"badges": [
+		{
+			"url": "https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white",
+			"href": "https://tailwindcss.com/docs",
+			"description": "Tailwind"
+		}
 	],
 	"activationEvents": [
 		"onStartupFinished"
 	],
-	"main": "./out/extension.js",
+	"main": "./dist/extension.js",
 	"contributes": {
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "sail",
-					"title": "Sail",
+					"id": "tailwind-sail",
+					"title": "Tailwind Sail",
 					"icon": "assets/sail-icon.svg"
 				}
 			]
 		},
 		"views": {
-			"sail": [
+			"tailwind-sail": [
 				{
-					"id": "sail.sidebar",
-					"name": "Sail",
+					"id": "tailwind-sail.sidebar",
+					"name": "Tailwind Sail",
 					"type": "webview"
 				}
 			]
 		},
 		"commands": [
 			{
-				"command": "sail.showSidebar",
-				"title": "Sail: Show Sidebar",
-				"category": "Sail"
+				"command": "tailwind-sail.showSidebar",
+				"title": "Tailwind Sail: Show Sidebar",
+				"category": "Tailwind Sail"
 			},
 			{
-				"command": "sail.refresh",
-				"title": "Sail: Refresh",
-				"category": "Sail"
+				"command": "tailwind-sail.refresh",
+				"title": "Tailwind Sail: Refresh",
+				"category": "Tailwind Sail"
 			}
 		],
 		"configuration": {
-			"title": "Sail",
+			"title": "Tailwind Sail",
 			"properties": {
-				"sail.updateDebounceMs": {
+				"tailwind-sail.updateDebounceMs": {
 					"type": "number",
 					"default": 20,
 					"minimum": 0,
-					"markdownDescription": "Delay in milliseconds before Sail re-runs string detection and Tailwind parsing after cursor position or document changes."
+					"markdownDescription": "Delay in milliseconds before Tailwind Sail re-runs string detection and Tailwind parsing after cursor position or document changes."
 				},
-				"sail.highlightActiveString": {
+				"tailwind-sail.highlightActiveString": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Underline the active string literal in the editor."
+					"markdownDescription": "Underline the active string literal Tailwind Sail is using in the editor."
 				}
 			}
 		}
 	},
 	"scripts": {
 		"vscode:prepublish": "pnpm run compile",
-		"compile": "pnpm run compile:ui && tsc -p ./",
+		"compile": "pnpm run compile:ui && tsc -p ./ && pnpm run bundle:ext",
 		"compile:ui": "pnpm --filter ui run build",
-		"watch": "tsc -watch -p ./",
+		"bundle:ext": "esbuild src/extension.ts --bundle --platform=node --target=es2022 --format=cjs --sourcemap --external:vscode --outfile=dist/extension.js",
+		"watch": "concurrently -n tsc,esbuild -c blue,magenta \"tsc -watch -p ./\" \"pnpm run bundle:ext -- --watch\"",
 		"pretest": "pnpm run compile && pnpm run lint",
 		"lint": "biome check .",
-		"test": "vscode-test"
+		"test": "vscode-test",
+		"vsix": "pnpm exec vsce package --no-dependencies",
+		"publish:vsix": "pnpm exec vsce publish --no-dependencies"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.12",
@@ -77,6 +104,9 @@
 		"@types/vscode": "^1.105.0",
 		"@vscode/test-cli": "^0.0.12",
 		"@vscode/test-electron": "^2.5.2",
+		"@vscode/vsce": "^3.9.1",
+		"concurrently": "^9.2.1",
+		"esbuild": "^0.28.0",
 		"typescript": "~6.0.2"
 	}
 }

@@ -1,9 +1,12 @@
 .vscode/**
 .vscode-test/**
+out/**
 src/**
 ui/**
 .gitignore
 .yarnrc
+pnpm-lock.yaml
+pnpm-workspace.yaml
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/biome.json

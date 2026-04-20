@@ -4,9 +4,10 @@ import { getBreakpointScaleIndex } from "./getBreakpointScaleIndex";
 /**
  * Sort key tuple for a breakpoint filter chip: tier, scale index, max/bare/min variant, tie-break string.
  *
- * @example
- * // Input: `'md'` (bare breakpoint key)
- * // Output: `[0, 2, 1, 'md']` (tier 0, scale index 2, bare `min` slot1)
+ * @param key - Bare breakpoint id (`md`, `max-lg`, …).
+ * @returns Tuple for stable ordering.
+ *
+ * @example getBreakpointSortTuple("md") => [0, 2, 1, "md"]
  */
 export function getBreakpointSortTuple(
 	key: string,

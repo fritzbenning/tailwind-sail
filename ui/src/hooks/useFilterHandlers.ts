@@ -1,7 +1,15 @@
 import type { Accessor } from "solid-js";
 import type { FilterState } from "../lib";
 
-/** Handlers for utility / variant filter chips in the class list sidebar. */
+/**
+ * Handlers for utility / variant filter chips in the class list sidebar.
+ *
+ * @param filter - Current filter {@link Accessor}.
+ * @param patchFilter - Partial merge from {@link useFilter}.
+ * @returns `onUtilityClick` and `onVariantClick` callbacks.
+ *
+ * @example `useFilterHandlers(filter, patchFilter).onUtilityClick("text")` toggles the text utility chip.
+ */
 export function useFilterHandlers(
 	filter: Accessor<FilterState>,
 	patchFilter: (patch: Partial<FilterState>) => void,

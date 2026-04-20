@@ -14,7 +14,7 @@ export function RemoveButton(props: { tokenIndex: number }) {
 				e.preventDefault();
 				e.stopPropagation();
 				vscode.postMessage({
-					type: "sailRemoveClass",
+					type: "tailwind-sail-remove-class",
 					tokenIndex: props.tokenIndex,
 				});
 			}}

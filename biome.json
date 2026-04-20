@@ -23,11 +23,7 @@
 			"linter": { "enabled": false }
 		},
 		{
-			"includes": [
-				"src/**/*.ts",
-				"ui/src/**/*.ts",
-				"ui/src/**/*.tsx"
-			],
+			"includes": ["src/**/*.ts", "ui/src/**/*.ts", "ui/src/**/*.tsx"],
 			"linter": {
 				"rules": {
 					"style": {

@@ -4,25 +4,24 @@ import { stripBorderEdgePrefix } from "./stripBorderEdgePrefix";
 
 /**
  * For a known color-related utility prefix, return the substring that describes the solid color
+ *
  * for mapping to `bg-{tail}`, or `null` when the tail is not a color (e.g. `text-center`).
  *
  * @param prefix — First segment of the base utility (`text`, `bg`, `border`, …).
  * @param rest — Everything after the first `-` in the base utility.
  * @returns The color tail to reuse under `bg-`, or `null`.
  *
- * @example
- * Input: `prefix: "text"`, `rest: "red-500"` → Output: `"red-500"`
+ * @example getColorTailForSolidBg("text", "red-500") => "red-500"
  *
- * @example
- * Input: `prefix: "text"`, `rest: "center"` → Output: `null` (typography, not color)
+ * @example getColorTailForSolidBg("text", "center") => null
+ * @example getColorTailForSolidBg("border", "t-red-500") => "red-500"
  *
- * @example
- * Input: `prefix: "border"`, `rest: "t-red-500"` → Output: `"red-500"`
- *
- * @example
- * Input: `prefix: "fill"`, `rest: "emerald-400"` → Output: `"emerald-400"`
+ * @example getColorTailForSolidBg("fill", "emerald-400") => "emerald-400"
  */
-export function getColorTailForSolidBg(prefix: string, rest: string): string | null {
+export function getColorTailForSolidBg(
+	prefix: string,
+	rest: string,
+): string | null {
 	if (prefix === "bg") {
 		if (isBgNonColorRest(rest)) {
 			return null;

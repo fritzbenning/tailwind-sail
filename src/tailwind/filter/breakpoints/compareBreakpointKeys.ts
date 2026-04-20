@@ -2,15 +2,15 @@ import { getBreakpointSortTuple } from "./getBreakpointSortTuple";
 
 /**
  * Comparator for breakpoint chip keys: responsive scale order, not alphabetical (`lg` after `md`).
+ *
  * The synthetic `base` chip is handled in {@link sortBreakpointsChipKeys}, not here.
  *
- * @example
- * // Input: `compareBreakpointKeys('lg', 'md')`
- * // Output: negative number (`md` sorts before `lg`)
+ * @param a - First breakpoint chip key.
+ * @param b - Second breakpoint chip key.
+ * @returns Negative if `a` sorts before `b`, positive if after, `0` if equal tier.
  *
- * @example
- * // Input: `compareBreakpointKeys('sm', 'sm')`
- * // Output: `0`
+ * @example compareBreakpointKeys("lg", "md") => negative
+ * @example compareBreakpointKeys("sm", "sm") => 0
  */
 export function compareBreakpointKeys(a: string, b: string): number {
 	const ta = getBreakpointSortTuple(a);

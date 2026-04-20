@@ -70,9 +70,7 @@ export function ClassList(props: ClassListProps) {
 			<ScrollPanel>
 				<ul class="m-0 flex list-none flex-col p-0 gap-1">
 					<For each={currentClasses()}>
-						{(item) => (
-							<ClassItem item={item} panel={panel()} filter={filter()} />
-						)}
+						{(item) => <ClassItem item={item} panel={panel} filter={filter} />}
 					</For>
 				</ul>
 			</ScrollPanel>

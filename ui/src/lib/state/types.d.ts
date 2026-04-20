@@ -1,8 +1,6 @@
 import type { FilterDimensionId } from "@ext/filter";
 
-export type UtilityState =
-	| { kind: "all" }
-	| { kind: "utility"; id: string };
+export type UtilityState = { kind: "all" } | { kind: "utility"; id: string };
 
 export type VariantState = Record<FilterDimensionId, string>;
 

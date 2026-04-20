@@ -1,9 +1,10 @@
 /**
  * Orders State-row chips: synthetic `idle` first, then locale sort of the rest.
  *
- * @example
- * // Input: `['hover', 'idle', 'focus']`
- * // Output: `['idle', 'focus', 'hover']`
+ * @param keys - Raw chip keys.
+ * @returns Sorted keys for the state row.
+ *
+ * @example sortStateChipKeys(["hover", "idle", "focus"]) => ["idle", "focus", "hover"]
  */
 export function sortStateChipKeys(keys: readonly string[]): string[] {
 	const idle = "idle";

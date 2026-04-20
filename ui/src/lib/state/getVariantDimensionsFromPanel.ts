@@ -4,11 +4,10 @@ import type { PanelModal } from "../../types";
 /**
  * Returns the set of variant dimensions configured on the current panel (from `panel.variants`).
  *
- * @example
- * // Input panel.variants:
- * //   [{ dimension: "screens", value: [...] }, { dimension: "theme", value: [...] }]
- * // Output:
- * //   Set { "screens", "theme" }
+ * @param panel - Panel model from the extension.
+ * @returns Set of dimension ids exposed in the UI.
+ *
+ * @example getVariantDimensionsFromPanel({ variants: [{ dimension: "breakpoints", value: [] }] }).has("breakpoints") => true
  */
 export function getVariantDimensionsFromPanel(
 	panel: PanelModal,

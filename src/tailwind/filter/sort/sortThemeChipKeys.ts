@@ -1,9 +1,10 @@
 /**
  * Orders theme chips: `light`, then `dark`, then other keys sorted.
  *
- * @example
- * // Input: `['dark', 'light', 'theme-midnight']`
- * // Output: `['light', 'dark', 'theme-midnight']`
+ * @param keys - Raw chip keys.
+ * @returns Sorted keys for the theme row.
+ *
+ * @example sortThemeChipKeys(["dark", "light", "theme-midnight"]) => ["light", "dark", "theme-midnight"]
  */
 export function sortThemeChipKeys(keys: readonly string[]): string[] {
 	const light = "light";

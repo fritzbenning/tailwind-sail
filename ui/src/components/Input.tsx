@@ -9,19 +9,32 @@ const inlineFieldClass = `${inlineInputClass} w-full w-auto max-w-none flex-1`;
 const filledInputClass =
 	"class-token-input box-border m-0 min-w-0 w-full max-w-full flex-1 rounded-sm border border-(--vscode-input-border,var(--vscode-widget-border)) bg-(--vscode-input-background) px-1.5 py-1 text-[0.85em] leading-[1.35] text-(--vscode-input-foreground) outline-none font-(family-name:--vscode-editor-font-family) focus:border-(--vscode-focusBorder)";
 
+/**
+ * Props for {@link Input}.
+ *
+ * @property variant - Inline: token row (transparent until hover). Filled: panel fields.
+ *
+ * @example `{ variant: "inline", value: "p-4" }`
+ */
 export type InputProps = {
-	/** Inline: token row (transparent until hover). Filled: panel fields (input background). */
 	variant?: "inline" | "filled";
 } & Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "class"> & {
 		class?: string;
 	};
 
+/**
+ * Styled text input for class tokens or panel fields.
+ *
+ * @param props - Input props; default `variant` is `"filled"`.
+ * @returns `<input>` with VS Code-themed classes.
+ *
+ * @example `<Input value={v} onInput={...} variant="inline" />`
+ */
 export function Input(props: InputProps) {
 	const [local, rest] = splitProps(props, ["variant", "class"]);
 	const variant = () => local.variant ?? "filled";
 	const classList = () => {
-		const base =
-			variant() === "inline" ? inlineFieldClass : filledInputClass;
+		const base = variant() === "inline" ? inlineFieldClass : filledInputClass;
 		return [base, local.class].filter(Boolean).join(" ");
 	};
 	return <input {...rest} class={classList()} />;

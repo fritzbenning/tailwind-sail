@@ -4,14 +4,9 @@ import type { VariantState } from "./types";
 /**
  * Builds a variant filter map with every known dimension set to `"all"` (no narrowing).
  *
- * @example
- * // Input: (none — uses Tailwind dimension ids from VARIANT_IDS)
- * // Output:
- * // {
- * //   screens: "all",
- * //   theme: "all",
- * //   ...
- * // }
+ * @returns {@link VariantState} with every id in {@link VARIANT_IDS} set to `"all"`.
+ *
+ * @example getEmptyVariantState().theme => "all"
  */
 export function getEmptyVariantState(): VariantState {
 	const o = {} as VariantState;

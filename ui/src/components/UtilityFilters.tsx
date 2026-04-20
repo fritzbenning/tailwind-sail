@@ -29,8 +29,8 @@ export function UtilityFilters(props: {
 					return (
 						<Chip
 							isActive={isActive}
-							data-sail-filter-kind="utility"
-							data-sail-utility={utility.id}
+							data-tailwind-sail-filter-kind="utility"
+							data-tailwind-sail-utility={utility.id}
 							onClick={() => props.onUtilityClick(utility.id)}
 						>
 							{utility.id}

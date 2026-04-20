@@ -1,6 +1,6 @@
-# Sail UI
+# Tailwind Sail UI
 
-The **Sail** sidebar is a small **SolidJS** application bundled with **Vite** and styled with **Tailwind CSS v4** (`@tailwindcss/vite`). It is not a standalone site: the production bundle is loaded inside the extension’s webview from `dist/ui/` at the **workspace root** (see `vite.config.ts`).
+The **Tailwind Sail** sidebar is a small **SolidJS** application bundled with **Vite** and styled with **Tailwind CSS v4** (`@tailwindcss/vite`). It is not a standalone site: the production bundle is loaded inside the extension’s webview from `dist/ui/` at the **workspace root** (see `vite.config.ts`).
 
 ## Stack
 

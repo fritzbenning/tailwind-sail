@@ -10,11 +10,14 @@ import type { WebviewModal } from "../types";
 
 /**
  * Sidebar filter state (search, utility chip, variant chips, prefix toggle) scoped to the
+ *
  * webview. When the host panel modal changes such that the current filter is invalid,
  * the filter resets to defaults.
  *
- * @param model - Reactive {@link WebviewModal}; only `kind === "panel"` validates against filter shape
- * @returns `filter` signal, `patchFilter` / `resetFilter`, and raw `setFilter` for full replacement
+ * @param model - Reactive {@link WebviewModal}; only `kind === "panel"` validates against filter shape.
+ * @returns `filter` signal, `patchFilter` / `resetFilter`, and `setFilter`.
+ *
+ * @example `const { filter, patchFilter } = useFilter(model);` — read and update client filters.
  */
 export function useFilter(model: Accessor<WebviewModal>) {
 	const [filter, setFilter] = createSignal<FilterState>(

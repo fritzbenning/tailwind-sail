@@ -1,20 +1,11 @@
 /**
- * Advances past a block comment that starts with slash-star at `start`. `start` must be the index
- * of the first `/`. If the closing star-slash pair is never found, returns `text.length`.
+ * Skips a C-style block comment starting at `start` (the `/` before the `*`); returns `text.length` if the close delimiter is missing.
  *
- * @param text - Full source text
- * @param start - Index where the block comment begins (`/` of slash-star)
- * @returns Index immediately after the closing delimiter, or `text.length` if unterminated
+ * @param text - Full source.
+ * @param start - Index of the opening `/`.
+ * @returns Index immediately after the closing delimiter, or `text.length` if unterminated.
  *
- * @example
- * const text = 'before /' + '* note *' + '/ after';
- * skipBlockComment(text, 7);
- * // → 17  // index of the space before `after`
- *
- * @example
- * const open = '/*' + ' unfinished';
- * skipBlockComment(open, 0);
- * // → 13  // `text.length` when there is no closing delimiter
+ * @example skipBlockComment("\u002f* x *\u002f", 0) => 7
  */
 export function skipBlockComment(text: string, start: number): number {
 	let i = start + 2;

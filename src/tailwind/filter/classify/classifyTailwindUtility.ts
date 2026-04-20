@@ -1,7 +1,12 @@
 import { UTILITY_CATEGORIES } from "../categories";
 
 /**
- * Returns a utility category id for a utility segment (variants already split off).
+ * Maps a normalized utility string to a sidebar category id.
+ *
+ * @param utility - Utility without variant prefixes.
+ * @returns Category id string (e.g. `box`, `text`, `others`).
+ *
+ * @example classifyTailwindUtility("p-4") => "box"
  */
 export function classifyTailwindUtility(utility: string): string {
 	if (!utility) {

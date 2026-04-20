@@ -1,6 +1,14 @@
 import { stripLightPrefix } from "./stripLightPrefix";
 
-/** Keeps the add-class input in sync when sidebar variant filters change. */
+/**
+ * Keeps the add-class input in sync when sidebar variant filters change.
+ *
+ * @param input - The add-class `<input>` element (uses `dataset.variantPrefix`).
+ * @param variantPrefix - New prefix string from variant filters.
+ * @returns Nothing; mutates `input.value` when the prefix changes.
+ *
+ * @example applyVariantPrefix(input, "dark:") — rewrites value to keep body after prefix stable.
+ */
 export function applyVariantPrefix(
 	input: HTMLInputElement,
 	variantPrefix: string,

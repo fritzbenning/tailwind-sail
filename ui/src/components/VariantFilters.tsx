@@ -21,7 +21,7 @@ export function VariantFilters(props: {
 	return (
 		<For each={statefulVariants()}>
 			{({ variant, isActive }) => (
-				<Section data-sail-filter-row={variant.dimension}>
+				<Section data-tailwind-sail-filter-row={variant.dimension}>
 					<SectionTitle>{variant.label}</SectionTitle>
 					<ChipList>
 						<For each={variant.value}>

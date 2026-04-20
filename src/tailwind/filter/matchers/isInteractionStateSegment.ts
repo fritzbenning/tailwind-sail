@@ -1,20 +1,15 @@
 import { INTERACTION_EXACT } from "../constants";
 
 /**
- * `true` for interaction / state variants (`hover:`, `group-hover:`, `peer-focus:`, `in-…`, …).
- * Excludes logical `has-` / `not-` and arbitrary `in-[…]`.
+ * Whether `segment` is a state/interaction variant key (`hover`, `group-…`, `peer-…`, `in-…`, …). Excludes `has-` / `not-` and `in-[…]`.
  *
- * @example
- * // Input: `'hover'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for state-row interaction variants.
  *
- * @example
- * // Input: `'group-hover'`
- * // Output: `true`
+ * @example isInteractionStateSegment("hover") => true
  *
- * @example
- * // Input: `'has-[.x]'` (logical row)
- * // Output: `false`
+ * @example isInteractionStateSegment("group-hover") => true
+ * @example isInteractionStateSegment("has-[.x]") => false
  */
 export function isInteractionStateSegment(segment: string): boolean {
 	const l = segment.toLowerCase();

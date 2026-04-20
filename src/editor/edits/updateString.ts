@@ -4,8 +4,14 @@ import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
 import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 
 /**
- * Replaces the token at `tokenIndex` in the string under the primary cursor with `newValue`.
- * Returns whether an edit was applied.
+ * Replaces the class token at `tokenIndex` in the active string literal.
+ *
+ * @param editor - Active text editor.
+ * @param tokenIndex - Index in the parsed class list.
+ * @param newValue - Replacement token (no whitespace).
+ * @returns Whether the document edit applied.
+ *
+ * @example await updateString(editor, 0, "m-auto") => true
  */
 export async function updateString(
 	editor: vscode.TextEditor,

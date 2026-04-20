@@ -1,15 +1,14 @@
 import { MEDIA_FEATURE_EXACT } from "../constants";
 
 /**
- * `true` for media / `@media` feature style variants (`print:`, `motion-reduce:`, …).
+ * Whether `segment` is a media / `@media` feature variant key (not breakpoints).
  *
- * @example
- * // Input: `'print'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for known media-feature keys.
  *
- * @example
- * // Input: `'md'` (breakpoint, not this bucket)
- * // Output: `false`
+ * @example isMediaFeatureSegment("print") => true
+ *
+ * @example isMediaFeatureSegment("md") => false
  */
 export function isMediaFeatureSegment(segment: string): boolean {
 	const l = segment.toLowerCase();

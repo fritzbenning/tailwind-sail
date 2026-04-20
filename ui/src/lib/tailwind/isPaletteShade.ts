@@ -6,17 +6,12 @@ import { PALETTE, SHADE } from "./constants";
  * @param rest — Color tail such as `red-500` or `slate-900/50` (only the part before `/` is considered).
  * @returns `true` if both name and shade match built-in palette keys.
  *
- * @example
- * Input: `"red-500"` → Output: `true`
+ * @example isPaletteShade("red-500") => true
  *
- * @example
- * Input: `"red-500/80"` → Output: `true` (shade still `500`)
+ * @example isPaletteShade("red-500/80") => true
+ * @example isPaletteShade("red") => false
  *
- * @example
- * Input: `"red"` → Output: `false`
- *
- * @example
- * Input: `"foo-500"` → Output: `false` (unknown palette name)
+ * @example isPaletteShade("foo-500") => false
  */
 export function isPaletteShade(rest: string): boolean {
 	const head = rest.split("/")[0] ?? "";

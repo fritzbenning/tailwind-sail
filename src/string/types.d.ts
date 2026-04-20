@@ -1,12 +1,15 @@
 import type * as vscode from "vscode";
 
 /**
- * Maps a contiguous slice of the logical `rawContent` string (concatenated static template spans)
- * to a contiguous range in the source document. Used to apply edits to individual class tokens.
+ * Maps a slice of merged `rawContent` to document offsets for edits.
  *
- * @example
- * // For `const x = "flex gap-2";`, `rawContent` is `flex gap-2` and one segment covers all of it:
- * { rawStart: 0, rawEnd: 10, docStart: 11, docEnd: 21 }
+ * @property rawStart - Inclusive start in logical `rawContent`.
+ *
+ * @property rawEnd - Exclusive end in logical `rawContent`.
+ * @property docStart - Inclusive document offset.
+ *
+ * @property docEnd - Exclusive document offset.
+ * @example { rawStart: 0, rawEnd: 4, docStart: 11, docEnd: 15 }
  */
 export interface RawToDocSegment {
 	readonly rawStart: number;
@@ -16,12 +19,14 @@ export interface RawToDocSegment {
 }
 
 /**
- * Result of locating a string literal at the active cursor.
- * `range` spans the full literal in the document, including opening/closing delimiters.
+ * String at the cursor: `range` includes delimiters; `rawContent` excludes them.
  *
- * @example
- * // Cursor inside the quotes in `const x = "flex gap-2";`
- * // → rawContent: `flex gap-2`, range includes both ASCII quote delimiters, segments map `rawContent` into the file
+ * @property rawContent - Inside the quotes, escapes applied as in source.
+ *
+ * @property range - Full literal in the document.
+ * @property rawToDocSegments - Maps `rawContent` indices to file offsets.
+ *
+ * @example See tests for `extractStringAtCursor` payloads.
  */
 export interface ExtractedString {
 	readonly rawContent: string;
@@ -30,11 +35,15 @@ export interface ExtractedString {
 }
 
 /**
- * Internal shape while scanning by offset (0-based indices into the document string).
+ * Offset-based extraction result (same logical content as {@link ExtractedString}).
  *
- * @example
- * // Same logical content as {@link ExtractedString} for `const x = "flex gap-2";` at cursor on `g`:
- * // { rawContent: 'flex gap-2', startOffset: 10, endOffset: 22, rawToDocSegments: [...] }
+ * @property rawContent - Logical string content.
+ *
+ * @property startOffset - Document offset of opening delimiter.
+ * @property endOffset - Document offset after closing delimiter.
+ *
+ * @property rawToDocSegments - Maps `rawContent` indices to file offsets.
+ * @example { rawContent: "p-4", startOffset: 10, endOffset: 16, rawToDocSegments: [] }
  */
 export interface ExtractedStringOffsets {
 	readonly rawContent: string;
@@ -44,18 +53,14 @@ export interface ExtractedStringOffsets {
 }
 
 /**
- * Result of consuming one syntactic construct during the string lexer (quoted literal, template, or `${}` block).
+ * Lexer step: advance to `end`; optional `extracted` when the cursor matched inside.
  *
- * @example
- * // After a double-quoted literal with cursor inside: `end` is past the closing `"`, `extracted` present
- * // → { end: 22, extracted: { rawContent: 'flex gap-2', startOffset: 10, endOffset: 22, ... } }
+ * @property end - Exclusive index after the consumed construct.
  *
- * @example
- * // After scanning a literal with cursor outside: only `end` advances the outer scan
- * // → { end: 22 }
+ * @property extracted - Present when `offset` was inside the literal.
+ * @example { end: 8, extracted: { rawContent: "ab", startOffset: 4, endOffset: 8, rawToDocSegments: [] } }
  */
 export interface ScanResult {
-	/** Index immediately after the consumed construct (exclusive). */
 	readonly end: number;
 	readonly extracted?: ExtractedStringOffsets;
 }

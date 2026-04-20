@@ -6,15 +6,17 @@ export type StringHighlighterHandle = {
 };
 
 /**
- * Underlines the string literal Sail is currently analyzing so it stays visually linked to the
- * sidebar. Clears the same decoration on all visible editors first so inactive splits do not keep
- * a stale highlight when focus moves.
+ * Underlines the analyzed string literal when the Sail view is visible; clears stale decorations on other editors.
  *
- * Underlines apply only while the Sail sidebar webview is visible (see `isSailViewVisible`).
+ * @param context - Extension context for `createTextEditorDecorationType` disposal.
+ * @param isTailwindSailViewVisible - Predicate gating the highlight.
+ * @returns Handle with `refresh(snapshot)` to update decorations.
+ *
+ * @example registerStringHighlighter(context, () => true).refresh(snapshot) — void; updates underlines.
  */
 export function registerStringHighlighter(
 	context: vscode.ExtensionContext,
-	isSailViewVisible: () => boolean,
+	isTailwindSailViewVisible: () => boolean,
 ): StringHighlighterHandle {
 	const decorationType = vscode.window.createTextEditorDecorationType({
 		rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
@@ -29,13 +31,13 @@ export function registerStringHighlighter(
 		}
 
 		const enabled = vscode.workspace
-			.getConfiguration("sail")
+			.getConfiguration("tailwind-sail")
 			.get<boolean>("highlightActiveString", true);
 		if (!enabled) {
 			return;
 		}
 
-		if (!isSailViewVisible()) {
+		if (!isTailwindSailViewVisible()) {
 			return;
 		}
 

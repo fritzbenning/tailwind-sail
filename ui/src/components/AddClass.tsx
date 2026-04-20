@@ -34,7 +34,7 @@ export function AddClass(props: { variantPrefix: Accessor<string> }) {
 
 			if (className.length > 0) {
 				vscode.postMessage({
-					type: "sailAddClass",
+					type: "tailwind-sail-add-class",
 					className: inputValue,
 				});
 

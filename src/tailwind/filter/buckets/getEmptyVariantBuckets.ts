@@ -1,20 +1,14 @@
 import type { FilterDimensionId } from "../variants";
 
-/**
- * Per-dimension lists of unique variant keys (no trailing `:`) for one class’s modifiers.
- *
- * @example
- * // Input: `getVariantBuckets(['dark:', 'md:', 'hover:'])`
- * // Output: `{ theme: ['dark'], breakpoints: ['md'], state: ['hover'], … }` (other keys `[]`)
- */
+/** Per-dimension variant keys (no trailing `:`) for one class. */
 export type VariantBuckets = Record<FilterDimensionId, string[]>;
 
 /**
- * Empty bucket map: every dimension starts with an empty array.
+ * Fresh bucket map with every dimension set to `[]`.
  *
- * @example
- * // Input: `getEmptyVariantBuckets().state`
- * // Output: `[]`
+ * @returns Empty `VariantBuckets` object.
+ *
+ * @example getEmptyVariantBuckets().state.length => 0
  */
 export function getEmptyVariantBuckets(): VariantBuckets {
 	return {

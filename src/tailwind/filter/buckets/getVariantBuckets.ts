@@ -6,12 +6,12 @@ import type { VariantBuckets } from "./getEmptyVariantBuckets";
 import { getEmptyVariantBuckets } from "./getEmptyVariantBuckets";
 
 /**
- * Groups variant prefixes (`md:`, `hover:`, …) into per-dimension unique keys, sorted.
- * Duplicates in `modifiers` are collapsed; breakpoint keys use responsive order, other dimensions use locale sort.
+ * Buckets variant prefixes into sorted unique keys per dimension (breakpoint order vs locale sort).
  *
- * @example
- * // Input: `['dark:', 'md:', 'hover:', 'md:']`
- * // Output: `{ theme: ['dark'], breakpoints: ['md'], state: ['hover'], … }` (empty arrays for unused dimensions)
+ * @param modifiers - Variant prefixes with trailing `:` from one class.
+ * @returns Per-dimension unique keys (no trailing `:`).
+ *
+ * @example getVariantBuckets(["dark:", "md:", "hover:", "md:"]).theme => ["dark"]
  */
 export function getVariantBuckets(
 	modifiers: readonly string[],

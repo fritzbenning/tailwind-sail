@@ -1,13 +1,12 @@
 /**
- * `true` when the segment is a `@supports` variant (`supports-…:`).
+ * Whether `segment` is a `supports-…:` variant key.
  *
- * @example
- * // Input: `'supports-grid'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` when the segment starts with `supports-`.
  *
- * @example
- * // Input: `'grid'`
- * // Output: `false`
+ * @example isSupportsSegment("supports-grid") => true
+ *
+ * @example isSupportsSegment("grid") => false
  */
 export function isSupportsSegment(segment: string): boolean {
 	return segment.toLowerCase().startsWith("supports-");

@@ -1,13 +1,10 @@
 /**
- * `true` for direction variants `ltr:` / `rtl:`.
+ * Whether `segment` is `ltr` or `rtl`.
  *
- * @example
- * // Input: `'rtl'`
- * // Output: `true`
+ * @param segment - Variant segment without trailing `:`.
+ * @returns `true` for `ltr` or `rtl`.
  *
- * @example
- * // Input: `'ltr'`
- * // Output: `true`
+ * @example isDirSegment("rtl") => true
  */
 export function isDirSegment(segment: string): boolean {
 	const l = segment.toLowerCase();

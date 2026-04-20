@@ -7,18 +7,14 @@ import type { VariantState } from "../state/types";
 
 /**
  * Rebuilds the class string for display by dropping variant modifiers that are redundant
+ *
  * given the current variant filter (e.g. hide the `md:` prefix when `screens` is filtered to `md`).
  *
- * @example
- * // Input:
- * //   fullClass = "md:hover:text-red-500"
- * //   variantEff = { screens: "md", ... }
- * // Output:
- * //   "hover:text-red-500"   // "md:" stripped because screens is pinned to md
+ * @param fullClass - Full class token with variants.
+ * @param variantEff - Active variant chip selections per dimension.
+ * @returns Display string with redundant prefixes removed when filters pin them.
  *
- * @example
- * // Input: fullClass = "  ", variantEff = any
- * // Output: same whitespace-only string (trimmed empty → unchanged)
+ * @example getClassWithoutActiveVariant("md:hover:text-red-500", { ...empty, breakpoints: "md" }) => "hover:text-red-500" where `empty` is {@link getEmptyVariantState}.
  */
 export function getClassWithoutActiveVariant(
 	fullClass: string,
@@ -32,8 +28,8 @@ export function getClassWithoutActiveVariant(
 	const kept: string[] = [];
 	for (const mod of modifiers) {
 		const { dimension, key } = classifyVariantModifier(mod);
-		const sel = variantEff[dimension] ?? "all";
-		if (shouldStripModifierForVariantFilter(sel, dimension, key)) {
+		const selection = variantEff[dimension] ?? "all";
+		if (shouldStripModifierForVariantFilter(selection, dimension, key)) {
 			continue;
 		}
 		kept.push(mod);

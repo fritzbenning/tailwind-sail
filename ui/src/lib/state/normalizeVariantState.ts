@@ -6,11 +6,14 @@ import type { VariantState } from "./types";
 
 /**
  * Normalizes the client variant map: dimensions the panel does not expose are forced to `"all"`;
+ *
  * exposed dimensions keep the client value (or `"all"` if unset).
  *
- * @example
- * // Input: panel exposes only "screens", variantState.screens = "md", variantState.theme = "dark"
- * // Output: { ..., screens: "md", theme: "all", ... }  // theme reset because not on panel
+ * @param panel - Panel model listing visible variant rows.
+ * @param variantState - Raw client variant selections.
+ * @returns Sanitized {@link VariantState} aligned with the panel.
+ *
+ * @example normalizeVariantState(panel, { ...state, theme: "dark" }).theme => "all" when the panel has no theme row.
  */
 export function normalizeVariantState(
 	panel: PanelModal,

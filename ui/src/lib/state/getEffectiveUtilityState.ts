@@ -4,13 +4,11 @@ import type { UtilityState } from "./types";
 /**
  * If the panel exposes no utility chips, the effective filter is always “all”; otherwise it is the client’s selection.
  *
- * @example
- * // Input: panel.utilities = [], utilityState = { kind: "utility", id: "text" }
- * // Output: { kind: "all" }
+ * @param panel - Panel model from the extension.
+ * @param utilityState - Client utility filter selection.
+ * @returns Effective utility state for list filtering.
  *
- * @example
- * // Input: panel.utilities = [{ id: "text", ... }], utilityState = { kind: "utility", id: "text" }
- * // Output: { kind: "utility", id: "text" }
+ * @example getEffectiveUtilityState({ ...panel, utilities: [] }, { kind: "utility", id: "text" }) => { kind: "all" }
  */
 export function getEffectiveUtilityState(
 	panel: PanelModal,
