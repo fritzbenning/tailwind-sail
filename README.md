@@ -16,23 +16,7 @@
 | `tailwind-sail.updateDebounceMs` | `20` | Milliseconds to wait after cursor or document changes before Tailwind Sail re-runs string detection and Tailwind parsing. |
 | `tailwind-sail.highlightActiveString` | `true` | Underline the string literal Tailwind Sail is currently using. |
 
-## Development
-
-This repo is a **pnpm workspace**: the VS Code extension lives at the root, and the sidebar UI is the `ui` package (SolidJS + Vite + Tailwind). See [ui/README.md](ui/README.md) for UI-specific workflows.
-
-From the repository root:
-
-```bash
-pnpm install
-pnpm run compile
-```
-
-- **Run the extension** — Open this folder in VS Code and start **Run Extension** (F5). The default build task runs TypeScript in watch mode; run `pnpm run compile` once so `dist/ui` exists before the first launch, or after UI changes if you are not rebuilding the UI separately.
-
-```bash
-pnpm run lint
-pnpm test
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) to build from source or contribute.
 
 ## License
 
