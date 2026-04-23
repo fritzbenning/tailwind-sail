@@ -35,9 +35,9 @@ export function ClassItem(props: {
 	);
 
 	return (
-		<li class="relative group">
+		<li class="relative group group/line">
 			<ClassDot />
-			<div class="flex min-w-0 items-center gap-1.5">
+			<div class="flex min-w-0 items-center gap-0.5">
 				<Input
 					variant="inline"
 					class="class-token-input"

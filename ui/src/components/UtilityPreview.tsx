@@ -44,7 +44,7 @@ export function UtilityPreview(props: {
 					{(bc) => <ColorSwatch backgroundColorClass={bc()} />}
 				</Show>
 				<Show when={!bg() && raw()}>
-					<span class="truncate font-mono text-[0.65rem] text-(--vscode-descriptionForeground)">
+					<span class="truncate font-mono text-3xs text-(--vscode-descriptionForeground)">
 						{raw()}
 					</span>
 				</Show>

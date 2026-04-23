@@ -2,6 +2,16 @@
 @import "simplebar/dist/simplebar.css";
 
 /**
+ * Extra type scale: one step below `text-xs` (0.75rem) for compact UI (inputs, metadata).
+ */
+@theme {
+	--text-3xs: 0.625rem;
+	--text-3xs--line-height: 0.6875rem;
+	--text-2xs: 0.6875rem;
+	--text-2xs--line-height: 0.75rem;
+}
+
+/**
  * `bg-*` palette
  */
 @source inline("bg-{black,white,transparent,inherit,current}");

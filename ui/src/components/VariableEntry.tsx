@@ -1,5 +1,4 @@
 import { Show } from "solid-js";
-import { getVariableDisplayTitle } from "../lib/css/getVariableDisplayTitle";
 import { getVariableSwatchDescriptor } from "../lib/css/getVariableSwatchDescriptor";
 import type { CssVariableEntry } from "../types";
 import { ColorSwatch } from "./ColorSwatch";
@@ -21,7 +20,7 @@ export function VariableEntry(props: {
 				<div class="flex min-w-0 items-start gap-3 justify-between">
 					<div class="min-w-0 flex-1">
 						<div class="text-(--vscode-foreground) text-xs">
-							{getVariableDisplayTitle(props.entry.name)}
+							{props.entry.name}
 						</div>
 						<div class="truncate text-(--vscode-descriptionForeground)">
 							{props.entry.value}

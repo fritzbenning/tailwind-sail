@@ -43,7 +43,7 @@ export function Input(props: InputProps) {
 		<input
 			{...rest}
 			class={[
-				"box-border m-0 rounded-sm px-1.5 py-1 text-[0.85em] outline-none font-(family-name:--vscode-editor-font-family)",
+				"box-border m-0 rounded-sm px-1.5 py-1.5 text-2xs outline-none font-(family-name:--vscode-editor-font-family)",
 				inputVariants({ variant: local.variant ?? "filled" }),
 				local.class,
 			]
