@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"class-variance-authority": "^0.7.1",
+		"simplebar": "^6.3.3",
 		"solid-js": "^1.9.12",
 		"tailwind-merge": "^3.5.0"
 	},
