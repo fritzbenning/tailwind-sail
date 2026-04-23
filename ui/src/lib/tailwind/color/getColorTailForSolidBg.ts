@@ -1,6 +1,6 @@
-import { BORDER_NON_COLOR, TEXT_NON_COLOR } from "./constants";
+import { BORDER_NON_COLOR, TEXT_NON_COLOR } from "../constants";
 import { isBgNonColorRest } from "./isBgNonColorRest";
-import { stripBorderEdgePrefix } from "./stripBorderEdgePrefix";
+import { stripBorderEdgePrefix } from "../class/stripBorderEdgePrefix";
 
 /**
  * For a known color-related utility prefix, return the substring that describes the solid color

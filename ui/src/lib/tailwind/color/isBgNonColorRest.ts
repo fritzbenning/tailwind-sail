@@ -1,4 +1,4 @@
-import { BG_NON_COLOR } from "./constants";
+import { BG_NON_COLOR } from "../constants";
 
 /**
  * Whether the `bg-*` tail is a non-color concern (sizing, repeat, gradient, etc.).

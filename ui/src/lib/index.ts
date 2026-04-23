@@ -17,4 +17,4 @@ export type {
 	VariantState,
 } from "./state/types";
 export { validateFilterState } from "./state/validateFilterState";
-export { getClassNameFromInputValue } from "./tailwind/getClassNameFromInputValue";
+export { getClassNameFromInputValue } from "./tailwind/class/getClassNameFromInputValue";

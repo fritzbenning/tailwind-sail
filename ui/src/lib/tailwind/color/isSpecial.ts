@@ -1,4 +1,4 @@
-import { SPECIAL_COLOR } from "./constants";
+import { SPECIAL_COLOR } from "../constants";
 
 /**
  * Whether the color tail starts with a built-in named color (`black`, `white`, `transparent`, …).

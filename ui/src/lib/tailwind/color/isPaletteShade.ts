@@ -1,4 +1,4 @@
-import { PALETTE, SHADE } from "./constants";
+import { PALETTE, SHADE } from "../constants";
 
 /**
  * Whether `rest` is a default Tailwind palette color plus numeric shade (opacity suffix ignored).
