@@ -1,4 +1,8 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "@vscode/test-cli";
+
+const repoRoot = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
 	tests: [
@@ -7,6 +11,8 @@ export default defineConfig({
 			mocha: {
 				timeout: 30_000,
 			},
+			// So `workspace.workspaceFolders` and workspace-scoped settings work in tests
+			workspaceFolder: repoRoot,
 		},
 	],
 });

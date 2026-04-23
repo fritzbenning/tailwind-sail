@@ -14,7 +14,7 @@ import { isClassMatchingVariantState } from "./isClassMatchingVariantState";
  * @param filterState - Client utility, variant, and search state.
  * @returns `true` when utility, variant, and search predicates all pass.
  *
- * @example isClassInScope({ fullClass: "md:flex", ... }, panel, { ...search: "flex" }) => true for matching filters.
+ * @example isClassInScope(item, panel, filterState) => true when utility, variants, and search all pass.
  */
 export function isClassInScope(
 	item: ClassItem,

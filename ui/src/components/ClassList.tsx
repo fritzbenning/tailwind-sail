@@ -4,7 +4,7 @@ import { useCurrentClasses } from "../hooks/useCurrentClasses";
 import { useFilter } from "../hooks/useFilter";
 import { useFilterHandlers } from "../hooks/useFilterHandlers";
 import { useVariantPrefix } from "../hooks/useVariantPrefix";
-import type { PanelModal, WebviewModal } from "../types";
+import type { CssVariableEntry, PanelModal, WebviewModal } from "../types";
 import { AddClass } from "./AddClass";
 import { ClassItem } from "./ClassItem";
 import { Divider } from "./Divider";
@@ -18,6 +18,8 @@ import { VariantFilters } from "./VariantFilters";
 
 export type ClassListProps = {
 	model: Accessor<WebviewModal>;
+	cssVariables: Accessor<readonly CssVariableEntry[]>;
+	showUtilityPreview: Accessor<boolean>;
 };
 
 export function ClassList(props: ClassListProps) {
@@ -72,7 +74,13 @@ export function ClassList(props: ClassListProps) {
 					{/* <Index>: host sends new class object refs each update; <For> matches by reference and remounts rows. */}
 					<Index each={currentClasses()}>
 						{(item) => (
-							<ClassItem item={item()} panel={panel} filter={filter} />
+							<ClassItem
+								item={item()}
+								panel={panel}
+								filter={filter}
+								cssVariables={props.cssVariables}
+								showUtilityPreview={props.showUtilityPreview}
+							/>
 						)}
 					</Index>
 				</ul>

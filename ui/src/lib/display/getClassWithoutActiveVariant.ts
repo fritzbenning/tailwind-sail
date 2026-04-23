@@ -6,15 +6,13 @@ import { splitTailwindClassVariants } from "@ext/variants/splitTailwindClassVari
 import type { VariantState } from "../state/types";
 
 /**
- * Rebuilds the class string for display by dropping variant modifiers that are redundant
- *
- * given the current variant filter (e.g. hide the `md:` prefix when `screens` is filtered to `md`).
+ * Rebuilds the class string for display by dropping variant modifiers redundant with pinned filters.
  *
  * @param fullClass - Full class token with variants.
  * @param variantEff - Active variant chip selections per dimension.
- * @returns Display string with redundant prefixes removed when filters pin them.
+ * @returns Display string with removable prefixes stripped.
  *
- * @example getClassWithoutActiveVariant("md:hover:text-red-500", { ...empty, breakpoints: "md" }) => "hover:text-red-500" where `empty` is {@link getEmptyVariantState}.
+ * @example getClassWithoutActiveVariant("md:flex", { ...getEmptyVariantState(), breakpoints: "md" }) => "flex"
  */
 export function getClassWithoutActiveVariant(
 	fullClass: string,

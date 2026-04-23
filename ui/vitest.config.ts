@@ -7,6 +7,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@ext": path.resolve(__dirname, "../src/tailwind"),
+			"@css": path.resolve(__dirname, "../src/theme/shared"),
 		},
 	},
 	test: {

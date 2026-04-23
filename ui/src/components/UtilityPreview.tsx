@@ -1,8 +1,8 @@
 import type { Accessor } from "solid-js";
 import { createMemo, Show } from "solid-js";
-import { getBaseUtility } from "../lib/tailwind/class/getBaseUtility";
-import { getRawUtilityPreviewDisplay } from "../lib/tailwind/preview/getRawUtilityPreviewDisplay";
-import { getTailwindBackgroundColorClass } from "../lib/tailwind/color/getTailwindBackgroundColorClass";
+import { getClassName } from "../lib/tailwind/class/getClassName";
+import { getRawPreview } from "../lib/tailwind/preview/getRawPreview";
+import { getBackgroundColorClass } from "../lib/tailwind/preview/values/color/getBackgroundColorClass";
 import type { CssVariableEntry } from "../types";
 import { ColorSwatch } from "./ColorSwatch";
 
@@ -21,7 +21,7 @@ export function UtilityPreview(props: {
 			return null;
 		}
 		props.cssVariables();
-		return getTailwindBackgroundColorClass(props.fullClass, {
+		return getBackgroundColorClass(props.fullClass, {
 			knownCssVariableNames: props.knownCssVariableNames(),
 		});
 	});
@@ -34,7 +34,7 @@ export function UtilityPreview(props: {
 			return undefined;
 		}
 		const vars = props.cssVariables();
-		return getRawUtilityPreviewDisplay(getBaseUtility(props.fullClass), vars);
+		return getRawPreview(getClassName(props.fullClass), vars);
 	});
 
 	return (

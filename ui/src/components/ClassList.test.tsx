@@ -14,7 +14,13 @@ describe("ClassList", () => {
 			classes: [makeClassItem({ fullClass: "text-xs", tokenIndex: 0 })],
 		});
 		const [model] = createSignal(asWebviewModal(panel));
-		render(() => <ClassList model={model} />);
+		render(() => (
+			<ClassList
+				model={model}
+				cssVariables={() => []}
+				showUtilityPreview={() => true}
+			/>
+		));
 		expect(screen.getByPlaceholderText("Filter classes")).toBeInTheDocument();
 		expect(screen.getByPlaceholderText("New class")).toBeInTheDocument();
 		expect(screen.getByDisplayValue("text-xs")).toBeInTheDocument();
@@ -25,7 +31,13 @@ describe("ClassList", () => {
 			classes: [makeClassItem({ fullClass: "p-1", tokenIndex: 0 })],
 		});
 		const [model, setModel] = createSignal(asWebviewModal(panel));
-		render(() => <ClassList model={model} />);
+		render(() => (
+			<ClassList
+				model={model}
+				cssVariables={() => []}
+				showUtilityPreview={() => true}
+			/>
+		));
 		const input = screen.getByDisplayValue("p-1") as HTMLInputElement;
 		input.focus();
 		expect(document.activeElement).toBe(input);

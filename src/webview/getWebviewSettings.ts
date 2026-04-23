@@ -1,30 +1,17 @@
-/**
- * Sidebar webview chrome from spacing preferences (horizontal inset and top padding).
- */
-import {
-	sidebarPaddingTopPxForLayout,
-	sidebarPaddingXPxForLayout,
-} from "./sidebarPaddingPxForLayout";
+import { getSidebarPaddingTop } from "./settings/values/getSidebarPaddingTop";
+import { getSidebarPaddingX } from "./settings/values/getSidebarPaddingX";
+import type { SidebarLayout, WebviewSettings } from "./types";
 
-export type TailwindSailLayout = "compact" | "loose";
-
-export type WebviewShell = {
-	/** Horizontal inset for panel content (px). */
-	sidebarPaddingXPx: number;
-	/** Top padding on the webview body (px). */
-	sidebarPaddingTopPx: number;
-	/** When true, the webview body shows a right border (theme separator). */
-	showSidebarRightBorder: boolean;
-};
-
-export function webviewShellForLayout(
-	horizontal: TailwindSailLayout = "loose",
-	paddingTop: TailwindSailLayout = "compact",
+export function getWebviewSettings(
+	horizontal: SidebarLayout = "loose",
+	paddingTop: SidebarLayout = "compact",
 	showSidebarRightBorder = false,
-): WebviewShell {
+	showUtilityPreview = true,
+): WebviewSettings {
 	return {
-		sidebarPaddingXPx: sidebarPaddingXPxForLayout(horizontal),
-		sidebarPaddingTopPx: sidebarPaddingTopPxForLayout(paddingTop),
+		sidebarPaddingXPx: getSidebarPaddingX(horizontal),
+		sidebarPaddingTopPx: getSidebarPaddingTop(paddingTop),
 		showSidebarRightBorder,
+		showUtilityPreview,
 	};
 }

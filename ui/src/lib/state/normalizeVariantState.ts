@@ -5,9 +5,7 @@ import { getVariantDimensionsFromPanel } from "./getVariantDimensionsFromPanel";
 import type { VariantState } from "./types";
 
 /**
- * Normalizes the client variant map: dimensions the panel does not expose are forced to `"all"`;
- *
- * exposed dimensions keep the client value (or `"all"` if unset).
+ * Normalizes the client variant map: hidden dimensions become `"all"`; visible rows keep the client value (or `"all"` if unset).
  *
  * @param panel - Panel model listing visible variant rows.
  * @param variantState - Raw client variant selections.

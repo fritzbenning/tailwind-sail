@@ -1,32 +1,37 @@
 import type { Accessor } from "solid-js";
-import { createMemo, Show } from "solid-js";
+import { createMemo } from "solid-js";
 import { useClassValue } from "../hooks/useClassValue";
 import { type FilterState, normalizeVariantState } from "../lib";
-import { getTailwindBackgroundColorClass } from "../lib/tailwind/getTailwindBackgroundColorClass";
-import type { ClassItem as ClassItemData, PanelModal } from "../types";
+import type {
+	ClassItem as ClassItemData,
+	CssVariableEntry,
+	PanelModal,
+} from "../types";
 import { vscode } from "../vscode";
 import { ButtonSlot } from "./ButtonSlot";
 import { ClassDot } from "./ClassDot";
-import { ColorSwatch } from "./ColorSwatch";
 import { Input } from "./Input";
 import { RemoveButton } from "./RemoveButton";
+import { UtilityPreview } from "./UtilityPreview";
 
 export function ClassItem(props: {
 	item: ClassItemData;
 	panel: Accessor<PanelModal>;
 	filter: Accessor<FilterState>;
+	cssVariables: Accessor<readonly CssVariableEntry[]>;
+	showUtilityPreview: Accessor<boolean>;
 }) {
 	const variantState = () =>
 		normalizeVariantState(props.panel(), props.filter().activeVariants);
 
-	const { inputValue, classValue, onFocus, onBlur, onUpdate } = useClassValue({
+	const { inputValue, onFocus, onBlur, onUpdate } = useClassValue({
 		fullClass: () => props.item.fullClass,
 		hideVariantPrefixes: () => props.filter().hideVariantPrefixes,
 		variantState,
 	});
 
-	const backgroundColorClass = createMemo(() =>
-		getTailwindBackgroundColorClass(classValue()),
+	const knownCssVariableNames = createMemo(
+		() => new Set(props.cssVariables().map((v) => v.name)),
 	);
 
 	return (
@@ -35,6 +40,7 @@ export function ClassItem(props: {
 			<div class="flex min-w-0 items-center gap-1.5">
 				<Input
 					variant="inline"
+					class="class-token-input"
 					type="text"
 					spellcheck={false}
 					data-token-index={props.item.tokenIndex}
@@ -61,9 +67,12 @@ export function ClassItem(props: {
 					<ButtonSlot>
 						<RemoveButton tokenIndex={props.item.tokenIndex} />
 					</ButtonSlot>
-					<Show when={backgroundColorClass()}>
-						{(bg) => <ColorSwatch backgroundColorClass={bg()} />}
-					</Show>
+					<UtilityPreview
+						fullClass={props.item.fullClass}
+						showUtilityPreview={props.showUtilityPreview}
+						knownCssVariableNames={knownCssVariableNames}
+						cssVariables={props.cssVariables}
+					/>
 				</div>
 			</div>
 		</li>

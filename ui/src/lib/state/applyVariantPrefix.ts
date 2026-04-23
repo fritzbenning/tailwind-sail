@@ -5,9 +5,9 @@ import { stripLightPrefix } from "./stripLightPrefix";
  *
  * @param input - The add-class `<input>` element (uses `dataset.variantPrefix`).
  * @param variantPrefix - New prefix string from variant filters.
- * @returns Nothing; mutates `input.value` when the prefix changes.
+ * @returns `void`; may update `input.value` and caret position.
  *
- * @example applyVariantPrefix(input, "dark:") — rewrites value to keep body after prefix stable.
+ * @example applyVariantPrefix(input, "sm:") - sets `input.value` to `sm:` plus the previous suffix body.
  */
 export function applyVariantPrefix(
 	input: HTMLInputElement,

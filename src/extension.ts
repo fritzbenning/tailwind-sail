@@ -1,12 +1,14 @@
 import * as vscode from "vscode";
 import { registerStringHighlighter } from "./editor/highlight/registerStringHighlighter";
 import { registerEditorTracker } from "./editor/tracking/registerEditorTracker";
-import { readTailwindSailShowSidebarRightBorder } from "./webview/readTailwindSailLayout";
+import { executeAddThemeFile } from "./theme/commands/executeAddThemeFile";
+import { executeRemoveThemeFile } from "./theme/commands/executeRemoveThemeFile";
+import { readSidebarBorderSettings } from "./webview/settings/readSidebarBorderSettings";
+import type { SidebarLayout } from "./webview/types";
 import { ViewProvider } from "./webview/ViewProvider";
-import type { TailwindSailLayout } from "./webview/webviewShell";
 
 type LayoutQuickPickItem = vscode.QuickPickItem & {
-	layout: TailwindSailLayout;
+	layout: SidebarLayout;
 };
 
 const LAYOUT_HORIZONTAL_ITEMS: LayoutQuickPickItem[] = [
@@ -38,7 +40,7 @@ const LAYOUT_PADDING_TOP_ITEMS: LayoutQuickPickItem[] = [
 export function activate(context: vscode.ExtensionContext): void {
 	const viewProvider = new ViewProvider(context.extensionUri, context);
 	const stringHighlighter = registerStringHighlighter(context, () =>
-		viewProvider.isTailwindSailViewVisible(),
+		viewProvider.isViewVisible(),
 	);
 
 	viewProvider.setStringHighlighter(stringHighlighter);
@@ -114,13 +116,21 @@ export function activate(context: vscode.ExtensionContext): void {
 			"tailwind-sail.toggleSidebarRightBorder",
 			async () => {
 				const config = vscode.workspace.getConfiguration("tailwind-sail");
-				const next = !readTailwindSailShowSidebarRightBorder();
+				const next = !readSidebarBorderSettings();
 				await config.update(
 					"showSidebarRightBorder",
 					next,
 					vscode.ConfigurationTarget.Global,
 				);
 			},
+		),
+		vscode.commands.registerCommand(
+			"tailwind-sail.addThemeFile",
+			executeAddThemeFile,
+		),
+		vscode.commands.registerCommand(
+			"tailwind-sail.removeThemeFile",
+			executeRemoveThemeFile,
 		),
 	);
 }

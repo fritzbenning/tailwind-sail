@@ -9,14 +9,14 @@ export type StringHighlighterHandle = {
  * Underlines the analyzed string literal when the Sail view is visible; clears stale decorations on other editors.
  *
  * @param context - Extension context for `createTextEditorDecorationType` disposal.
- * @param isTailwindSailViewVisible - Predicate gating the highlight.
+ * @param isViewVisible - Predicate gating the highlight.
  * @returns Handle with `refresh(snapshot)` to update decorations.
  *
  * @example registerStringHighlighter(context, () => true).refresh(snapshot) — void; updates underlines.
  */
 export function registerStringHighlighter(
 	context: vscode.ExtensionContext,
-	isTailwindSailViewVisible: () => boolean,
+	isViewVisible: () => boolean,
 ): StringHighlighterHandle {
 	const decorationType = vscode.window.createTextEditorDecorationType({
 		rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
@@ -37,7 +37,7 @@ export function registerStringHighlighter(
 			return;
 		}
 
-		if (!isTailwindSailViewVisible()) {
+		if (!isViewVisible()) {
 			return;
 		}
 

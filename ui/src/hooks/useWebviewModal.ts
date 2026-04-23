@@ -1,22 +1,31 @@
 import { createSignal, onCleanup, onMount } from "solid-js";
-import type { WebviewModal } from "../types";
+import { applyVariablesToBody } from "../lib/css/applyVariablesToBody";
+import type { CssVariableEntry, WebviewModal } from "../types";
 
 const CLASS_TOKEN_INPUT_CLASS = "class-token-input";
 
+export type WebviewHostState = {
+	readonly model: () => WebviewModal;
+	readonly cssVariables: () => readonly CssVariableEntry[];
+	readonly showUtilityPreview: () => boolean;
+};
+
 /**
- * Webview modal state driven by host `postMessage` (`tailwind-sail-update`). While a class-token
+ * Webview modal state from host `postMessage`: queues panel updates while a class input is focused,
+ * applies merged CSS variables to `body`, and tracks utility-preview visibility.
  *
- * input is focused, incoming model updates are queued and applied after focus moves away,
- * so typing is not overwritten mid-edit.
+ * @returns Accessors for the panel model, workspace variable list, and preview flag.
  *
- * @returns Tuple `[model, setModel]` — reactive {@link WebviewModal} and imperative setter.
- *
- * @example `const [model, setModel] = useWebviewModal()` — host pushes updates via `postMessage`.
+ * @example const { model, cssVariables } = useWebviewModal()
  */
-export function useWebviewModal() {
+export function useWebviewModal(): WebviewHostState {
 	const [model, setModel] = createSignal<WebviewModal>({
 		kind: "noString",
 	});
+	const [cssVariables, setCssVariables] = createSignal<
+		readonly CssVariableEntry[]
+	>([]);
+	const [showUtilityPreview, setShowUtilityPreview] = createSignal(true);
 
 	let deferModelApply = false;
 	let pendingModel: WebviewModal | null = null;
@@ -34,6 +43,14 @@ export function useWebviewModal() {
 			const d = ev.data;
 			if (d?.type === "tailwind-sail-update" && d.model) {
 				receiveModel(d.model as WebviewModal);
+				return;
+			}
+			if (d?.type === "tailwind-sail-variables" && Array.isArray(d.variables)) {
+				const vars = d.variables as CssVariableEntry[];
+				// Apply `--workspace-*` on `document.body` *before* updating the signal: Solid runs
+				// subscribers synchronously, and previews resolve `var(--workspace-*)` on descendants.
+				applyVariablesToBody(vars);
+				setCssVariables(vars);
 				return;
 			}
 			if (d?.type === "tailwind-sail-shell") {
@@ -54,6 +71,9 @@ export function useWebviewModal() {
 						"with-border-right",
 						d.showSidebarRightBorder,
 					);
+				}
+				if (typeof d.showUtilityPreview === "boolean") {
+					setShowUtilityPreview(d.showUtilityPreview);
 				}
 			}
 		};
@@ -104,5 +124,9 @@ export function useWebviewModal() {
 		});
 	});
 
-	return [model, setModel] as const;
+	return {
+		model,
+		cssVariables,
+		showUtilityPreview,
+	};
 }

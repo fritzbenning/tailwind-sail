@@ -11,4 +11,22 @@ describe("ColorSwatch", () => {
 		expect(swatch).toBeInTheDocument();
 		expect(swatch?.className).toContain("bg-red-500");
 	});
+
+	it("uses inline background-color for CSS variables without Tailwind bg-[…]", () => {
+		const { container } = render(() => (
+			<ColorSwatch
+				backgroundColorClass={{
+					className: "",
+					backgroundColor: "var(--workspace-color-secondary)",
+				}}
+			/>
+		));
+		const swatch = container.querySelector(
+			'[aria-hidden="true"]',
+		) as HTMLDivElement | null;
+		expect(swatch).toBeInTheDocument();
+		expect(swatch?.style.backgroundColor).toBe(
+			"var(--workspace-color-secondary)",
+		);
+	});
 });

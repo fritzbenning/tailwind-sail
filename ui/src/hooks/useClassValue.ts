@@ -3,16 +3,14 @@ import { createEffect, createSignal } from "solid-js";
 import { getClassWithoutActiveVariant, type VariantState } from "../lib";
 
 /**
- * Local edit state for a single class string in the panel: blurred value may hide
- *
- * redundant variant prefixes; in edit mode the value is a draft synced from `fullClass` until blur.
+ * Local edit state for one class row: display value may hide redundant variant prefixes; edit mode holds a draft until blur.
  *
  * @param options.fullClass - Authoritative class string from the host model.
- * @param options.hideVariantPrefixes - When true and blurred, strip variants that match the effective state.
+ * @param options.hideVariantPrefixes - When true and blurred, strip variants aligned with `variantState`.
  * @param options.variantState - Normalized variant axes (`normalizeVariantState(panel, activeVariants)`).
- * @returns Handlers and derived values for the class `<input>`.
+ * @returns Signals and handlers for the class `<input>` (see implementation for members).
  *
- * @example `useClassValue({ fullClass, hideVariantPrefixes, variantState }).inputValue()` — display or draft text for editing.
+ * @example useClassValue({ fullClass, hideVariantPrefixes, variantState }).inputValue() => current display or draft text
  */
 export function useClassValue(options: {
 	fullClass: Accessor<string>;

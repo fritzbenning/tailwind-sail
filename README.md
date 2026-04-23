@@ -6,33 +6,17 @@ No more headaches when editing long Tailwind class strings — Tailwind Sail bri
 
 ![Tailwind Sail demo](assets/tailwind-sail-demo.gif)
 
-Demo in higher quality: [MP4](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4) · [WebM](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.webm)
+Demo in higher quality: [Video (MP4)](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4)
+
+## Layout settings
+
+Since VS Code and some third-party forks, such as Cursor, handle layouts slightly differently, Tailwind Sail provides consistent layout settings to improve the visual fit. You can adjust the sidebar padding, borders, and the spacing between the panel title and the extension content to match your preferences.
+
+You can find the available settings and commands in the Features tab. 
 
 ## Support
 
 If you find Tailwind Sail useful, you can [buy me a coffee](https://buymeacoffee.com/friddle) to help maintain the extension and fund new features. 
-
-## Commands
-
-| Command | Description |
-|--------|-------------|
-| **Tailwind Sail: Show Sidebar** | Focuses the secondary side bar and opens the Tailwind Sail view. |
-| **Tailwind Sail: Refresh** | Immediately re-runs extraction and parsing for the current editor. |
-| **Tailwind Sail: Set Sidebar Horizontal Padding…** | Chooses **compact** or **loose** horizontal inset for the sidebar (updates `tailwind-sail.layout`). |
-| **Tailwind Sail: Set Sidebar Top Padding…** | Chooses **compact** or **loose** top padding for the sidebar (updates `tailwind-sail.paddingTop`). |
-| **Tailwind Sail: Toggle Sidebar Right Border** | Turns the sidebar webview’s optional right border on or off (updates `tailwind-sail.showSidebarRightBorder`). |
-
-## Settings
-
-| Setting | Default | Description |
-|--------|---------|-------------|
-| `tailwind-sail.updateDebounceMs` | `20` | Milliseconds to wait after cursor or document changes before Tailwind Sail re-runs string detection and Tailwind parsing. |
-| `tailwind-sail.highlightActiveString` | `true` | Underline the string literal Tailwind Sail is currently using. |
-| `tailwind-sail.layout` | `loose` | Horizontal inset: **`loose`** (roomier) or **`compact`** (tighter). |
-| `tailwind-sail.paddingTop` | `compact` | Top padding above content: **`loose`** (roomier) or **`compact`** (tighter). |
-| `tailwind-sail.showSidebarRightBorder` | `false` | When **true**, draws a 1px right border on the sidebar panel. Default **off** in VS Code; enable in hosts like **Cursor** if you want a visible separator next to the editor. |
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) to build from source or contribute.
 
 ## License
 

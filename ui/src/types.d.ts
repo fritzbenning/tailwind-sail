@@ -1,5 +1,6 @@
 export type {
 	ClassItem,
+	CssVariableEntry,
 	PanelModal,
 	Variant,
 	WebviewModal,

@@ -81,6 +81,16 @@
 				"command": "tailwind-sail.toggleSidebarRightBorder",
 				"title": "Tailwind Sail: Toggle Sidebar Right Border",
 				"category": "Tailwind Sail"
+			},
+			{
+				"command": "tailwind-sail.addThemeFile",
+				"title": "Tailwind Sail: Add Current File to Theme Files",
+				"category": "Tailwind Sail"
+			},
+			{
+				"command": "tailwind-sail.removeThemeFile",
+				"title": "Tailwind Sail: Remove Current File from Theme Files",
+				"category": "Tailwind Sail"
 			}
 		],
 		"configuration": {
@@ -119,6 +129,19 @@
 					"type": "boolean",
 					"default": false,
 					"markdownDescription": "Draw a 1px right border on the Tailwind Sail webview. Off by default for a cleaner look in VS Code; turn on in hosts such as Cursor if the auxiliary bar needs a visible separator."
+				},
+				"tailwind-sail.showUtilityPreview": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Show color swatches and raw value hints next to each class in the sidebar. Turn off for a denser list."
+				},
+				"tailwind-sail.variables.sourceFiles": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "Workspace-relative paths to `.css` theme files scanned for custom properties (`--name: value`). Non-`.css` paths are ignored. Use the commands **Add Current File to Theme Files** / **Remove Current File from Theme Files**, or edit this list manually."
 				}
 			}
 		}

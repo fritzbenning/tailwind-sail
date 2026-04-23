@@ -11,7 +11,7 @@ import type { VariantState } from "../state/types";
  * @param panel - Panel model (row visibility).
  * @returns `true` when every non-`all` dimension matches buckets.
  *
- * @example isClassMatchingVariantState(item, variantEff, panel) — true when every pinned dimension matches `item.variantBuckets` (see tests).
+ * @example isClassMatchingVariantState(item, variantEff, panel) => true when every narrowed dimension matches `item.variantBuckets`.
  */
 export function isClassMatchingVariantState(
 	item: ClassItem,

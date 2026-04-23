@@ -2,7 +2,7 @@ import type { PanelModal } from "../../types";
 import type { UtilityState } from "./types";
 
 /**
- * If the panel exposes no utility chips, the effective filter is always “all”; otherwise it is the client’s selection.
+ * If the panel exposes no utility chips, the effective filter is always `"all"`; otherwise the client's selection.
  *
  * @param panel - Panel model from the extension.
  * @param utilityState - Client utility filter selection.

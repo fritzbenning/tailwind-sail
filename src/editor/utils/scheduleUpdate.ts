@@ -8,6 +8,13 @@ export interface ScheduleUpdateParams {
 	readonly debounceMs?: number;
 }
 
+export function readUpdateDebounceMs(): number {
+	const ms = vscode.workspace
+		.getConfiguration("tailwind-sail")
+		.get<number>("updateDebounceMs", 150);
+	return Math.max(0, ms);
+}
+
 export function scheduleUpdate(params: ScheduleUpdateParams): void {
 	if (params.debounceTimer.current) {
 		clearTimeout(params.debounceTimer.current);
@@ -15,9 +22,7 @@ export function scheduleUpdate(params: ScheduleUpdateParams): void {
 	const ms =
 		params.debounceMs !== undefined
 			? params.debounceMs
-			: vscode.workspace
-					.getConfiguration("tailwind-sail")
-					.get<number>("updateDebounceMs", 150);
+			: readUpdateDebounceMs();
 	params.debounceTimer.current = setTimeout(
 		() => {
 			params.debounceTimer.current = undefined;

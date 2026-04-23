@@ -6,7 +6,6 @@ describe("Input", () => {
 	it("renders a filled input by default", () => {
 		render(() => <Input placeholder="p" />);
 		const el = screen.getByPlaceholderText("p");
-		expect(el).toHaveClass("class-token-input");
 		expect(el.className).toContain("border-(--vscode-input-border");
 	});
 

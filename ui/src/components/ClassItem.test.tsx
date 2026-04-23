@@ -15,6 +15,8 @@ describe("ClassItem", () => {
 				item={panel.classes[0]}
 				panel={() => panel}
 				filter={() => getDefaultFilterState()}
+				cssVariables={() => []}
+				showUtilityPreview={() => true}
 			/>
 		));
 		const input = screen.getByDisplayValue("font-bold");
@@ -31,6 +33,8 @@ describe("ClassItem", () => {
 				item={panel.classes[0]}
 				panel={() => panel}
 				filter={() => getDefaultFilterState()}
+				cssVariables={() => []}
+				showUtilityPreview={() => true}
 			/>
 		));
 		const input = screen.getByDisplayValue("p-1");

@@ -1,5 +1,14 @@
 import type { FilterDimensionId, VariantBuckets } from "../tailwind/filter";
 
+export type SidebarLayout = "compact" | "loose";
+
+export type WebviewSettings = {
+	sidebarPaddingXPx: number;
+	sidebarPaddingTopPx: number;
+	showSidebarRightBorder: boolean;
+	showUtilityPreview: boolean;
+};
+
 export type WebviewModal =
 	| { kind: "noString" }
 	| { kind: "noTailwind" }
@@ -25,3 +34,9 @@ export interface ClassItem {
 	readonly utility: string;
 	readonly variantBuckets: VariantBuckets;
 }
+
+export type {
+	CssVariableEntry,
+	SimpleDefinitionScope,
+	VariableDefinitionLocation,
+} from "../theme/types";
