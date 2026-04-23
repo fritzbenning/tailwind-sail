@@ -18,6 +18,8 @@ You can find the available settings and commands in the Features tab.
 
 If you find Tailwind Sail useful, you can [buy me a coffee](https://buymeacoffee.com/friddle) to help maintain the extension and fund new features. 
 
+<a href="https://buymeacoffee.com/friddle" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ## License
 
 Tailwind Sail is released under the [MIT License](LICENSE).
