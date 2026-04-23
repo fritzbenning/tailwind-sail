@@ -91,6 +91,16 @@
 	transition-delay: 0s;
 }
 
+/**
+ * SimpleBar’s `autoHide` only keeps the custom thumb when the pointer is on the
+ * track (or while scrolling). VS Code also reveals it when the pointer is anywhere
+ * over the scroll surface — match that with host hover.
+ */
+[data-scroll-panel]:hover .simplebar-scrollbar:before {
+	opacity: 1;
+	transition-delay: 0s;
+}
+
 [data-scroll-panel] .simplebar-scrollbar:hover:before {
 	background: var(
 		--vscode-scrollbarSlider-hoverBackground,

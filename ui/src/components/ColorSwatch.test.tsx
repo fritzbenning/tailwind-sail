@@ -29,4 +29,15 @@ describe("ColorSwatch", () => {
 			"var(--workspace-color-secondary)",
 		);
 	});
+
+	it("applies a larger size when size is large", () => {
+		const { container } = render(() => (
+			<ColorSwatch
+				size="large"
+				backgroundColorClass={{ className: "bg-blue-500" }}
+			/>
+		));
+		const swatch = container.querySelector('[aria-hidden="true"]');
+		expect(swatch?.className).toMatch(/\bsize-5\b/);
+	});
 });
