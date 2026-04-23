@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.1.6] - 2026-04-24
+
+### New features
+
+- **Theme (CSS custom properties)**: Setting **`tailwind-sail.variables.sourceFiles`** lists workspace `.css` files whose custom properties (`--name: value`) are extracted and shown in a **Theme** tab in the sidebar. Commands **Tailwind Sail: Add Current File to Theme Files** and **Tailwind Sail: Remove Current File from Theme Files** maintain that list. Variables can be opened from the UI for quicker navigation.
+- **Color and value preview**: Setting **`tailwind-sail.showUtilityPreview`** (default **on**) shows **color swatches** next to classes when the utility resolves to a color, and **raw value hints** (including pixel/length and other resolved values) when a color swatch is not used—so you see the effective color or numeric CSS at a glance. Turn the setting off for a denser class list.
+
 ## [0.1.5] - 2026-04-23
 
 ### Documentation
