@@ -1,6 +1,8 @@
 import { getVariableScope } from "../scope/getVariableScope";
 import type { SimpleDefinitionScope } from "../types";
+import { findVariableValueEndIndex } from "./findVariableValueEndIndex";
 import { getVariableValue } from "./getVariableValue";
+import { trimValueRangeEdges } from "./trimValueRangeEdges";
 
 const MAX_VALUE_LENGTH = 200;
 
@@ -9,6 +11,8 @@ export type VariableDefinitionRow = {
 	readonly value: string;
 	readonly line: number;
 	readonly definitionScope?: SimpleDefinitionScope;
+	readonly valueStartOffset: number;
+	readonly valueEndOffset: number;
 };
 
 /**
@@ -45,6 +49,12 @@ export function extractVariableDefinitionFromLine(
 		const nameStartInLine = m.index;
 		const valueStartInLine = m.index + m[0].length;
 		const valueAbsStart = lineStartOffset + valueStartInLine;
+		const valueAbsEnd = findVariableValueEndIndex(fullText, valueAbsStart);
+		const trimmedRange = trimValueRangeEdges(
+			fullText,
+			valueAbsStart,
+			valueAbsEnd,
+		);
 		let value = getVariableValue(fullText, valueAbsStart);
 		if (value.length > MAX_VALUE_LENGTH) {
 			value = `${value.slice(0, MAX_VALUE_LENGTH)}…`;
@@ -55,6 +65,8 @@ export function extractVariableDefinitionFromLine(
 			name,
 			value,
 			line: oneBasedLine,
+			valueStartOffset: trimmedRange.start,
+			valueEndOffset: trimmedRange.end,
 			...(scope !== undefined ? { definitionScope: scope } : {}),
 		});
 	}

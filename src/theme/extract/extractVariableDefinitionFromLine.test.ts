@@ -18,6 +18,8 @@ suite("extractVariableDefinitionFromLine", () => {
 		assert.strictEqual(rows[0]?.value, "#f00");
 		assert.strictEqual(rows[0]?.line, 2);
 		assert.strictEqual(rows[0]?.definitionScope, ":root");
+		assert.strictEqual(rows[0]?.valueStartOffset, 19);
+		assert.strictEqual(rows[0]?.valueEndOffset, 23);
 	});
 
 	test("extracts multiple declarations on one line", () => {
@@ -34,6 +36,10 @@ suite("extractVariableDefinitionFromLine", () => {
 		assert.strictEqual(rows[0]?.value, "1px");
 		assert.strictEqual(rows[1]?.name, "--b");
 		assert.strictEqual(rows[1]?.value, "2px");
+		assert.strictEqual(rows[0]?.valueStartOffset, 13);
+		assert.strictEqual(rows[0]?.valueEndOffset, 16);
+		assert.strictEqual(rows[1]?.valueStartOffset, 23);
+		assert.strictEqual(rows[1]?.valueEndOffset, 26);
 	});
 
 	test("reads a value that continues on following lines in fullText", () => {
@@ -52,5 +58,11 @@ suite("extractVariableDefinitionFromLine", () => {
 		assert.strictEqual(rows[0]?.name, "--color-secondary");
 		assert.strictEqual(rows[0]?.value, "hsl(var(--secondary))");
 		assert.strictEqual(rows[0]?.line, 2);
+		const hslIdx = fullText.indexOf("hsl(var(--secondary))");
+		assert.strictEqual(rows[0]?.valueStartOffset, hslIdx);
+		assert.strictEqual(
+			rows[0]?.valueEndOffset,
+			hslIdx + "hsl(var(--secondary))".length,
+		);
 	});
 });

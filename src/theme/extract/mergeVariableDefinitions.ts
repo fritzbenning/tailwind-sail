@@ -30,6 +30,8 @@ export function mergeVariableDefinitions(
 		const loc: VariableDefinitionLocation = {
 			uri: row.uri,
 			line: row.line,
+			valueStartOffset: row.valueStartOffset,
+			valueEndOffset: row.valueEndOffset,
 			...(row.definitionScope !== undefined
 				? { definitionScope: row.definitionScope }
 				: {}),

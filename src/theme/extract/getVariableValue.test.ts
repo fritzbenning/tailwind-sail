@@ -1,5 +1,20 @@
 import * as assert from "assert";
+import { findVariableValueEndIndex } from "./findVariableValueEndIndex";
 import { getVariableValue } from "./getVariableValue";
+
+suite("findVariableValueEndIndex", () => {
+	test("returns semicolon index for a simple value", () => {
+		const t = "--x: 1px;";
+		const start = t.indexOf(" ") + 1;
+		assert.strictEqual(findVariableValueEndIndex(t, start), t.indexOf(";"));
+	});
+
+	test("returns full length when there is no semicolon", () => {
+		const t = "--x: trailing";
+		const start = t.indexOf(" ") + 1;
+		assert.strictEqual(findVariableValueEndIndex(t, start), t.length);
+	});
+});
 
 suite("getVariableValue", () => {
 	test("reads a simple value until the first top-level semicolon", () => {

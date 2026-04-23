@@ -169,6 +169,8 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				className?: string;
 				uri?: string;
 				line?: number;
+				valueStartOffset?: number;
+				valueEndOffset?: number;
 			}) => {
 				if (message.type === "tailwind-sail-open-css-variable") {
 					if (
@@ -177,7 +179,15 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 					) {
 						return;
 					}
-					void openVariableDefinition(message.uri, message.line);
+					const range =
+						typeof message.valueStartOffset === "number" &&
+						typeof message.valueEndOffset === "number"
+							? {
+									start: message.valueStartOffset,
+									end: message.valueEndOffset,
+								}
+							: undefined;
+					void openVariableDefinition(message.uri, message.line, range);
 					return;
 				}
 

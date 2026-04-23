@@ -20,6 +20,12 @@ export type VariableDefinitionLocation = {
 	readonly line: number;
 	/** Present only when {@link getVariableScope} could resolve a simple selector. */
 	readonly definitionScope?: SimpleDefinitionScope;
+	/**
+	 * 0-based UTF-16 offset in the scanned file: first character of the declaration value
+	 * (after `:`), through exclusive end at the top-level `;` or EOF.
+	 */
+	readonly valueStartOffset?: number;
+	readonly valueEndOffset?: number;
 };
 
 /**

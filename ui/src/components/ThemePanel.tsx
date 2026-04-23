@@ -37,6 +37,13 @@ export function ThemePanel(props: {
 			type: "tailwind-sail-open-css-variable",
 			uri: loc.uri,
 			line: loc.line,
+			...(typeof loc.valueStartOffset === "number" &&
+			typeof loc.valueEndOffset === "number"
+				? {
+						valueStartOffset: loc.valueStartOffset,
+						valueEndOffset: loc.valueEndOffset,
+					}
+				: {}),
 		});
 	}
 
