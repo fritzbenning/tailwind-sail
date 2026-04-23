@@ -1,17 +1,17 @@
 import { createSignal, Match, Switch } from "solid-js";
 import { ClassList } from "./components/ClassList";
 import { EmptyState } from "./components/EmptyState";
-import { type SidebarTabId, SidebarTabs } from "./components/SidebarTabs";
-import { VariablesPanel } from "./components/VariablesPanel";
+import { type TabId, Tabs } from "./components/Tabs";
+import { ThemePanel } from "./components/ThemePanel";
 import { useWebviewModal } from "./hooks/useWebviewModal";
 
 export function App() {
 	const host = useWebviewModal();
-	const [tab, setTab] = createSignal<SidebarTabId>("classes");
+	const [tab, setTab] = createSignal<TabId>("classes");
 
 	return (
 		<div class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-			<SidebarTabs active={tab()} onChange={setTab} />
+			<Tabs active={tab()} onChange={setTab} />
 			<Switch>
 				<Match when={tab() === "classes"}>
 					<Switch>
@@ -30,8 +30,8 @@ export function App() {
 						</Match>
 					</Switch>
 				</Match>
-				<Match when={tab() === "variables"}>
-					<VariablesPanel variables={host.cssVariables} />
+				<Match when={tab() === "theme"}>
+					<ThemePanel variables={host.cssVariables} />
 				</Match>
 			</Switch>
 		</div>

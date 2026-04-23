@@ -6,6 +6,7 @@ export function Search(props: {
 	value: string;
 	onInput: (v: string) => void;
 	onClear: () => void;
+	placeholder?: string;
 }) {
 	function handleKeyDown(
 		e: KeyboardEvent & { currentTarget: HTMLInputElement },
@@ -26,7 +27,7 @@ export function Search(props: {
 				type="text"
 				spellcheck={false}
 				autocomplete="off"
-				placeholder="Filter classes"
+				placeholder={props.placeholder ?? "Filter classes"}
 				value={props.value}
 				onInput={(e) => props.onInput(e.currentTarget.value)}
 				onKeyDown={handleKeyDown}
