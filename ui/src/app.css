@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "simplebar/dist/simplebar.css";
+@import "./scrollPanelScrollbar.css";
 
 /**
  * Extra type scale: one step below `text-xs` (0.75rem) for compact UI (inputs, metadata).
@@ -64,23 +64,23 @@
 
 /**
  * SimpleBar’s `[data-simplebar]` uses `align-items: flex-start`, which stops the inner
- * `.simplebar-wrapper` from filling the host in a column flex layout. Stretch restores
+ * `.scrollbar-wrapper` from filling the host in a column flex layout. Stretch restores
  * the usual “fill the panel” behavior so `max-height: 100%` on the scroll node works.
  */
 [data-scroll-panel][data-simplebar] {
 	align-items: stretch;
 }
 
-/* SimpleBar thumb/track — same VS Code tokens as native scrollbars in @layer base */
-[data-scroll-panel] .simplebar-track.simplebar-vertical {
+/* Custom scrollbar thumb/track — same VS Code tokens as native scrollbars in @layer base */
+[data-scroll-panel] .scrollbar-track.scrollbar-vertical {
 	width: 9px;
 }
 
-[data-scroll-panel] .simplebar-track.simplebar-horizontal {
+[data-scroll-panel] .scrollbar-track.scrollbar-horizontal {
 	height: 9px;
 }
 
-[data-scroll-panel] .simplebar-scrollbar:before {
+[data-scroll-panel] .scrollbar-scrollbar:before {
 	background: var(
 		--vscode-scrollbarSlider-background,
 		rgba(121, 121, 121, 0.4)
@@ -96,7 +96,7 @@
 		background 0.1s ease;
 }
 
-[data-scroll-panel] .simplebar-scrollbar.simplebar-visible:before {
+[data-scroll-panel] .scrollbar-scrollbar.scrollbar-visible:before {
 	opacity: 1;
 	transition-delay: 0s;
 }
@@ -106,19 +106,19 @@
  * track (or while scrolling). VS Code also reveals it when the pointer is anywhere
  * over the scroll surface — match that with host hover.
  */
-[data-scroll-panel]:hover .simplebar-scrollbar:before {
+[data-scroll-panel]:hover .scrollbar-scrollbar:before {
 	opacity: 1;
 	transition-delay: 0s;
 }
 
-[data-scroll-panel] .simplebar-scrollbar:hover:before {
+[data-scroll-panel] .scrollbar-scrollbar:hover:before {
 	background: var(
 		--vscode-scrollbarSlider-hoverBackground,
 		var(--vscode-scrollbarSlider-background)
 	);
 }
 
-[data-scroll-panel] .simplebar-scrollbar:active:before {
+[data-scroll-panel] .scrollbar-scrollbar:active:before {
 	background: var(
 		--vscode-scrollbarSlider-activeBackground,
 		var(

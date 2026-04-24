@@ -1,10 +1,13 @@
 import type { Accessor } from "solid-js";
 import { createMemo, createSignal, For, Show } from "solid-js";
-import type { CssVariableEntry } from "../types";
+import type { CssVariableEntry, ThemeFileScanInfo } from "../types";
 import { vscode } from "../vscode";
 import { Divider } from "./Divider";
+import { InlineNotification } from "./InlineNotification";
+import { LinkButton } from "./LinkButton";
 import { ScrollPanel } from "./ScrollPanel";
 import { Search } from "./Search";
+import { ThemeEmptyState } from "./ThemeEmptyState";
 import { VariableEntry } from "./VariableEntry";
 
 /**
@@ -13,6 +16,7 @@ import { VariableEntry } from "./VariableEntry";
  */
 export function ThemePanel(props: {
 	variables: Accessor<readonly CssVariableEntry[]>;
+	themeFileScan: Accessor<ThemeFileScanInfo>;
 }) {
 	const [query, setQuery] = createSignal("");
 
@@ -72,9 +76,15 @@ export function ThemePanel(props: {
 						</ul>
 					}
 				>
-					<p class="px-2 py-3 text-[0.85em] text-(--vscode-descriptionForeground)">
-						No CSS variables match this search.
-					</p>
+					<Show
+						when={props.variables().length > 0}
+						fallback={<ThemeEmptyState scan={props.themeFileScan()} />}
+					>
+						<InlineNotification showInfoIcon={false} role="status">
+							<p>No CSS variables match this search.</p>
+							<LinkButton onClick={() => setQuery("")}>Reset search</LinkButton>
+						</InlineNotification>
+					</Show>
 				</Show>
 			</ScrollPanel>
 		</div>

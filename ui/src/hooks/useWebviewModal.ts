@@ -1,12 +1,13 @@
 import { createSignal, onCleanup, onMount } from "solid-js";
 import { applyVariablesToBody } from "../lib/css/applyVariablesToBody";
-import type { CssVariableEntry, WebviewModal } from "../types";
+import type { CssVariableEntry, ThemeFileScanInfo, WebviewModal } from "../types";
 
 const CLASS_TOKEN_INPUT_CLASS = "class-token-input";
 
 export type WebviewHostState = {
 	readonly model: () => WebviewModal;
 	readonly cssVariables: () => readonly CssVariableEntry[];
+	readonly themeFileScan: () => ThemeFileScanInfo;
 	readonly showUtilityPreview: () => boolean;
 };
 
@@ -14,9 +15,9 @@ export type WebviewHostState = {
  * Webview modal state from host `postMessage`: queues panel updates while a class input is focused,
  * applies merged CSS variables to `body`, and tracks utility-preview visibility.
  *
- * @returns Accessors for the panel model, workspace variable list, and preview flag.
+ * @returns Accessors for the panel model, workspace variable list, theme scan info, and preview flag.
  *
- * @example const { model, cssVariables } = useWebviewModal()
+ * @example const { model, cssVariables, themeFileScan } = useWebviewModal()
  */
 export function useWebviewModal(): WebviewHostState {
 	const [model, setModel] = createSignal<WebviewModal>({
@@ -25,6 +26,11 @@ export function useWebviewModal(): WebviewHostState {
 	const [cssVariables, setCssVariables] = createSignal<
 		readonly CssVariableEntry[]
 	>([]);
+	const [themeFileScan, setThemeFileScan] = createSignal<ThemeFileScanInfo>({
+		configuredPathCount: 0,
+		resolvedCssPathCount: 0,
+		hasWorkspace: true,
+	});
 	const [showUtilityPreview, setShowUtilityPreview] = createSignal(true);
 
 	let deferModelApply = false;
@@ -51,6 +57,15 @@ export function useWebviewModal(): WebviewHostState {
 				// subscribers synchronously, and previews resolve `var(--workspace-*)` on descendants.
 				applyVariablesToBody(vars);
 				setCssVariables(vars);
+				const scan = d.themeFileScan as ThemeFileScanInfo | undefined;
+				if (
+					scan &&
+					typeof scan.configuredPathCount === "number" &&
+					typeof scan.resolvedCssPathCount === "number" &&
+					typeof scan.hasWorkspace === "boolean"
+				) {
+					setThemeFileScan(scan);
+				}
 				return;
 			}
 			if (d?.type === "tailwind-sail-shell") {
@@ -127,6 +142,7 @@ export function useWebviewModal(): WebviewHostState {
 	return {
 		model,
 		cssVariables,
+		themeFileScan,
 		showUtilityPreview,
 	};
 }

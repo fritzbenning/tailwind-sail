@@ -1,6 +1,6 @@
 import { createSignal, Match, Switch } from "solid-js";
 import { ClassList } from "./components/ClassList";
-import { EmptyState } from "./components/EmptyState";
+import { ClassEmptyState } from "./components/ClassEmptyState";
 import { type TabId, Tabs } from "./components/Tabs";
 import { ThemePanel } from "./components/ThemePanel";
 import { useWebviewModal } from "./hooks/useWebviewModal";
@@ -16,10 +16,10 @@ export function App() {
 				<Match when={tab() === "classes"}>
 					<Switch>
 						<Match when={host.model().kind === "noString"}>
-							<EmptyState kind="noString" />
+							<ClassEmptyState kind="noString" />
 						</Match>
 						<Match when={host.model().kind === "noTailwind"}>
-							<EmptyState kind="noTailwind" />
+							<ClassEmptyState kind="noTailwind" />
 						</Match>
 						<Match when={host.model().kind === "panel"}>
 							<ClassList
@@ -31,7 +31,10 @@ export function App() {
 					</Switch>
 				</Match>
 				<Match when={tab() === "theme"}>
-					<ThemePanel variables={host.cssVariables} />
+					<ThemePanel
+						variables={host.cssVariables}
+						themeFileScan={host.themeFileScan}
+					/>
 				</Match>
 			</Switch>
 		</div>

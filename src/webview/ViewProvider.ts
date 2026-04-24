@@ -6,6 +6,8 @@ import type { StringHighlighterHandle } from "../editor/highlight/registerString
 import type { SailEditorSnapshot } from "../editor/types";
 import { readUpdateDebounceMs } from "../editor/utils/scheduleUpdate";
 import { isThemeFile } from "../theme/check/isThemeFile";
+import { executeAddThemeFile } from "../theme/commands/executeAddThemeFile";
+import { getThemeFileScanInfo } from "../theme/config/getThemeFileScanInfo";
 import { getVariableDefinitions } from "../theme/extract/getVariableDefinitions";
 import { openVariableDefinition } from "./actions/openVariableDefinition";
 import { getWebviewContent } from "./getWebviewContent";
@@ -114,16 +116,19 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 		if (!this.view) {
 			return;
 		}
+		const themeFileScan = getThemeFileScanInfo();
 		try {
 			const variables = await getVariableDefinitions();
 			void this.view.webview.postMessage({
 				type: "tailwind-sail-variables",
 				variables,
+				themeFileScan,
 			});
 		} catch {
 			void this.view.webview.postMessage({
 				type: "tailwind-sail-variables",
 				variables: [],
+				themeFileScan,
 			});
 		}
 	}
@@ -172,6 +177,17 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				valueStartOffset?: number;
 				valueEndOffset?: number;
 			}) => {
+				if (message.type === "tailwind-sail-open-theme-file-settings") {
+					void vscode.commands.executeCommand(
+						"workbench.action.openSettings",
+						"tailwind-sail.variables.sourceFiles",
+					);
+					return;
+				}
+				if (message.type === "tailwind-sail-add-theme-file") {
+					void executeAddThemeFile();
+					return;
+				}
 				if (message.type === "tailwind-sail-open-css-variable") {
 					if (
 						typeof message.uri !== "string" ||

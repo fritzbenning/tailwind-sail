@@ -43,23 +43,23 @@ export function ScrollPanel(props: ScrollPanelProps) {
 			)}
 			{...rest}
 		>
-			<div class="simplebar-wrapper min-h-0 w-full min-w-0 flex-1">
-				<div class="simplebar-height-auto-observer-wrapper">
-					<div class="simplebar-height-auto-observer" />
+			<div class="scrollbar-wrapper min-h-0 w-full min-w-0 flex-1">
+				<div class="scrollbar-height-auto-observer-wrapper">
+					<div class="scrollbar-height-auto-observer" />
 				</div>
-				<div class="simplebar-mask">
-					<div class="simplebar-offset">
+				<div class="scrollbar-mask">
+					<div class="scrollbar-offset">
 						<div
-							class="simplebar-content-wrapper"
+							class="scrollbar-content-wrapper"
 							tabIndex={0}
 							role="region"
 							aria-label="scrollable content"
 						>
-							<div class="simplebar-content">{local.children}</div>
+							<div class="scrollbar-content">{local.children}</div>
 						</div>
 					</div>
 				</div>
-				<div class="simplebar-placeholder" />
+				<div class="scrollbar-placeholder" />
 			</div>
 		</div>
 	);

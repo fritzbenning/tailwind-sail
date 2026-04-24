@@ -40,3 +40,11 @@ export type {
 	SimpleDefinitionScope,
 	VariableDefinitionLocation,
 } from "../theme/types";
+
+/** Accompanies `tailwind-sail-variables` so the theme tab can explain an empty list. */
+export type ThemeFileScanInfo = {
+	readonly configuredPathCount: number;
+	readonly resolvedCssPathCount: number;
+	/** `true` when at least one workspace folder is open. */
+	readonly hasWorkspace: boolean;
+};

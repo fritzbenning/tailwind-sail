@@ -156,7 +156,8 @@
 		"lint": "biome check .",
 		"test": "vscode-test",
 		"vsix": "pnpm exec vsce package --no-dependencies",
-		"publish:vsix": "pnpm exec vsce publish --no-dependencies"
+		"publish:vsix": "pnpm exec vsce publish --no-dependencies",
+		"publish:openvsx": "pnpm exec ovsx publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.12",
@@ -168,6 +169,7 @@
 		"@vscode/vsce": "^3.9.1",
 		"concurrently": "^9.2.1",
 		"esbuild": "^0.28.0",
+		"ovsx": "^0.10.11",
 		"typescript": "~6.0.2"
 	}
 }

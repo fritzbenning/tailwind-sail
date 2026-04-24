@@ -14,15 +14,15 @@ export function VariableEntry(props: {
 		<li class="m-0 list-none p-0">
 			<button
 				type="button"
-				class="w-full cursor-pointer border border-transparent px-2 py-1.5 text-left text-[0.8em] hover:bg-(--vscode-list-hoverBackground) focus-visible:outline focus-visible:outline-(--vscode-focusBorder) focus-visible:-outline-offset-1"
+				class="w-full cursor-pointer border border-transparent px-(--sidebarPaddingX) py-1.5 text-left hover:bg-(--vscode-list-hoverBackground) focus-visible:outline focus-visible:outline-(--vscode-focusBorder) focus-visible:-outline-offset-1"
 				onClick={() => props.onOpenDefinition()}
 			>
 				<div class="flex min-w-0 items-start gap-3 justify-between">
-					<div class="min-w-0 flex-1">
+					<div class="min-w-0 flex-1 flex flex-col gap-1">
 						<div class="text-(--vscode-foreground) text-xs">
 							{props.entry.name}
 						</div>
-						<div class="truncate text-(--vscode-descriptionForeground)">
+						<div class="truncate text-(--vscode-descriptionForeground) text-2xs">
 							{props.entry.value}
 						</div>
 					</div>
