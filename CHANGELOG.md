@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.1.7] - 2026-04-24
+
+### Changed
+
+- Optimize layout.
+
 ## [0.1.6] - 2026-04-23
 
 ### New features
