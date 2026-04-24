@@ -1,12 +1,19 @@
 # Tailwind Sail
 
-**Tailwind Sail** gives you a panel next to your current file that displays long Tailwind class strings in a much more accessible way. You can filter them by utility, state, or breakpoint to see which styles are applied for specific variants. You can even add new classes directly from the panel.
+**Tailwind Sail** gives you a sidebar panel that displays the content of Tailwind class strings in a much more accessible way. You can filter classes by utility, state, or breakpoint to see which styles are applied for specific variants. You can even edit them or add new classes directly. This is handy in particular for very long class strings. In addition Tailwind Sail includes previews for colors and pixel-related classes. You can add your Tailwind v4 theme file to get even a preview for custom colors or overrides of the default Tailwind values.
 
-No more headaches when editing long Tailwind class strings — Tailwind Sail brings back the overview you need to create beautiful interfaces that AI can only dream about.
+Just give it a shot, it could be absolutely worth it. If not, I appreciate your feedback a lot. Just drop a [github issue](https://github.com/fritzbenning/tailwind-sail/issues) or send me a [dm](https://x.com/fritzbenning). And if you're really enjoying it, it would be awesome if you consider to leave a star for the [github repo](https://github.com/fritzbenning/tailwind-sail).
 
 ![Tailwind Sail demo](assets/tailwind-sail-demo.gif)
 
-Demo in higher quality: [Video (MP4)](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4)
+Higher quality: [Video (MP4)](https://github.com/fritzbenning/tailwind-sail/blob/main/assets/tailwind-sail-demo.mp4)
+
+## Add theme files
+
+To show previews for your own palette, spacing, and other theme values, point Tailwind Sail at the CSS file(s) where you define Tailwind v4 theme custom properties.
+
+1. Open your theme file in the editor (it must be a `.css` file inside the workspace).
+2. Run **Tailwind Sail: Add Current File to Theme Files** from the Command Palette, or set the `tailwind-sail.variables.sourceFiles` array in Settings to one or more workspace-relative paths, for example `src/app/globals.css`.
 
 ## Layout settings
 
