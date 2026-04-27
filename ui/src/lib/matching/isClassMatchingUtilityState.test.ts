@@ -26,4 +26,19 @@ describe("isClassMatchingUtilityState", () => {
 		const st: UtilityState = { kind: "utility", id: "text" };
 		expect(isClassMatchingUtilityState(item("flex"), st)).toBe(false);
 	});
+
+	it("matches gap utilities when either flex or grid is selected", () => {
+		const stFlex: UtilityState = { kind: "utility", id: "flex" };
+		const stGrid: UtilityState = { kind: "utility", id: "grid" };
+		const stText: UtilityState = { kind: "utility", id: "text" };
+		const gap: ClassItem = {
+			tokenIndex: 0,
+			fullClass: "gap-4",
+			utility: "flex",
+			variantBuckets: getEmptyVariantBuckets(),
+		};
+		expect(isClassMatchingUtilityState(gap, stFlex)).toBe(true);
+		expect(isClassMatchingUtilityState(gap, stGrid)).toBe(true);
+		expect(isClassMatchingUtilityState(gap, stText)).toBe(false);
+	});
 });

@@ -2,6 +2,8 @@
 
 **Tailwind Sail** gives you a sidebar panel that displays the content of Tailwind class strings in a much more accessible way. You can filter classes by utility, state, or breakpoint to see which styles are applied for specific variants. You can even edit them or add new classes directly. This is handy in particular for very long class strings. In addition Tailwind Sail includes previews for colors and pixel-related classes. You can add your Tailwind v4 theme file to get even a preview for custom colors or overrides of the default Tailwind values.
 
+![Tailwind Sail](assets/tailwind-sail-thumbnail.jpg)
+
 Just give it a shot, it could be absolutely worth it. If not, I appreciate your feedback a lot. Just drop a [github issue](https://github.com/fritzbenning/tailwind-sail/issues) or send me a [dm](https://x.com/fritzbenning). And if you're really enjoying it, it would be awesome if you consider to leave a star for the [github repo](https://github.com/fritzbenning/tailwind-sail).
 
 ![Tailwind Sail demo](assets/tailwind-sail-demo.gif)

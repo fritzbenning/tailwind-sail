@@ -1,3 +1,5 @@
+import { isGapUtility } from "@ext/filter/isGapUtility";
+import { prepareTailwindClassForFilter } from "@ext/variants/prepareTailwindClassForFilter";
 import type { ClassItem } from "../../types";
 import type { UtilityState } from "../state/types";
 
@@ -18,5 +20,19 @@ export function isClassMatchingUtilityState(
 	if (utilityState.kind === "all") {
 		return true;
 	}
-	return item.utility === utilityState.id;
+	if (item.utility === utilityState.id) {
+		return true;
+	}
+	if (utilityState.kind === "utility") {
+		const id = utilityState.id;
+		if (
+			(id === "flex" || id === "grid") &&
+			isGapUtility(
+				prepareTailwindClassForFilter(item.fullClass).utilityNormalized,
+			)
+		) {
+			return true;
+		}
+	}
+	return false;
 }

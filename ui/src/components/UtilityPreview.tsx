@@ -34,6 +34,7 @@ export function UtilityPreview(props: {
 			return undefined;
 		}
 		const vars = props.cssVariables();
+		
 		return getRawPreview(getClassName(props.fullClass), vars);
 	});
 
