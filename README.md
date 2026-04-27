@@ -1,6 +1,6 @@
 # Tailwind Sail
 
-**Tailwind Sail** is a handy sidebar panel that displays the content of Tailwind class strings in a much more accessible way. 
+**Tailwind Sail** is a quite powerful sidebar panel that displays the content of Tailwind class strings in a much more accessible way. 
 
 ![Tailwind Sail](assets/tailwind-sail-thumbnail.jpg)
 
