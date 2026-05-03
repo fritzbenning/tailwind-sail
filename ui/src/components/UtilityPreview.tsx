@@ -2,7 +2,7 @@ import type { Accessor } from "solid-js";
 import { createMemo, Show } from "solid-js";
 import { getClassName } from "../lib/tailwind/class/getClassName";
 import { getRawPreview } from "../lib/tailwind/preview/getRawPreview";
-import { getBackgroundColorClass } from "../lib/tailwind/preview/values/color/getBackgroundColorClass";
+import { findBackgroundColorClass } from "../lib/tailwind/preview/values/color/findBackgroundColorClass";
 import type { CssVariableEntry } from "../types";
 import { ColorSwatch } from "./ColorSwatch";
 
@@ -21,7 +21,7 @@ export function UtilityPreview(props: {
 			return null;
 		}
 		props.cssVariables();
-		return getBackgroundColorClass(props.fullClass, {
+		return findBackgroundColorClass(props.fullClass, {
 			knownCssVariableNames: props.knownCssVariableNames(),
 		});
 	});
@@ -34,7 +34,7 @@ export function UtilityPreview(props: {
 			return undefined;
 		}
 		const vars = props.cssVariables();
-		
+
 		return getRawPreview(getClassName(props.fullClass), vars);
 	});
 

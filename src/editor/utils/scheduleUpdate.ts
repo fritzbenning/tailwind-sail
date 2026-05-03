@@ -1,4 +1,4 @@
-import * as vscode from "vscode";
+import { readUpdateDebounceMs } from "./readUpdateDebounceMs";
 
 export type DebounceTimer = ReturnType<typeof setTimeout> | undefined;
 
@@ -6,13 +6,6 @@ export interface ScheduleUpdateParams {
 	readonly debounceTimer: { current: DebounceTimer };
 	readonly onFire: () => void;
 	readonly debounceMs?: number;
-}
-
-export function readUpdateDebounceMs(): number {
-	const ms = vscode.workspace
-		.getConfiguration("tailwind-sail")
-		.get<number>("updateDebounceMs", 150);
-	return Math.max(0, ms);
 }
 
 export function scheduleUpdate(params: ScheduleUpdateParams): void {

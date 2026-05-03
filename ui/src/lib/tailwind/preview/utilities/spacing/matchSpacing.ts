@@ -1,4 +1,4 @@
-import { getSpacingValue } from "./getSpacingValue";
+import { findSpacingValue } from "./findSpacingValue";
 
 /**
  * Whether `baseUtility` is a built-in spacing utility with a scale suffix (not arbitrary `[...]`).
@@ -13,5 +13,5 @@ export function matchSpacing(baseUtility: string): boolean {
 		return false;
 	}
 
-	return getSpacingValue(baseUtility) !== undefined;
+	return findSpacingValue(baseUtility) !== undefined;
 }

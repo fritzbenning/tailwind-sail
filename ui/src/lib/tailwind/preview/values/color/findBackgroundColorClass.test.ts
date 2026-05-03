@@ -1,30 +1,30 @@
 import { describe, expect, it } from "vitest";
-import { getBackgroundColorClass } from "./getBackgroundColorClass";
+import { findBackgroundColorClass } from "./findBackgroundColorClass";
 
-describe("getBackgroundColorClass", () => {
+describe("findBackgroundColorClass", () => {
 	it("maps palette text and border colors to bg-*", () => {
-		expect(getBackgroundColorClass("text-red-500")).toEqual({
+		expect(findBackgroundColorClass("text-red-500")).toEqual({
 			className: "bg-red-500",
 		});
-		expect(getBackgroundColorClass("md:hover:border-blue-600")).toEqual({
+		expect(findBackgroundColorClass("md:hover:border-blue-600")).toEqual({
 			className: "bg-blue-600",
 		});
 	});
 
 	it("maps arbitrary bracket colors to inline background-color", () => {
-		expect(getBackgroundColorClass("text-[#f97316]")).toEqual({
+		expect(findBackgroundColorClass("text-[#f97316]")).toEqual({
 			className: "",
 			backgroundColor: "#f97316",
 		});
 	});
 
 	it("returns null for non-color utilities", () => {
-		expect(getBackgroundColorClass("text-center")).toBe(null);
+		expect(findBackgroundColorClass("text-center")).toBe(null);
 	});
 
 	it("maps arbitrary var(--token) to workspace-prefixed preview when token is known", () => {
 		expect(
-			getBackgroundColorClass("text-[var(--brand)]", {
+			findBackgroundColorClass("text-[var(--brand)]", {
 				knownCssVariableNames: new Set(["--brand"]),
 			}),
 		).toEqual({
@@ -35,7 +35,7 @@ describe("getBackgroundColorClass", () => {
 
 	it("maps Tailwind 4 text-(--token) to workspace preview when token is known", () => {
 		expect(
-			getBackgroundColorClass("text-(--brand)", {
+			findBackgroundColorClass("text-(--brand)", {
 				knownCssVariableNames: new Set(["--brand"]),
 			}),
 		).toEqual({
@@ -47,7 +47,7 @@ describe("getBackgroundColorClass", () => {
 	it("maps semantic @theme colors to --color-* via injected --workspace-color-*", () => {
 		const known = new Set(["--color-background", "--background"]);
 		expect(
-			getBackgroundColorClass("bg-background", {
+			findBackgroundColorClass("bg-background", {
 				knownCssVariableNames: known,
 			}),
 		).toEqual({
@@ -55,7 +55,7 @@ describe("getBackgroundColorClass", () => {
 			backgroundColor: "var(--workspace-color-background)",
 		});
 		expect(
-			getBackgroundColorClass("text-primary-foreground", {
+			findBackgroundColorClass("text-primary-foreground", {
 				knownCssVariableNames: new Set(["--color-primary-foreground"]),
 			}),
 		).toEqual({
@@ -66,7 +66,7 @@ describe("getBackgroundColorClass", () => {
 
 	it("falls back to hsl(var(--workspace-*)) when only the primitive token is scanned", () => {
 		expect(
-			getBackgroundColorClass("bg-secondary", {
+			findBackgroundColorClass("bg-secondary", {
 				knownCssVariableNames: new Set(["--secondary"]),
 			}),
 		).toEqual({

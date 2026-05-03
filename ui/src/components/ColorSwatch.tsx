@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
-import type { TailwindBackgroundClass } from "../lib/tailwind/preview/values/color/getBackgroundColorClass";
+import type { TailwindBackgroundClass } from "../lib/tailwind/preview/values/color/findBackgroundColorClass";
 
 const colorSwatchVariants = cva(
 	"pointer-events-none shrink-0 self-center rounded-full ring-1 ring-inset ring-white/50",

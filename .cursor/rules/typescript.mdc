@@ -1,0 +1,72 @@
+---
+description: How to name ts interfaces and types
+alwaysApply: true
+---
+
+# TypeScript declaration naming
+
+Conventions for interfaces, types, enums, and generics. Runtime function naming follows `.cursor/rules/functions.mdc`.
+
+## Interfaces
+
+- Use a **noun or noun phrase** that reflects the object shape.
+- **PascalCase** for the name.
+- Do **not** use an `I` prefix or an `Interface` suffix (`User`, not `IUser` or `UserInterface`).
+
+```ts
+interface User {
+  id: number;
+  name: string;
+}
+```
+
+## Types
+
+- **Object types**: same rules as interfaces.
+- **Union types**: use a **descriptive noun phrase**; `XOrY` is acceptable, but prefer a **single clearer name** when it reads well (e.g. `Employee` instead of `DeveloperOrDesigner`).
+- **Function types**: **verb or verb phrase** for the action; **PascalCase**; optional **`Fn`** suffix to signal a function type.
+
+```ts
+type Developer = { name: string; languages: Language[] };
+type Employee = Developer | Designer;
+
+type UserGenerator = (username: string, email?: string) => User;
+```
+
+## Enums
+
+- **Singular** noun phrase for the enum.
+- **PascalCase** for the enum name.
+- Members: **PascalCase** or **CONSTANT_CASE** (pick one style and stay consistent in a file).
+
+**CONSTANT_CASE** members:
+
+```ts
+enum Role {
+  ADMIN,
+  MODERATOR,
+  USER,
+}
+```
+
+**PascalCase** members:
+
+```ts
+enum Theme {
+  Light,
+  Dark,
+}
+```
+
+## Generics
+
+- **One** type parameter: often a **single uppercase letter** (e.g. `T`).
+- **Several** parameters or heavy reuse: **descriptive names**, often with a **`T` prefix** (e.g. `TStatus`, `TResult`, `TError`).
+
+```ts
+interface ApiResponse<TStatus, TResult, TError> {
+  status: TStatus;
+  data: TResult;
+  error: TError;
+}
+```

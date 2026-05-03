@@ -2,7 +2,7 @@ import type { PreviewDefaultContext } from "../../types";
 import { convertScaleToPxLabel } from "../../values/number/convertScaleToPxLabel";
 import { normalizeRawToPxLabel } from "../../values/number/normalizeRawToPxLabel";
 import { MAX_WIDTHS, MAX_WIDTHS_SCREEN } from "./constants";
-import { getSizeValue } from "./getSizeValue";
+import { findSizeValue } from "./findSizeValue";
 
 /**
  * Default preview label for `w-*`, `max-w-*`, and related size utilities.
@@ -17,7 +17,7 @@ export function getSizeDefault(
 	u: string,
 	ctx: PreviewDefaultContext,
 ): string | undefined {
-	const sizeKey = getSizeValue(u);
+	const sizeKey = findSizeValue(u);
 
 	if (!sizeKey) {
 		return undefined;

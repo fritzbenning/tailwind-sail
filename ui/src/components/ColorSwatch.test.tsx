@@ -38,6 +38,6 @@ describe("ColorSwatch", () => {
 			/>
 		));
 		const swatch = container.querySelector('[aria-hidden="true"]');
-		expect(swatch?.className).toMatch(/\bsize-5\b/);
+		expect(swatch?.className).toMatch(/\bsize-6\b/);
 	});
 });

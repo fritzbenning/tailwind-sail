@@ -1,0 +1,28 @@
+---
+description: How to use JSDocs
+alwaysApply: true
+---
+
+# JSDoc
+
+Use JSDoc on **exported** functions, hooks, components, and non-obvious **types/interfaces** when the behavior or shape benefits from a short contract.
+
+## Block shape
+
+1. One brief **summary** paragraph (what it does, edge cases or caveats in plain language).
+2. **`@param`** for each parameter: `@param name - Sentence. Inline hints in backticks (e.g. `` `text-sm` ``).
+3. **`@returns`** describing the value (use `` `undefined` `` / `` `null` `` when distinguishing absence).
+4. **`@example`** — prefer **input ⇒ output** on one line.
+
+```ts
+/**
+ * Returns the single hyphen-free segment after `prefix`, when it exists.
+ *
+ * @param baseUtility - Full utility (e.g. `text-sm`) without a leading `@`.
+ * @param prefix - Prefix including its trailing `-` when the value follows it (e.g. `text-`).
+ * @returns The suffix when it is non-empty, has no `-`, and `baseUtility` starts with `prefix`.
+ *
+ * @example findClassValue("text-sm", "text-") => "sm"
+ * @example findClassValue("text-red-500", "text-") => undefined
+ */
+```

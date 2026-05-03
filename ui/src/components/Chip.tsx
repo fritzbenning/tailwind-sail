@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 import type { JSX } from "solid-js";
 import { splitProps } from "solid-js";
+import { twMerge } from "tailwind-merge";
 
 const chipVariants = cva(
 	[
@@ -52,9 +53,7 @@ export function Chip(props: ChipProps) {
 		<button
 			{...rest}
 			type="button"
-			class={[chipVariants({ isActive: local.isActive }), local.class]
-				.filter(Boolean)
-				.join(" ")}
+			class={twMerge(chipVariants({ isActive: local.isActive }), local.class)}
 			aria-pressed={local.isActive}
 		>
 			{local.children}

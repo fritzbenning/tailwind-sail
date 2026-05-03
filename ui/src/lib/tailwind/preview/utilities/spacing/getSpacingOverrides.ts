@@ -1,4 +1,4 @@
-import { getSpacingValue } from "./getSpacingValue";
+import { findSpacingValue } from "./findSpacingValue";
 
 /**
  * Candidate `--spacing-*` variable names for workspace preview.
@@ -9,7 +9,7 @@ import { getSpacingValue } from "./getSpacingValue";
  * @example getSpacingOverrides("p-4") => ["--spacing-4"]
  */
 export function getSpacingOverrides(baseUtility: string): readonly string[] {
-	const rest = getSpacingValue(baseUtility);
+	const rest = findSpacingValue(baseUtility);
 
 	if (rest === undefined) {
 		return [];

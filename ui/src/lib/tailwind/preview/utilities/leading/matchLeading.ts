@@ -1,4 +1,4 @@
-import { getClassValue } from "../../../class/getClassValue";
+import { findClassValue } from "../../../class/findClassValue";
 
 /**
  * Whether `baseUtility` is a `leading-*` utility (not arbitrary `[...]`).
@@ -12,6 +12,6 @@ export function matchLeading(baseUtility: string): boolean {
 	return (
 		!baseUtility.includes("[") &&
 		!baseUtility.includes("]") &&
-		getClassValue(baseUtility, "leading-") !== undefined
+		findClassValue(baseUtility, "leading-") !== undefined
 	);
 }

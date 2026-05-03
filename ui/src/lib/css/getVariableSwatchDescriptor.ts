@@ -1,6 +1,6 @@
 import { buildWorkspaceVariableName } from "@css/buildWorkspaceVariableName";
 import type { CssVariableEntry } from "../../types";
-import type { TailwindBackgroundClass } from "../tailwind/preview/values/color/getBackgroundColorClass";
+import type { TailwindBackgroundClass } from "../tailwind/preview/values/color/findBackgroundColorClass";
 import { isColorValue } from "./isColorValue";
 import { isHslValue } from "./isHslValue";
 import { isThemeColorName } from "./isThemeColorName";

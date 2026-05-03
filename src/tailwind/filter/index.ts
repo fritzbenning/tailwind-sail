@@ -13,13 +13,11 @@ export {
 	classifyVariantModifier,
 } from "./classify/classifyVariantModifier";
 export { VARIANT_FILTER_ROW_DIMENSIONS } from "./constants";
+export { shouldStripModifierForVariantFilter } from "./shouldStripModifierForVariantFilter";
 export { sortBreakpointsChipKeys } from "./sort/sortBreakpointsChipKeys";
 export { sortContainerChipKeys } from "./sort/sortContainerChipKeys";
 export { sortStateChipKeys } from "./sort/sortStateChipKeys";
 export { sortThemeChipKeys } from "./sort/sortThemeChipKeys";
 export { hasDarkTheme } from "./theme/hasDarkTheme";
-export {
-	shouldStripModifierForVariantFilter,
-	variantBucketMatchesSelection,
-} from "./variantFilterSelection";
+export { variantBucketMatchesSelection } from "./variantBucketMatchesSelection";
 export { type FilterDimensionId, VARIANT_IDS, VARIANTS } from "./variants";

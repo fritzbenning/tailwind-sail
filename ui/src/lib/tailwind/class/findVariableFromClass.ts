@@ -1,14 +1,14 @@
 /**
- * Extracts a custom property name from a color utility that uses `var()` or Tailwind 4 `-(...)`.
+ * Finds a custom property name on a color utility that uses `var()` or Tailwind 4 `-(...)`.
  *
  * @param base - Base utility segment (no variants), e.g. `text-[var(--foo)]` or `bg-(--bar)`.
  * @returns The `--*` name, or `null` when not a simple var reference.
  *
- * @example getVariableFromClass("text-[var(--foo)]") => "--foo"
- * @example getVariableFromClass("text-(--foo)") => "--foo"
- * @example getVariableFromClass("text-red-500") => null
+ * @example findVariableFromClass("text-[var(--foo)]") => "--foo"
+ * @example findVariableFromClass("text-(--foo)") => "--foo"
+ * @example findVariableFromClass("text-red-500") => null
  */
-export function getVariableFromClass(base: string): string | null {
+export function findVariableFromClass(base: string): string | null {
 	const paren = /-\((--[a-zA-Z0-9_-]+)\)$/.exec(base);
 
 	if (paren?.[1]) {

@@ -1,14 +1,14 @@
 import { SIZE_UTILITIES } from "./constants";
 
 /**
- * Returns the size scale key after the longest matching utility prefix.
+ * Parses the size scale key after the longest matching utility prefix, when shaped as `{prefix}-{key}`.
  *
  * @param baseUtility - Base utility only (e.g. `w-64`, `max-w-sm`).
  * @returns The suffix key, or `undefined` for bare prefixes or non-matches.
  *
- * @example getSizeValue("w-64") => "64"
+ * @example findSizeValue("w-64") => "64"
  */
-export function getSizeValue(baseUtility: string): string | undefined {
+export function findSizeValue(baseUtility: string): string | undefined {
 	const sorted = [...SIZE_UTILITIES].sort((a, b) => b.length - a.length);
 
 	for (const prefix of sorted) {

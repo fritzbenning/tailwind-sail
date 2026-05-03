@@ -4,10 +4,10 @@
  * @param base - Base utility only (e.g. `text-[#f00]`).
  * @returns The inner color string, or `null` when not an arbitrary color.
  *
- * @example getArbitraryColor("text-[#f97316]") => "#f97316"
- * @example getArbitraryColor("bg-red-500") => null
+ * @example findArbitraryColor("text-[#f97316]") => "#f97316"
+ * @example findArbitraryColor("bg-red-500") => null
  */
-export function getArbitraryColor(base: string): string | null {
+export function findArbitraryColor(base: string): string | null {
 	const idx = base.indexOf("-[");
 	if (idx === -1) {
 		return null;

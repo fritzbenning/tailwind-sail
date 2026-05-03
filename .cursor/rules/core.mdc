@@ -1,0 +1,31 @@
+---
+description: Root-cause fixes, reuse existing patterns, and FP style
+alwaysApply: true
+---
+
+# Core philosophy
+
+- Naming for functions and methods lives in `.cursor/rules/functions.mdc`.
+- TypeScript declaration naming lives in `.cursor/rules/typescript.mdc`.
+
+## Fix the root cause, not the symptom
+
+- Trace failures to the source (wrong assumption, missing invariant, bad data shape, lifecycle bug) and change that layer.
+- Avoid patching only the visible error.
+
+## Prefer existing patterns before new abstractions
+
+- Search the codebase for similar flows before implementing new solutions (routing, data loading, styling, error handling).
+- Extend or mirror existing patterns instead of introducing a parallel approach.
+
+## Functional style over object-oriented
+
+- Prefer pure functions, narrow inputs/outputs, and composition.
+
+## Follow the codebase conventions
+
+- Add JSDoc per `.cursor/rules/jsdocs.mdc` for exported functions, hooks, components, and non-obvious types/interfaces.
+- Follow Tailwind conventions — `.cursor/rules/tailwind.mdc`.
+- Follow TypeScript conventions — `.cursor/rules/typescript.mdc`.
+- Follow function naming — `.cursor/rules/functions.mdc`.
+- One exported function per file (including small helpers) — `.cursor/rules/module.mdc`.

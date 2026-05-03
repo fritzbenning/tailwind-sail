@@ -1,4 +1,4 @@
-import { getClassValue } from "../../../class/getClassValue";
+import { findClassValue } from "../../../class/findClassValue";
 import type { PreviewDefaultContext } from "../../types";
 import { convertScaleToPxLabel } from "../../values/number/convertScaleToPxLabel";
 import { LEADING_PRESETS } from "./constants";
@@ -16,7 +16,7 @@ export function getLeadingDefault(
 	baseUtility: string,
 	ctx: PreviewDefaultContext,
 ): string | undefined {
-	const rest = getClassValue(baseUtility, "leading-");
+	const rest = findClassValue(baseUtility, "leading-");
 
 	if (rest === undefined) {
 		return undefined;

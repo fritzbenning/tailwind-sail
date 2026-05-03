@@ -1,4 +1,4 @@
-import { getSizeValue } from "./getSizeValue";
+import { findSizeValue } from "./findSizeValue";
 
 /**
  * Whether `baseUtility` is a built-in size utility with a suffix (not arbitrary `[...]`).
@@ -13,5 +13,5 @@ export function matchSize(baseUtility: string): boolean {
 		return false;
 	}
 
-	return getSizeValue(baseUtility) !== undefined;
+	return findSizeValue(baseUtility) !== undefined;
 }

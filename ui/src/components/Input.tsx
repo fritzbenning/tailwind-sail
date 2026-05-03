@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 import type { JSX } from "solid-js";
 import { splitProps } from "solid-js";
+import { twMerge } from "tailwind-merge";
 
 const inputVariants = cva("", {
 	variants: {
@@ -42,13 +43,11 @@ export function Input(props: InputProps) {
 	return (
 		<input
 			{...rest}
-			class={[
+			class={twMerge(
 				"box-border m-0 rounded-sm px-1.5 py-1.5 text-2xs outline-none font-(family-name:--vscode-editor-font-family)",
 				inputVariants({ variant: local.variant ?? "filled" }),
 				local.class,
-			]
-				.filter(Boolean)
-				.join(" ")}
+			)}
 		/>
 	);
 }

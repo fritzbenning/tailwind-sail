@@ -1,0 +1,46 @@
+---
+description: How to name functions
+alwaysApply: true
+---
+
+# Runtime function naming
+
+Naming for **functions and methods**. Type shapes (interfaces, types, enums, generics) follow `.cursor/rules/typescript.mdc`.
+Documentation for exported logic functions and hooks lives in `.cursor/rules/jsdocs.mdc`.
+
+## Side effects and IO
+
+- Use a **verb** that names the action.
+- Examples: `fetchUser`, `updateProfile`, `persistTheme`
+
+## Booleans
+
+- Prefix with **`is`**, **`has`**, **`can`**, or **`should`** as appropriate.
+- Examples: `isValidEmail`, `hasPermission`, `canEdit`, `shouldRetry`
+
+## Event handlers
+
+- Prefix with **`handle`** for UI and event callbacks.
+- Examples: `handleSubmit`, `handleChange`
+
+## Pure retrieval
+
+- Prefix with **`get`** for pure reads that **always** return a value (or throw on failure), not `null`/`undefined`.
+- Examples: `getInitials`, `getConfig` (after validation)
+
+- Prefix with **`find`** when the lookup may **not** resolve — the return type may be `null`, `undefined`, or optional.
+- Examples: `findUserById`, `findSessionByToken`
+
+```ts
+// ❌ Unclear intent
+data();
+valid();
+permission();
+click();
+
+// ✅ Clear intent
+getData();
+isValid();
+hasPermission();
+handleClick();
+```

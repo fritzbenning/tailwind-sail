@@ -1,8 +1,8 @@
 import { buildWorkspaceVariableName } from "@css/buildWorkspaceVariableName";
+import { findVariableFromClass } from "../../../class/findVariableFromClass";
 import { getClassName } from "../../../class/getClassName";
-import { getClassValueVariable } from "../../../class/getClassValueVariable";
-import { getArbitraryColor } from "./getArbitraryColor";
-import { getColorTail } from "./getColorTail";
+import { findArbitraryColor } from "./findArbitraryColor";
+import { findColorTail } from "./findColorTail";
 import { isPaletteShade } from "./isPaletteShade";
 import { isSpecial } from "./isSpecial";
 
@@ -27,18 +27,18 @@ export type TailwindBackgroundClassOptions = {
 };
 
 /**
- * Maps a color-related utility to a solid preview (`bg-*` or inline `background-color`).
+ * Maps a color-related utility to a solid preview (`bg-*` or inline `background-color`), when supported.
  *
  * @param className - Full class as authored (variants and `!` allowed).
  * @param options - Optional known `--*` names for workspace variable bridging.
  * @returns A `bg-*` class and/or inline color, or `null` when not a supported solid color.
  *
- * @example getBackgroundColorClass("text-red-500") => { className: "bg-red-500" }
- * @example getBackgroundColorClass("md:hover:border-blue-600") => { className: "bg-blue-600" }
- * @example getBackgroundColorClass("text-[#f97316]") => { className: "", backgroundColor: "#f97316" }
- * @example getBackgroundColorClass("text-center") => null
+ * @example findBackgroundColorClass("text-red-500") => { className: "bg-red-500" }
+ * @example findBackgroundColorClass("md:hover:border-blue-600") => { className: "bg-blue-600" }
+ * @example findBackgroundColorClass("text-[#f97316]") => { className: "", backgroundColor: "#f97316" }
+ * @example findBackgroundColorClass("text-center") => null
  */
-export function getBackgroundColorClass(
+export function findBackgroundColorClass(
 	className: string,
 	options?: TailwindBackgroundClassOptions,
 ): TailwindBackgroundClass | null {
@@ -48,7 +48,7 @@ export function getBackgroundColorClass(
 		return null;
 	}
 
-	const varName = getClassValueVariable(base);
+	const varName = findVariableFromClass(base);
 	if (varName && options?.knownCssVariableNames?.has(varName) === true) {
 		const workspace = buildWorkspaceVariableName(varName);
 		if (workspace) {
@@ -59,7 +59,7 @@ export function getBackgroundColorClass(
 		}
 	}
 
-	const arb = getArbitraryColor(base);
+	const arb = findArbitraryColor(base);
 
 	if (arb) {
 		return {
@@ -78,7 +78,7 @@ export function getBackgroundColorClass(
 		return null;
 	}
 
-	const tail = getColorTail(prefix, rest);
+	const tail = findColorTail(prefix, rest);
 	if (tail === null) {
 		return null;
 	}

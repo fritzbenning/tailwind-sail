@@ -1,0 +1,17 @@
+---
+description: How to structure functions and files
+alwaysApply: true
+---
+
+# Module
+
+## One exported function per file
+
+- Each function, hook, or component should live in its **own file**.
+- Do not stack multiple exported helpers in one module. Extract even **small helpers** to their own files.
+- File names should match the export (e.g. `fetchUser.ts` exports `fetchUser`).
+
+## Reusable utilities → `src/lib/utils/<topic>/` (extension) / `ui/src/lib/utils/<topic>/` (webview)
+
+- When logic is generic and reusable, place it under `src/lib/utils/<category>/` or `ui/src/lib/utils/<category>/`.
+- Import utilities via the project alias, e.g. `#/lib/utils/date/formatDate`.

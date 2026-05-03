@@ -1,4 +1,4 @@
-import { getClassValue } from "../../../class/getClassValue";
+import { findClassValue } from "../../../class/findClassValue";
 
 /**
  * Candidate `--leading-*` variable names for workspace preview.
@@ -9,6 +9,6 @@ import { getClassValue } from "../../../class/getClassValue";
  * @example getLeadingOverrides("leading-snug") => ["--leading-snug"]
  */
 export function getLeadingOverrides(baseUtility: string): readonly string[] {
-	const rest = getClassValue(baseUtility, "leading-");
+	const rest = findClassValue(baseUtility, "leading-");
 	return rest ? [`--leading-${rest}`] : [];
 }

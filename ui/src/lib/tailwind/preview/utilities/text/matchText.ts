@@ -1,4 +1,4 @@
-import { getClassValue } from "../../../class/getClassValue";
+import { findClassValue } from "../../../class/findClassValue";
 
 /**
  * Whether `baseUtility` is a `text-*` scale utility (not arbitrary `[...]`).
@@ -12,6 +12,6 @@ export function matchText(baseUtility: string): boolean {
 	return (
 		!baseUtility.includes("[") &&
 		!baseUtility.includes("]") &&
-		getClassValue(baseUtility, "text-") !== undefined
+		findClassValue(baseUtility, "text-") !== undefined
 	);
 }

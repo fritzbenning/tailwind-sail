@@ -3,17 +3,17 @@ import { BORDER_NON_COLOR, TEXT_NON_COLOR } from "./constants";
 import { isColorTail } from "./isColorTail";
 
 /**
- * Returns the color tail for `bg-{tail}` preview mapping, or `null` for non-color utilities.
+ * Resolves the color tail for `bg-{tail}` preview mapping, when present.
  *
  * @param prefix - First segment of the base utility (`text`, `bg`, `border`, …).
  * @param tail - Everything after the first `-` in the base utility.
- * @returns The substring to place after `bg-`, or `null`.
+ * @returns The substring to place after `bg-`, or `null` when there is no color tail.
  *
- * @example getColorTail("text", "red-500") => "red-500"
- * @example getColorTail("text", "center") => null
- * @example getColorTail("border", "t-red-500") => "red-500"
+ * @example findColorTail("text", "red-500") => "red-500"
+ * @example findColorTail("text", "center") => null
+ * @example findColorTail("border", "t-red-500") => "red-500"
  */
-export function getColorTail(prefix: string, tail: string): string | null {
+export function findColorTail(prefix: string, tail: string): string | null {
 	if (prefix === "bg") {
 		if (isColorTail(tail)) {
 			return tail;

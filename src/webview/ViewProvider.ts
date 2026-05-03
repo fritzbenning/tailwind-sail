@@ -4,7 +4,7 @@ import { removeClassFromString } from "../editor/edits/removeClassFromString";
 import { updateString } from "../editor/edits/updateString";
 import type { StringHighlighterHandle } from "../editor/highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../editor/types";
-import { readUpdateDebounceMs } from "../editor/utils/scheduleUpdate";
+import { readUpdateDebounceMs } from "../editor/utils/readUpdateDebounceMs";
 import { isThemeFile } from "../theme/check/isThemeFile";
 import { executeAddThemeFile } from "../theme/commands/executeAddThemeFile";
 import { getThemeFileScanInfo } from "../theme/config/getThemeFileScanInfo";

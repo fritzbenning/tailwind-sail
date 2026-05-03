@@ -1,5 +1,6 @@
 import type { JSX } from "solid-js";
 import { splitProps } from "solid-js";
+import { twMerge } from "tailwind-merge";
 
 export interface ToggleSwitchProps
 	extends Omit<JSX.LabelHTMLAttributes<HTMLLabelElement>, "children"> {
@@ -19,12 +20,10 @@ export function ToggleSwitch(props: ToggleSwitchProps) {
 	return (
 		<label
 			{...rest}
-			class={[
+			class={twMerge(
 				"relative m-0 inline-flex w-full cursor-pointer select-none items-center gap-2 py-0 pr-0 pl-9 text-[0.8em] leading-[1.35] text-(--vscode-descriptionForeground)",
 				local.class,
-			]
-				.filter(Boolean)
-				.join(" ")}
+			)}
 		>
 			<span class="absolute top-1/2 left-0 h-4 w-6 -translate-y-1/2">
 				<input

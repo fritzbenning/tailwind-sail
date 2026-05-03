@@ -1,6 +1,6 @@
 import type { PreviewDefaultContext } from "../../types";
 import { convertScaleToPxLabel } from "../../values/number/convertScaleToPxLabel";
-import { getSpacingValue } from "./getSpacingValue";
+import { findSpacingValue } from "./findSpacingValue";
 
 /**
  * Default px label for spacing utilities from the numeric scale.
@@ -15,7 +15,7 @@ export function getSpacingDefault(
 	u: string,
 	ctx: PreviewDefaultContext,
 ): string | undefined {
-	const key = getSpacingValue(u);
+	const key = findSpacingValue(u);
 
 	if (!key) {
 		return undefined;

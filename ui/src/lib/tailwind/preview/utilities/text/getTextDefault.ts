@@ -1,4 +1,4 @@
-import { getClassValue } from "../../../class/getClassValue";
+import { findClassValue } from "../../../class/findClassValue";
 import type { PreviewDefaultContext } from "../../types";
 import { TEXT_SIZES } from "./constants";
 
@@ -15,7 +15,7 @@ export function getTextDefault(
 	baseUtility: string,
 	_context: PreviewDefaultContext,
 ): string | undefined {
-	const rest = getClassValue(baseUtility, "text-");
+	const rest = findClassValue(baseUtility, "text-");
 	if (rest === undefined) {
 		return undefined;
 	}

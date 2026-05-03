@@ -1,0 +1,10 @@
+---
+description: How to use Tailwind
+alwaysApply: true
+---
+
+# Tailwind v4 and CVA
+
+- ALWAYS use **Tailwind v4** syntax and avoid legacy syntax. (e.g. `bg-(--color-mint-500)` instead of `bg-[var(--color-mint-500)]`)
+- For dynamic/variant classes, use **Class Variance Authority (CVA)** instead of template strings.
+- Use **twMerge** when a component exposes a **`class`** / **`className`** prop merged with Tailwind utilities.

@@ -1,4 +1,4 @@
-import { getClassValue } from "../../../class/getClassValue";
+import { findClassValue } from "../../../class/findClassValue";
 
 /**
  * Candidate `--text-*` variable names for workspace preview.
@@ -9,6 +9,6 @@ import { getClassValue } from "../../../class/getClassValue";
  * @example getTextOverrides("text-sm") => ["--text-sm"]
  */
 export function getTextOverrides(baseUtility: string): readonly string[] {
-	const rest = getClassValue(baseUtility, "text-");
+	const rest = findClassValue(baseUtility, "text-");
 	return rest ? [`--text-${rest}`] : [];
 }
