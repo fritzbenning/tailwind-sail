@@ -24,6 +24,7 @@ alwaysApply: true
 
 ## Follow the codebase conventions
 
+
 - Add JSDoc per `.cursor/rules/jsdocs.mdc` for exported functions, hooks, components, and non-obvious types/interfaces.
 - Follow Tailwind conventions — `.cursor/rules/tailwind.mdc`.
 - Follow TypeScript conventions — `.cursor/rules/typescript.mdc`.
