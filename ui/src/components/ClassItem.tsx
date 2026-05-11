@@ -61,6 +61,11 @@ export function ClassItem(props: {
 						if (e.key === "Enter" || e.key === "Escape") {
 							e.preventDefault();
 							(e.target as HTMLInputElement).blur();
+							if (e.key === "Enter") {
+								vscode.postMessage({
+									type: "tailwind-sail-save-after-edit-if-enabled",
+								});
+							}
 						}
 					}}
 				/>

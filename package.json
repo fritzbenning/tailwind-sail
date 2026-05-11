@@ -59,42 +59,47 @@
 		"commands": [
 			{
 				"command": "tailwind-sail.showSidebar",
-				"title": "Tailwind Sail: Show Sidebar",
+				"title": "Show Sidebar",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.refresh",
-				"title": "Tailwind Sail: Refresh",
+				"title": "Refresh",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.setLayout",
-				"title": "Tailwind Sail: Set Sidebar Horizontal Padding…",
+				"title": "Set Sidebar Horizontal Padding…",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.setPaddingTop",
-				"title": "Tailwind Sail: Set Sidebar Top Padding…",
+				"title": "Set Sidebar Top Padding…",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.toggleSidebarRightBorder",
-				"title": "Tailwind Sail: Toggle Sidebar Right Border",
+				"title": "oggle Sidebar Right Border",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.setApplyAtCaretScope",
-				"title": "Tailwind Sail: Set @apply Scope…",
+				"title": "Set @apply Scope…",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.addThemeFile",
-				"title": "Tailwind Sail: Add Current File to Theme Files",
+				"title": "Add Current File to Theme Files",
 				"category": "Tailwind Sail"
 			},
 			{
 				"command": "tailwind-sail.removeThemeFile",
-				"title": "Tailwind Sail: Remove Current File from Theme Files",
+				"title": "Remove Current File from Theme Files",
+				"category": "Tailwind Sail"
+			},
+			{
+				"command": "tailwind-sail.toggleSaveDocumentAfterEdit",
+				"title": "Save Document After Edit (Toggle)",
 				"category": "Tailwind Sail"
 			}
 		],
@@ -152,6 +157,11 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Show color swatches and raw value hints next to each class in the sidebar. Turn off for a denser list."
+				},
+				"tailwind-sail.saveDocumentAfterEdit": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "After a successful Tailwind Sail edit, save the active editor document: removing a class, adding a class (Enter in **Add**), stepping the named scale chevrons, or pressing **Enter** in a class token field (live edits are already applied). Does not save on every keystroke while typing a token."
 				},
 				"tailwind-sail.variables.sourceFiles": {
 					"type": "array",

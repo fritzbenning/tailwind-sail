@@ -4,6 +4,7 @@ import { registerEditorTracker } from "./editor/tracking/registerEditorTracker";
 import { executeSetApplyAtCaretScope } from "./styles/apply/executeSetApplyAtCaretScope";
 import { executeAddThemeFile } from "./theme/commands/executeAddThemeFile";
 import { executeRemoveThemeFile } from "./theme/commands/executeRemoveThemeFile";
+import { readSaveDocumentAfterEdit } from "./webview/settings/readSaveDocumentAfterEdit";
 import { readSidebarBorderSettings } from "./webview/settings/readSidebarBorderSettings";
 import type { SidebarLayout } from "./webview/types";
 import { ViewProvider } from "./webview/ViewProvider";
@@ -120,6 +121,18 @@ export function activate(context: vscode.ExtensionContext): void {
 				const next = !readSidebarBorderSettings();
 				await config.update(
 					"showSidebarRightBorder",
+					next,
+					vscode.ConfigurationTarget.Global,
+				);
+			},
+		),
+		vscode.commands.registerCommand(
+			"tailwind-sail.toggleSaveDocumentAfterEdit",
+			async () => {
+				const config = vscode.workspace.getConfiguration("tailwind-sail");
+				const next = !readSaveDocumentAfterEdit();
+				await config.update(
+					"saveDocumentAfterEdit",
 					next,
 					vscode.ConfigurationTarget.Global,
 				);

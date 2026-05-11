@@ -55,5 +55,6 @@ export const ROUNDED_NAMED_STEPS = [
 	"xl",
 	"2xl",
 	"3xl",
+	"4xl",
 	"full",
 ] as const;

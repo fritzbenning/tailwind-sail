@@ -45,4 +45,25 @@ describe("ClassItem", () => {
 			newValue: "p-2",
 		});
 	});
+
+	it("posts save-after-edit-if-enabled on Enter", () => {
+		const postMessage = vi.spyOn(vscode, "postMessage");
+		const panel = makePanelModal({
+			classes: [makeClassItem({ tokenIndex: 0, fullClass: "p-1" })],
+		});
+		render(() => (
+			<ClassItem
+				item={panel.classes[0]}
+				panel={() => panel}
+				filter={() => getDefaultFilterState()}
+				cssVariables={() => []}
+				showUtilityPreview={() => true}
+			/>
+		));
+		const input = screen.getByDisplayValue("p-1");
+		fireEvent.keyDown(input, { key: "Enter", bubbles: true });
+		expect(postMessage).toHaveBeenCalledWith({
+			type: "tailwind-sail-save-after-edit-if-enabled",
+		});
+	});
 });

@@ -12,7 +12,7 @@ import { IconChevronRight } from "./IconChevronRight";
  *
  * Uses {@link IconButton} row chrome. Hidden when the utility has no recognized named tail (e.g. numeric spacing).
  *
- * @param props.tokenIndex - Host token index for `tailwind-sail-edit-class`.
+ * @param props.tokenIndex - Host token index for `tailwind-sail-edit-class` (sets `requestSaveAfterEdit` so auto-save can run after stepping).
  * @param props.fullClass - Authoritative class string (including variants).
  */
 export function ScaleStepButtons(props: {
@@ -32,10 +32,7 @@ export function ScaleStepButtons(props: {
 	);
 
 	const handleStep = (direction: 1 | -1) => {
-		const next = stepNamedScaleClass(
-			props.fullClass(),
-			direction,
-		);
+		const next = stepNamedScaleClass(props.fullClass(), direction);
 
 		if (!next) {
 			return;
@@ -45,6 +42,7 @@ export function ScaleStepButtons(props: {
 			type: "tailwind-sail-edit-class",
 			tokenIndex: props.tokenIndex,
 			newValue: next,
+			requestSaveAfterEdit: true,
 		});
 	};
 

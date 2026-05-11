@@ -16,6 +16,9 @@ describe("stepNamedScaleClass", () => {
 		expect(stepNamedScaleClass("rounded-md", -1)).toBe("rounded");
 		expect(stepNamedScaleClass("rounded-none", -1)).toBeNull();
 		expect(stepNamedScaleClass("rounded-full", 1)).toBeNull();
+		expect(stepNamedScaleClass("rounded-3xl", 1)).toBe("rounded-4xl");
+		expect(stepNamedScaleClass("rounded-4xl", 1)).toBe("rounded-full");
+		expect(stepNamedScaleClass("rounded-full", -1)).toBe("rounded-4xl");
 		expect(stepNamedScaleClass("rounded-tl", 1)).toBeNull();
 	});
 

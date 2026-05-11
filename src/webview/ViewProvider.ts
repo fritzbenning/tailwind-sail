@@ -3,6 +3,7 @@ import { addClassAtCursor } from "../editor/edits/addClassAtCursor";
 import { removeClassTokenAtCursor } from "../editor/edits/removeClassTokenAtCursor";
 import { updateClassTokenAtCursor } from "../editor/edits/updateClassTokenAtCursor";
 import type { StringHighlighterHandle } from "../editor/highlight/registerStringHighlighter";
+import { saveActiveEditorDocumentAfterEditIfEnabled } from "../editor/saveActiveEditorDocumentAfterEditIfEnabled";
 import type { SailEditorSnapshot } from "../editor/types";
 import { readUpdateDebounceMs } from "../editor/utils/readUpdateDebounceMs";
 import { isThemeFile } from "../theme/check/isThemeFile";
@@ -171,6 +172,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				tokenIndex?: number;
 				newValue?: string;
 				className?: string;
+				requestSaveAfterEdit?: boolean;
 				uri?: string;
 				line?: number;
 				valueStartOffset?: number;
@@ -210,22 +212,42 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				if (!editor) {
 					return;
 				}
+				if (message.type === "tailwind-sail-save-after-edit-if-enabled") {
+					void saveActiveEditorDocumentAfterEditIfEnabled(editor);
+					return;
+				}
 				if (message.type === "tailwind-sail-remove-class") {
 					if (typeof message.tokenIndex !== "number") {
 						return;
 					}
-					void removeClassTokenAtCursor(
-						editor,
-						this.lastSnapshot,
-						message.tokenIndex,
-					);
+					const tokenIndex = message.tokenIndex;
+					void (async () => {
+						const applied = await removeClassTokenAtCursor(
+							editor,
+							this.lastSnapshot,
+							tokenIndex,
+						);
+						if (applied) {
+							await saveActiveEditorDocumentAfterEditIfEnabled(editor);
+						}
+					})();
 					return;
 				}
 				if (message.type === "tailwind-sail-add-class") {
 					if (typeof message.className !== "string") {
 						return;
 					}
-					void addClassAtCursor(editor, this.lastSnapshot, message.className);
+					const className = message.className;
+					void (async () => {
+						const applied = await addClassAtCursor(
+							editor,
+							this.lastSnapshot,
+							className,
+						);
+						if (applied) {
+							await saveActiveEditorDocumentAfterEditIfEnabled(editor);
+						}
+					})();
 					return;
 				}
 				if (message.type !== "tailwind-sail-edit-class") {
@@ -237,12 +259,20 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				) {
 					return;
 				}
-				void updateClassTokenAtCursor(
-					editor,
-					this.lastSnapshot,
-					message.tokenIndex,
-					message.newValue,
-				);
+				const tokenIndexForEdit = message.tokenIndex;
+				const newValueForEdit = message.newValue;
+				const requestSaveAfterEdit = message.requestSaveAfterEdit === true;
+				void (async () => {
+					const applied = await updateClassTokenAtCursor(
+						editor,
+						this.lastSnapshot,
+						tokenIndexForEdit,
+						newValueForEdit,
+					);
+					if (applied && requestSaveAfterEdit) {
+						await saveActiveEditorDocumentAfterEditIfEnabled(editor);
+					}
+				})();
 			},
 		);
 

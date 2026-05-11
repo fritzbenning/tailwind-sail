@@ -44,9 +44,7 @@ export function stepNamedScale(
 
 	const nextToken = steps[nextIndex];
 	const nextRest =
-		nextToken === ""
-			? current.prefix
-			: `${current.prefix}-${nextToken}`;
+		nextToken === "" ? current.prefix : `${current.prefix}-${nextToken}`;
 
 	return `${importantPrefix}${nextRest}`;
 }
