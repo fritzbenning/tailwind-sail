@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { findTailwindStringAtCursor } from "../../string/extract/findTailwindStringAtCursor";
 import { findTailwindApplyAtCursor } from "../../styles/apply/findTailwindApplyAtCursor";
+import { readTailwindApplyScope } from "../../styles/apply/readTailwindApplyScope";
 import { ViewProvider } from "../../webview/ViewProvider";
 import type { SailEditorSnapshot } from "../types";
 
@@ -44,7 +45,9 @@ export function pushSnapshot(
 		return;
 	}
 
-	const applyResult = findTailwindApplyAtCursor(document, position);
+	const applyResult = findTailwindApplyAtCursor(document, position, {
+		scope: readTailwindApplyScope(),
+	});
 
 	if (applyResult) {
 		publishSnapshot({

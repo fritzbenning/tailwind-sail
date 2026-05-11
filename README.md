@@ -7,6 +7,7 @@
 ## Features
 
 - Filter classes by utility, state or breakpoint
+- Support for class strings and @apply
 - Preview color and pixel values
 - Edit or delete classes directly
 - Hide variant prefixes to focus on class values

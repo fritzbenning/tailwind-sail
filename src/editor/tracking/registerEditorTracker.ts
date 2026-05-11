@@ -53,7 +53,8 @@ export function registerEditorTracker(
 		vscode.workspace.onDidChangeConfiguration((e) => {
 			if (
 				e.affectsConfiguration("tailwind-sail.updateDebounceMs") ||
-				e.affectsConfiguration("tailwind-sail.highlightActiveString")
+				e.affectsConfiguration("tailwind-sail.highlightActiveString") ||
+				e.affectsConfiguration("tailwind-sail.applyAtCaretScope")
 			) {
 				runSchedule();
 			}

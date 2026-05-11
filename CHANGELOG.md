@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.1.8] - 2026-05-11
+
+### New features
+
+- **CSS/SCSS `@apply`**: Sidebar, underlines, and edits work on Tailwind utilities inside `@apply` in stylesheets. Setting **`tailwind-sail.applyAtCaretScope`** chooses whether to merge the whole rule body or only the `@apply` that contains the caret. Command **Tailwind Sail: Set @apply Scope…** changes that from the Command Palette.
+
 ## [0.1.7] - 2026-04-24
 
 ### Changed

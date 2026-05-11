@@ -4,7 +4,7 @@
 	"displayName": "Tailwind Sail",
 	"icon": "assets/icon.png",
 	"description": "Tailwind sidebar for browsing, filtering, and editing class strings.",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -83,6 +83,11 @@
 				"category": "Tailwind Sail"
 			},
 			{
+				"command": "tailwind-sail.setApplyAtCaretScope",
+				"title": "Tailwind Sail: Set @apply Scope…",
+				"category": "Tailwind Sail"
+			},
+			{
 				"command": "tailwind-sail.addThemeFile",
 				"title": "Tailwind Sail: Add Current File to Theme Files",
 				"category": "Tailwind Sail"
@@ -106,6 +111,19 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Underline the active string literal Tailwind Sail is using in the editor."
+				},
+				"tailwind-sail.applyAtCaretScope": {
+					"type": "string",
+					"enum": [
+						"wholeRule",
+						"atCaretDirective"
+					],
+					"enumDescriptions": [
+						"Merge every `@apply` in the enclosing rule body (Tailwind merges them when building). Sidebar and underlines reflect the combined list.",
+						"Merge only the `@apply` directive that contains the caret (including multi-line parameters). Sidebar and highlights stay scoped to that single directive."
+					],
+					"default": "wholeRule",
+					"markdownDescription": "For CSS/SCSS `@apply`: whether Tailwind Sail treats the whole rule body as one editable surface or only the `@apply` the caret is inside."
 				},
 				"tailwind-sail.layout": {
 					"type": "string",

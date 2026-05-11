@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { registerStringHighlighter } from "./editor/highlight/registerStringHighlighter";
 import { registerEditorTracker } from "./editor/tracking/registerEditorTracker";
+import { executeSetApplyAtCaretScope } from "./styles/apply/executeSetApplyAtCaretScope";
 import { executeAddThemeFile } from "./theme/commands/executeAddThemeFile";
 import { executeRemoveThemeFile } from "./theme/commands/executeRemoveThemeFile";
 import { readSidebarBorderSettings } from "./webview/settings/readSidebarBorderSettings";
@@ -123,6 +124,10 @@ export function activate(context: vscode.ExtensionContext): void {
 					vscode.ConfigurationTarget.Global,
 				);
 			},
+		),
+		vscode.commands.registerCommand(
+			"tailwind-sail.setApplyAtCaretScope",
+			executeSetApplyAtCaretScope,
 		),
 		vscode.commands.registerCommand(
 			"tailwind-sail.addThemeFile",

@@ -4,7 +4,10 @@ import { parseStyleContent } from "../parse/parseStyleContent";
 import { descendToInnermostRule } from "../rules/descendToInnermostRule";
 import { getTailwindApplyResult } from "./getTailwindApplyResult";
 import { listTailwindApplyAtRules } from "./listTailwindApplyAtRules";
-import type { TailwindApplyResult } from "./types";
+import type {
+	FindTailwindApplyAtCursorOptions,
+	TailwindApplyResult,
+} from "./types";
 
 export interface ApplyExtractionResult extends TailwindApplyResult {
 	/** Highlights each `@apply` directive spanning the stylesheet. */
@@ -16,6 +19,7 @@ export interface ApplyExtractionResult extends TailwindApplyResult {
  *
  * @param document - Active editor document.
  * @param position - Primary caret.
+ * @param options - Optional resolver overrides; **`scope`** `"atCaretDirective"` merges only the `@apply` containing the caret; **`wholeRule`** (default) merges every `@apply` in the enclosing block.
  * @returns Apply snapshot for the sidebar, or `undefined` outside supported stylesheet `@apply` contexts.
  *
  * @example findTailwindApplyAtCursor(doc, posInApplyParams)?.isTailwind === true
@@ -24,6 +28,7 @@ export interface ApplyExtractionResult extends TailwindApplyResult {
 export function findTailwindApplyAtCursor(
 	document: vscode.TextDocument,
 	position: vscode.Position,
+	options?: FindTailwindApplyAtCursorOptions,
 ): ApplyExtractionResult | undefined {
 	const documentOffset = document.offsetAt(position);
 	const styleInfo = findStyleContent(document, documentOffset);
@@ -52,10 +57,29 @@ export function findTailwindApplyAtCursor(
 		return undefined;
 	}
 
-	const applies = listTailwindApplyAtRules(rule);
+	let applies = listTailwindApplyAtRules(rule);
 
 	if (applies.length === 0) {
 		return undefined;
+	}
+
+	const scope = options?.scope ?? "wholeRule";
+
+	if (scope === "atCaretDirective") {
+		applies = applies.filter((atRule) => {
+			const start = atRule.source?.start?.offset;
+			const end = atRule.source?.end?.offset;
+
+			if (start === undefined || end === undefined) {
+				return false;
+			}
+
+			return localOffset >= start && localOffset < end;
+		});
+
+		if (applies.length === 0) {
+			return undefined;
+		}
 	}
 
 	const result = getTailwindApplyResult(

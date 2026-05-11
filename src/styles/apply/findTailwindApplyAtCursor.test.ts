@@ -55,6 +55,56 @@ suite("@apply extraction helpers", () => {
 		assert.strictEqual(doc.getText().charAt(result!.insertDocOffset!), ";");
 	});
 
+	test("atCaretDirective merges only the @apply that contains the caret", async () => {
+		const css = `.btn {\n  @apply flex;\n  @apply underline;\n}\n`;
+		const doc = await vscode.workspace.openTextDocument({
+			language: "css",
+			content: css,
+		});
+		const inFirst = findTailwindApplyAtCursor(
+			doc,
+			doc.positionAt(css.indexOf("flex")),
+			{ scope: "atCaretDirective" },
+		);
+		assert.ok(inFirst);
+		assert.deepStrictEqual(
+			inFirst!.classes.map((c) => c.name),
+			["flex"],
+		);
+		assert.strictEqual(inFirst!.applyHighlightRanges.length, 1);
+
+		const inSecond = findTailwindApplyAtCursor(
+			doc,
+			doc.positionAt(css.indexOf("underline")),
+			{ scope: "atCaretDirective" },
+		);
+		assert.ok(inSecond);
+		assert.deepStrictEqual(
+			inSecond!.classes.map((c) => c.name),
+			["underline"],
+		);
+		assert.strictEqual(inSecond!.applyHighlightRanges.length, 1);
+	});
+
+	test("wholeRule passed explicitly still merges every sibling @apply", async () => {
+		const css = `.btn {\n  @apply flex;\n  @apply underline;\n}\n`;
+		const doc = await vscode.workspace.openTextDocument({
+			language: "css",
+			content: css,
+		});
+		const result = findTailwindApplyAtCursor(
+			doc,
+			doc.positionAt(css.indexOf("flex")),
+			{ scope: "wholeRule" },
+		);
+		assert.ok(result);
+		assert.deepStrictEqual(
+			result!.classes.map((c) => c.name),
+			["flex", "underline"],
+		);
+		assert.strictEqual(result!.applyHighlightRanges.length, 2);
+	});
+
 	test("omits embedded @apply keywords from parameter token list", async () => {
 		const css = `.x { @apply @apply flex gap-2; }\n`;
 		const doc = await vscode.workspace.openTextDocument({
