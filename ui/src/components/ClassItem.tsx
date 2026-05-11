@@ -12,6 +12,7 @@ import { ButtonSlot } from "./ButtonSlot";
 import { ClassDot } from "./ClassDot";
 import { Input } from "./Input";
 import { RemoveButton } from "./RemoveButton";
+import { ScaleStepButtons } from "./ScaleStepButtons";
 import { UtilityPreview } from "./UtilityPreview";
 
 export function ClassItem(props: {
@@ -63,7 +64,12 @@ export function ClassItem(props: {
 						}
 					}}
 				/>
+
 				<div class="flex items-center gap-2 px-1">
+					<ScaleStepButtons
+						tokenIndex={props.item.tokenIndex}
+						fullClass={() => props.item.fullClass}
+					/>
 					<ButtonSlot>
 						<RemoveButton tokenIndex={props.item.tokenIndex} />
 					</ButtonSlot>

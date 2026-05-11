@@ -1,4 +1,4 @@
-import { IconX } from "./Icons";
+import { IconX } from "./IconX";
 
 export function ClearButton(props: {
 	onClick: () => void;

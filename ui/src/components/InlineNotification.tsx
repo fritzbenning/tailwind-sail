@@ -1,7 +1,7 @@
 import type { JSX, ParentProps } from "solid-js";
 import { Show, splitProps } from "solid-js";
 import { twMerge } from "tailwind-merge";
-import { IconInfo } from "./Icons";
+import { IconInfo } from "./IconInfo";
 
 export type InlineNotificationProps = ParentProps<{
 	/** When false, only the bordered container and content are shown (no info glyph). */
