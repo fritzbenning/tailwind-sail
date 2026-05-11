@@ -185,7 +185,7 @@
 		"test": "vscode-test",
 		"vsix": "pnpm exec vsce package --no-dependencies",
 		"publish:vsix": "pnpm exec vsce publish --no-dependencies",
-		"publish:openvsx": "pnpm exec ovsx publish"
+		"publish:openvsx": "pnpm exec ovsx publish --no-dependencies"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.12",
