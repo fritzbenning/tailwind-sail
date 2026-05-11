@@ -2,6 +2,8 @@ import * as vscode from "vscode";
 import type { SailEditorSnapshot } from "../types";
 import { getFocusClassRange } from "./getFocusClassRange";
 import { getSnapshotFocusFingerprint } from "./getSnapshotFocusFingerprint";
+import { getUnderlineRangesFromRawToDocSegments } from "./getUnderlineRangesFromRawToDocSegments";
+import { shouldInvalidateFocusedClassContext } from "./shouldInvalidateFocusedClassContext";
 
 export type StringHighlighterHandle = {
 	refresh(snapshot: SailEditorSnapshot): void;
@@ -79,16 +81,15 @@ export function registerStringHighlighter(
 		if (
 			focusedTokenIndex !== undefined &&
 			focusFingerprintWhenFocused !== undefined &&
-			editor
-		) {
-			const fp = getSnapshotFocusFingerprint(
+			editor &&
+			shouldInvalidateFocusedClassContext(
 				snapshot,
 				editor.document.uri.toString(),
-			);
-			if (fp !== focusFingerprintWhenFocused) {
-				focusedTokenIndex = undefined;
-				focusFingerprintWhenFocused = undefined;
-			}
+				focusFingerprintWhenFocused,
+			)
+		) {
+			focusedTokenIndex = undefined;
+			focusFingerprintWhenFocused = undefined;
 		}
 
 		clearAllDecorations();
@@ -128,19 +129,10 @@ export function registerStringHighlighter(
 			return;
 		}
 
-		const { document } = activeEditor;
-
-		const { rawToDocSegments } = snapCtx;
-
-		const ranges: vscode.Range[] = [];
-
-		for (const seg of rawToDocSegments) {
-			const start = document.positionAt(seg.docStart);
-			const end = document.positionAt(seg.docEnd);
-			if (!start.isEqual(end)) {
-				ranges.push(new vscode.Range(start, end));
-			}
-		}
+		const ranges = getUnderlineRangesFromRawToDocSegments(
+			activeEditor.document,
+			snapCtx.rawToDocSegments,
+		);
 
 		activeEditor.setDecorations(stringDecorationType, ranges);
 		paintFocusedClass();
