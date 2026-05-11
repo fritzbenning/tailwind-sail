@@ -10,36 +10,31 @@ import type { ParsedTailwindClass } from "../../tailwind/parse/types";
 import { prepareTailwindClassForFilter } from "../../tailwind/variants/prepareTailwindClassForFilter";
 import type { ClassItem, PanelModal, WebviewModal } from "../types";
 import { buildVariantRows } from "./buildVariantRows";
+import { getSnapshotModalContext } from "./getSnapshotModalContext";
 import { mergePresentKeys } from "./mergePresentKeys";
 
 /**
- * Derives the sidebar webview payload from the current editor string snapshot:
- * "no string", "not Tailwind", or a `panel` with utilities, variant chips,
- * and per-class metadata for the UI.
+ * Derives the sidebar webview payload from the current editor snapshot:
+ * a `class` string, an `@apply` rule body, or neither.
  *
- * @param snapshot - Last extracted/parsed `class` string and Tailwind heuristics
- *   from the editor.
- * @returns A discriminated `WebviewModal` for the webview: `noString` when
- *   nothing to parse, `noTailwind` when the string does not look like Tailwind,
- *   or `panel` with filter rows and class items.
+ * Returns `noString` when there is no supported context, `noTailwind` when context
+ * exists but does not look like Tailwind (string path only), or `panel` when
+ * utilities can be listed.
  *
- * @example
- * buildSailWebviewViewModel(snapshot).kind === "noString" — when the cursor
- * is not in a `class` string.
+ * @param snapshot - Extracted string literal and/or `@apply` ranges for highlights.
+ * @returns Discriminated {@link WebviewModal} for the webview.
  *
- * @example
- * buildSailWebviewViewModel(snapshot).kind === "panel" — when classes were
- * parsed and look like Tailwind; then `.utilities` and `.variants` drive the UI.
+ * @example buildViewModal({ context: { kind: "none" } }) => { kind: "noString" }
+ * @example buildViewModal(snapshotWithTailwindPanelContext) => { kind: "panel", classes: [...], ... }
  */
 export function buildViewModal(snapshot: SailEditorSnapshot): WebviewModal {
-	const stringDetected = snapshot.extracted !== undefined;
-	const classes = snapshot.parsed?.classes ?? [];
-	const looksTw = snapshot.parsed?.looksLikeTailwind === true;
+	const { hasContext, containsTailwind, classes } =
+		getSnapshotModalContext(snapshot);
 
-	if (!stringDetected) {
+	if (!hasContext) {
 		return { kind: "noString" };
 	}
-	if (!looksTw) {
+	if (!containsTailwind) {
 		return { kind: "noTailwind" };
 	}
 

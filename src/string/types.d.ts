@@ -26,7 +26,7 @@ export interface RawToDocSegment {
  * @property range - Full literal in the document.
  * @property rawToDocSegments - Maps `rawContent` indices to file offsets.
  *
- * @example See tests for `extractStringAtCursor` payloads.
+ * @example See tests for `findTailwindStringAtCursor` (includes `classes` and `isTailwind`).
  */
 export interface ExtractedString {
 	readonly rawContent: string;

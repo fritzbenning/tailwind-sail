@@ -1,7 +1,9 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
 	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-	"files": { "includes": ["**", "!!**/dist"] },
+	"files": {
+		"includes": ["**", "!!**/dist", "!!**/.vscode-test-tmp-theme/**"]
+	},
 	"css": {
 		"parser": {
 			"tailwindDirectives": true
@@ -11,7 +13,13 @@
 	"linter": {
 		"enabled": true,
 		"rules": { "recommended": false },
-		"includes": ["**", "!**/node_modules/**", "!out/**", "!dist/**"]
+		"includes": [
+			"**",
+			"!**/node_modules/**",
+			"!out/**",
+			"!dist/**",
+			"!**/.vscode-test-tmp-theme/**"
+		]
 	},
 	"javascript": {
 		"formatter": { "quoteStyle": "double", "semicolons": "always" }

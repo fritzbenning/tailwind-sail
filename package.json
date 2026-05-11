@@ -171,5 +171,9 @@
 		"esbuild": "^0.28.0",
 		"ovsx": "^0.10.11",
 		"typescript": "~6.0.2"
+	},
+	"dependencies": {
+		"postcss": "^8.5.14",
+		"postcss-scss": "^4.0.9"
 	}
 }

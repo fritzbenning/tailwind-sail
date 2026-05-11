@@ -31,7 +31,7 @@ export function Tabs(props: { active: TabId; onChange: (id: TabId) => void }) {
 				class={twMerge(tabBtn({ active: props.active === "classes" }))}
 				onClick={() => props.onChange("classes")}
 			>
-				String classes
+				Classes
 			</button>
 			<button
 				type="button"

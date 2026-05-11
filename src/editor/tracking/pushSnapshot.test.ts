@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
 import type { ViewProvider } from "../../webview/ViewProvider";
-import type { StringHighlighterHandle } from "../highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../types";
 import { pushSnapshot } from "./pushSnapshot";
 
@@ -16,25 +15,16 @@ suite("pushSnapshot", () => {
 				viewSnap = snapshot;
 			},
 		} as unknown as ViewProvider;
-		const stringHighlighter: StringHighlighterHandle = {
-			refresh(snapshot: SailEditorSnapshot) {
-				highSnap = snapshot;
-			},
-		};
 
-		pushSnapshot(viewProvider, stringHighlighter);
+		pushSnapshot(viewProvider, (snapshot) => {
+			highSnap = snapshot;
+		});
 
-		assert.deepStrictEqual(viewSnap, {
-			extracted: undefined,
-			parsed: undefined,
-		});
-		assert.deepStrictEqual(highSnap, {
-			extracted: undefined,
-			parsed: undefined,
-		});
+		assert.deepStrictEqual(viewSnap, { context: { kind: "none" } });
+		assert.deepStrictEqual(highSnap, { context: { kind: "none" } });
 	});
 
-	test("pushes extracted and parsed snapshot when cursor is inside a class string", async () => {
+	test("pushes string context when cursor is inside a class string", async () => {
 		const text = 'const x = "flex gap-2";';
 		const doc = await vscode.workspace.openTextDocument({
 			content: text,
@@ -51,18 +41,18 @@ suite("pushSnapshot", () => {
 				viewSnap = snapshot;
 			},
 		} as unknown as ViewProvider;
-		const stringHighlighter: StringHighlighterHandle = {
-			refresh(snapshot: SailEditorSnapshot) {
-				highSnap = snapshot;
-			},
-		};
 
-		pushSnapshot(viewProvider, stringHighlighter);
+		pushSnapshot(viewProvider, (snapshot) => {
+			highSnap = snapshot;
+		});
 
-		assert.ok(viewSnap?.extracted);
-		assert.strictEqual(viewSnap.extracted?.rawContent, "flex gap-2");
-		assert.ok(viewSnap?.parsed);
-		assert.strictEqual(viewSnap?.parsed?.looksLikeTailwind, true);
+		assert.strictEqual(viewSnap?.context.kind, "string");
+		if (viewSnap?.context.kind !== "string") {
+			throw new Error("expected string context");
+		}
+		assert.strictEqual(viewSnap.context.rawContent, "flex gap-2");
+		assert.strictEqual(viewSnap.context.classes.length, 2);
+		assert.strictEqual(viewSnap.context.isTailwind, true);
 		assert.deepStrictEqual(highSnap, viewSnap);
 	});
 });

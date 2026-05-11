@@ -6,13 +6,13 @@ export type StringHighlighterHandle = {
 };
 
 /**
- * Underlines the analyzed string literal when the Sail view is visible; clears stale decorations on other editors.
+ * Underlines the active `class` string or `@apply` directives when the Sail view is visible; clears stale decorations on other editors.
  *
  * @param context - Extension context for `createTextEditorDecorationType` disposal.
  * @param isViewVisible - Predicate gating the highlight.
  * @returns Handle with `refresh(snapshot)` to update decorations.
  *
- * @example registerStringHighlighter(context, () => true).refresh(snapshot) — void; updates underlines.
+ * @example registerStringHighlighter(context, () => true).refresh(snapshot) => void
  */
 export function registerStringHighlighter(
 	context: vscode.ExtensionContext,
@@ -20,7 +20,6 @@ export function registerStringHighlighter(
 ): StringHighlighterHandle {
 	const decorationType = vscode.window.createTextEditorDecorationType({
 		rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-		// Underline only; omit `color` so editor/syntax colors stay unchanged.
 		textDecoration: "underline",
 	});
 	context.subscriptions.push(decorationType);
@@ -42,13 +41,35 @@ export function registerStringHighlighter(
 		}
 
 		const editor = vscode.window.activeTextEditor;
-		if (!editor || !snapshot.extracted) {
+
+		if (!editor) {
+			return;
+		}
+
+		const { context: snapCtx } = snapshot;
+
+		if (snapCtx.kind === "none") {
+			return;
+		}
+
+		if (snapCtx.kind === "apply") {
+			if (snapCtx.applyHighlightRanges.length === 0) {
+				return;
+			}
+
+			editor.setDecorations(
+				decorationType,
+				Array.from(snapCtx.applyHighlightRanges),
+			);
 			return;
 		}
 
 		const { document } = editor;
-		const { rawToDocSegments } = snapshot.extracted;
+
+		const { rawToDocSegments } = snapCtx;
+
 		const ranges: vscode.Range[] = [];
+
 		for (const seg of rawToDocSegments) {
 			const start = document.positionAt(seg.docStart);
 			const end = document.positionAt(seg.docEnd);
@@ -56,6 +77,7 @@ export function registerStringHighlighter(
 				ranges.push(new vscode.Range(start, end));
 			}
 		}
+
 		editor.setDecorations(decorationType, ranges);
 	}
 

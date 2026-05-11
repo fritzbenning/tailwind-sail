@@ -2,11 +2,11 @@ import * as assert from "assert";
 import { parseTailwindClasses } from "./parseTailwindClasses";
 
 suite("parseTailwindClasses", () => {
-	test("sets looksLikeTailwind", () => {
+	test("sets isTailwind", () => {
 		const ok = parseTailwindClasses("p-4 foo");
-		assert.strictEqual(ok.looksLikeTailwind, true);
+		assert.strictEqual(ok.isTailwind, true);
 		const no = parseTailwindClasses("hello world");
-		assert.strictEqual(no.looksLikeTailwind, false);
+		assert.strictEqual(no.isTailwind, false);
 	});
 
 	test("records token offsets in raw string", () => {

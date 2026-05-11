@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { extractStringAtCursor } from "./extractStringAtCursor";
+import { findTailwindStringAtCursor } from "./findTailwindStringAtCursor";
 
-suite("extractStringAtCursor", () => {
+suite("findTailwindStringAtCursor", () => {
 	test("matches extractStringAtOffset via document positions", async () => {
 		const text = 'const x = "flex gap-2";';
 		const doc = await vscode.workspace.openTextDocument({
@@ -10,9 +10,13 @@ suite("extractStringAtCursor", () => {
 			language: "typescript",
 		});
 		const g = text.indexOf("g");
-		const r = extractStringAtCursor(doc, doc.positionAt(g));
+		const r = findTailwindStringAtCursor(doc, doc.positionAt(g));
 		assert.ok(r);
 		assert.strictEqual(r!.rawContent, "flex gap-2");
+		assert.strictEqual(r!.classes.length, 2);
+		assert.strictEqual(r!.classes[0]!.name, "flex");
+		assert.strictEqual(r!.classes[1]!.name, "gap-2");
+		assert.strictEqual(r!.isTailwind, true);
 		const open = text.indexOf('"');
 		const close = text.lastIndexOf('"') + 1;
 		assert.ok(
@@ -29,7 +33,7 @@ suite("extractStringAtCursor", () => {
 			language: "typescript",
 		});
 		assert.strictEqual(
-			extractStringAtCursor(doc, doc.positionAt(0)),
+			findTailwindStringAtCursor(doc, doc.positionAt(0)),
 			undefined,
 		);
 	});

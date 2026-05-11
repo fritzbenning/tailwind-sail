@@ -19,10 +19,10 @@ export interface ParsedTailwindClass {
  *
  * @property classes - Parsed tokens with spans.
  *
- * @property looksLikeTailwind - Heuristic signal (same basis as `hasTailwindClasses`).
- * @example { classes: [{ name: "p-4", startInRaw: 0, endInRaw: 3 }], looksLikeTailwind: true }
+ * @property isTailwind - Heuristic signal (same basis as `hasTailwindClasses`).
+ * @example { classes: [{ name: "p-4", startInRaw: 0, endInRaw: 3 }], isTailwind: true }
  */
 export interface ParsedTailwindResult {
 	readonly classes: ParsedTailwindClass[];
-	readonly looksLikeTailwind: boolean;
+	readonly isTailwind: boolean;
 }

@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
-import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import { findTailwindStringAtCursor } from "../../string/extract/findTailwindStringAtCursor";
 import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
-import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 import { removeRange } from "./removeRange";
 
 /**
@@ -17,30 +16,35 @@ export async function removeClassFromString(
 	editor: vscode.TextEditor,
 	tokenIndex: number,
 ): Promise<boolean> {
-	const extracted = extractStringAtCursor(
+	const stringResult = findTailwindStringAtCursor(
 		editor.document,
 		editor.selection.active,
 	);
-	if (!extracted) {
+
+	if (!stringResult) {
 		return false;
 	}
-	const parsed = parseTailwindClasses(extracted.rawContent);
-	const spanInRaw = removeRange(parsed.classes, tokenIndex);
+	const spanInRaw = removeRange(stringResult.classes, tokenIndex);
+
 	if (!spanInRaw) {
 		return false;
 	}
+
 	const span = rawSpanToDocOffsets(
-		extracted.rawToDocSegments,
+		stringResult.rawToDocSegments,
 		spanInRaw.startInRaw,
 		spanInRaw.endInRaw,
 	);
+
 	if (!span) {
 		return false;
 	}
+
 	const doc = editor.document;
 	const range = new vscode.Range(
 		doc.positionAt(span.docStart),
 		doc.positionAt(span.docEnd),
 	);
+
 	return editor.edit((b) => b.replace(range, ""));
 }

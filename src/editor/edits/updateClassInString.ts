@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
-import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import { findTailwindStringAtCursor } from "../../string/extract/findTailwindStringAtCursor";
 import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
-import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 
 /**
  * Replaces the class token at `tokenIndex` in the active string literal.
@@ -11,41 +10,50 @@ import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses"
  * @param newValue - Replacement token (no whitespace).
  * @returns Whether the document edit applied.
  *
- * @example await updateString(editor, 0, "m-auto") => true
+ * @example await updateClassInString(editor, 0, "m-auto") => true
  */
-export async function updateString(
+export async function updateClassInString(
 	editor: vscode.TextEditor,
 	tokenIndex: number,
 	newValue: string,
 ): Promise<boolean> {
 	const trimmed = newValue.trim();
+
 	if (trimmed.length === 0 || /\s/.test(trimmed)) {
 		return false;
 	}
-	const extracted = extractStringAtCursor(
+
+	const stringResult = findTailwindStringAtCursor(
 		editor.document,
 		editor.selection.active,
 	);
-	if (!extracted) {
+
+	if (!stringResult) {
 		return false;
 	}
-	const parsed = parseTailwindClasses(extracted.rawContent);
-	const c = parsed.classes[tokenIndex];
+
+	const c = stringResult.classes[tokenIndex];
+
 	if (!c) {
 		return false;
 	}
+
 	const span = rawSpanToDocOffsets(
-		extracted.rawToDocSegments,
+		stringResult.rawToDocSegments,
 		c.startInRaw,
 		c.endInRaw,
 	);
+
 	if (!span) {
 		return false;
 	}
+
 	const doc = editor.document;
+
 	const range = new vscode.Range(
 		doc.positionAt(span.docStart),
 		doc.positionAt(span.docEnd),
 	);
+
 	return editor.edit((b) => b.replace(range, trimmed));
 }

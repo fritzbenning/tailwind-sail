@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { addClassToString } from "../editor/edits/addClassToString";
-import { removeClassFromString } from "../editor/edits/removeClassFromString";
-import { updateString } from "../editor/edits/updateString";
+import { addClassAtCursor } from "../editor/edits/addClassAtCursor";
+import { removeClassTokenAtCursor } from "../editor/edits/removeClassTokenAtCursor";
+import { updateClassTokenAtCursor } from "../editor/edits/updateClassTokenAtCursor";
 import type { StringHighlighterHandle } from "../editor/highlight/registerStringHighlighter";
 import type { SailEditorSnapshot } from "../editor/types";
 import { readUpdateDebounceMs } from "../editor/utils/readUpdateDebounceMs";
@@ -23,8 +23,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 
 	private view?: vscode.WebviewView;
 	private lastSnapshot: SailEditorSnapshot = {
-		extracted: undefined,
-		parsed: undefined,
+		context: { kind: "none" },
 	};
 	private messageSubscription?: vscode.Disposable;
 	private highlightVisibilityDisposable?: vscode.Disposable;
@@ -215,14 +214,18 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 					if (typeof message.tokenIndex !== "number") {
 						return;
 					}
-					void removeClassFromString(editor, message.tokenIndex);
+					void removeClassTokenAtCursor(
+						editor,
+						this.lastSnapshot,
+						message.tokenIndex,
+					);
 					return;
 				}
 				if (message.type === "tailwind-sail-add-class") {
 					if (typeof message.className !== "string") {
 						return;
 					}
-					void addClassToString(editor, message.className);
+					void addClassAtCursor(editor, this.lastSnapshot, message.className);
 					return;
 				}
 				if (message.type !== "tailwind-sail-edit-class") {
@@ -234,7 +237,12 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				) {
 					return;
 				}
-				void updateString(editor, message.tokenIndex, message.newValue);
+				void updateClassTokenAtCursor(
+					editor,
+					this.lastSnapshot,
+					message.tokenIndex,
+					message.newValue,
+				);
 			},
 		);
 

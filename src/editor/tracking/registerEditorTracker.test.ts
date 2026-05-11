@@ -36,15 +36,20 @@ suite("registerEditorTracker", () => {
 			},
 		};
 
-		const context = { subscriptions } as unknown as vscode.ExtensionContext;
+		const extensionContext = {
+			subscriptions,
+		} as unknown as vscode.ExtensionContext;
 		const handle = registerEditorTracker(
 			viewProvider,
 			stringHighlighter,
-			context,
+			extensionContext,
 		);
 		handle.refreshNow();
 
-		assert.ok(last?.extracted);
-		assert.strictEqual(last?.extracted?.rawContent, "p-4");
+		assert.strictEqual(last?.context.kind, "string");
+		if (last?.context.kind !== "string") {
+			throw new Error("expected string context");
+		}
+		assert.strictEqual(last.context.rawContent, "p-4");
 	});
 });

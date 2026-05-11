@@ -2,7 +2,7 @@ import { hasTailwindClasses } from "../detect/hasTailwindClasses";
 import type { ParsedTailwindClass, ParsedTailwindResult } from "./types";
 
 /**
- * Tokenizes a class string on whitespace with half-open `[startInRaw, endInRaw)` spans and a {@link ParsedTailwindResult.looksLikeTailwind} hint.
+ * Tokenizes a class string on whitespace with half-open `[startInRaw, endInRaw)` spans and a {@link ParsedTailwindResult.isTailwind} hint.
  *
  * @param input - Raw `class` value (no surrounding quotes).
  * @returns Parsed tokens and Tailwind-like flag.
@@ -29,10 +29,11 @@ export function parseTailwindClasses(input: string): ParsedTailwindResult {
 		const name = input.slice(startInRaw, endInRaw);
 		classes.push({ name, startInRaw, endInRaw } satisfies ParsedTailwindClass);
 	}
-	const looksLikeTailwind = hasTailwindClasses(input);
+
+	const isTailwind = hasTailwindClasses(input);
 
 	return {
 		classes,
-		looksLikeTailwind,
+		isTailwind,
 	};
 }

@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as vscode from "vscode";
-import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import { findTailwindStringAtCursor } from "../../string/extract/findTailwindStringAtCursor";
 import type { SailEditorSnapshot } from "../types";
 import { registerStringHighlighter } from "./registerStringHighlighter";
 
@@ -22,12 +22,16 @@ suite("registerStringHighlighter", () => {
 		const editor = await vscode.window.showTextDocument(doc);
 		const pos = doc.positionAt(text.indexOf("m"));
 		editor.selection = new vscode.Selection(pos, pos);
-		const extracted = extractStringAtCursor(doc, pos);
-		assert.ok(extracted);
-		const snapshot: SailEditorSnapshot = { extracted, parsed: undefined };
+		const stringResult = findTailwindStringAtCursor(doc, pos);
+		assert.ok(stringResult);
+		const snapshot: SailEditorSnapshot = {
+			context: { kind: "string", ...stringResult },
+		};
 
-		const context = { subscriptions } as unknown as vscode.ExtensionContext;
-		const { refresh } = registerStringHighlighter(context, () => true);
+		const extensionContext = {
+			subscriptions,
+		} as unknown as vscode.ExtensionContext;
+		const { refresh } = registerStringHighlighter(extensionContext, () => true);
 		refresh(snapshot);
 	});
 
@@ -51,12 +55,19 @@ suite("registerStringHighlighter", () => {
 			const editor = await vscode.window.showTextDocument(doc);
 			const pos = doc.positionAt(text.indexOf("m"));
 			editor.selection = new vscode.Selection(pos, pos);
-			const extracted = extractStringAtCursor(doc, pos);
-			assert.ok(extracted);
-			const snapshot: SailEditorSnapshot = { extracted, parsed: undefined };
+			const stringResult = findTailwindStringAtCursor(doc, pos);
+			assert.ok(stringResult);
+			const snapshot: SailEditorSnapshot = {
+				context: { kind: "string", ...stringResult },
+			};
 
-			const context = { subscriptions } as unknown as vscode.ExtensionContext;
-			const { refresh } = registerStringHighlighter(context, () => true);
+			const extensionContext = {
+				subscriptions,
+			} as unknown as vscode.ExtensionContext;
+			const { refresh } = registerStringHighlighter(
+				extensionContext,
+				() => true,
+			);
 			refresh(snapshot);
 		} finally {
 			if (prev !== undefined) {

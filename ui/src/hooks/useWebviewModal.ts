@@ -1,6 +1,10 @@
 import { createSignal, onCleanup, onMount } from "solid-js";
 import { applyVariablesToBody } from "../lib/css/applyVariablesToBody";
-import type { CssVariableEntry, ThemeFileScanInfo, WebviewModal } from "../types";
+import type {
+	CssVariableEntry,
+	ThemeFileScanInfo,
+	WebviewModal,
+} from "../types";
 
 const CLASS_TOKEN_INPUT_CLASS = "class-token-input";
 
@@ -17,7 +21,8 @@ export type WebviewHostState = {
  *
  * @returns Accessors for the panel model, workspace variable list, theme scan info, and preview flag.
  *
- * @example const { model, cssVariables, themeFileScan } = useWebviewModal()
+ * @example useWebviewModal().model().kind => "noString" on bootstrap
+ * @example useWebviewModal().cssVariables() => [] until variables postMessage arrives
  */
 export function useWebviewModal(): WebviewHostState {
 	const [model, setModel] = createSignal<WebviewModal>({

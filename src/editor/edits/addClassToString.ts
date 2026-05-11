@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
-import { extractStringAtCursor } from "../../string/extract/extractStringAtCursor";
+import { findTailwindStringAtCursor } from "../../string/extract/findTailwindStringAtCursor";
 import { rawSpanToDocOffsets } from "../../string/utils/rawSpanToDocOffsets";
-import { parseTailwindClasses } from "../../tailwind/parse/parseTailwindClasses";
 
 /**
  * Appends a class token to the active string literal (or replaces whitespace when there are no tokens).
@@ -17,19 +16,21 @@ export async function addClassToString(
 	newClass: string,
 ): Promise<boolean> {
 	const trimmed = newClass.trim();
+
 	if (trimmed.length === 0 || /\s/.test(trimmed)) {
 		return false;
 	}
-	const extracted = extractStringAtCursor(
+
+	const stringResult = findTailwindStringAtCursor(
 		editor.document,
 		editor.selection.active,
 	);
-	if (!extracted) {
+
+	if (!stringResult) {
 		return false;
 	}
-	const raw = extracted.rawContent;
-	const parsed = parseTailwindClasses(raw);
-	const classes = parsed.classes;
+	const raw = stringResult.rawContent;
+	const classes = stringResult.classes;
 
 	let startInRaw: number;
 	let endInRaw: number;
@@ -51,17 +52,20 @@ export async function addClassToString(
 	}
 
 	const span = rawSpanToDocOffsets(
-		extracted.rawToDocSegments,
+		stringResult.rawToDocSegments,
 		startInRaw,
 		endInRaw,
 	);
+
 	if (!span) {
 		return false;
 	}
+
 	const doc = editor.document;
 	const range = new vscode.Range(
 		doc.positionAt(span.docStart),
 		doc.positionAt(span.docEnd),
 	);
+
 	return editor.edit((b) => b.replace(range, insertText));
 }

@@ -1,6 +1,6 @@
 import { createSignal, Match, Switch } from "solid-js";
-import { ClassList } from "./components/ClassList";
 import { ClassEmptyState } from "./components/ClassEmptyState";
+import { ClassList } from "./components/ClassList";
 import { type TabId, Tabs } from "./components/Tabs";
 import { ThemePanel } from "./components/ThemePanel";
 import { useWebviewModal } from "./hooks/useWebviewModal";

@@ -39,7 +39,7 @@ export function registerEditorTracker(
 	const runSchedule = () =>
 		scheduleUpdate({
 			debounceTimer,
-			onFire: () => pushSnapshot(viewProvider, stringHighlighter),
+			onFire: () => pushSnapshot(viewProvider, stringHighlighter.refresh),
 		});
 
 	context.subscriptions.push(
@@ -65,7 +65,7 @@ export function registerEditorTracker(
 		refreshNow: () =>
 			runImmediateRefresh({
 				debounceTimer,
-				onFire: () => pushSnapshot(viewProvider, stringHighlighter),
+				onFire: () => pushSnapshot(viewProvider, stringHighlighter.refresh),
 			}),
 	};
 }

@@ -1,0 +1,16 @@
+/* Preview @apply for Tailwind Sail: open this file, focus the sidebar, and place the caret inside a rule that uses @apply. */
+
+.app-header {
+	@apply flex justify-between px-4 pt-4 border-b border-zinc-700 mb-4;
+}
+
+.app-header__logout {
+	@apply flex gap-2 px-3 py-1.5;
+	@apply text-xs uppercase tracking-wide text-zinc-300;
+	@apply hover:border-sky-700 hover:text-sky-200;
+}
+
+.non-tailwind-token {
+	/* `custom-foo` may show as uncategorized in the sidebar until it matches a utility. */
+	@apply flex custom-foo;
+}
