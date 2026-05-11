@@ -31,6 +31,7 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 	private stringHighlighter?: StringHighlighterHandle;
 	private variableScanTimer?: ReturnType<typeof setTimeout>;
 	private variableScanDisposable?: vscode.Disposable;
+	private rowFocusClearTimer?: ReturnType<typeof setTimeout>;
 
 	constructor(
 		private readonly extensionUri: vscode.Uri,
@@ -40,10 +41,16 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			new vscode.Disposable(() => {
 				this.messageSubscription?.dispose();
 				this.variableScanDisposable?.dispose();
+
 				if (this.variableScanTimer !== undefined) {
 					clearTimeout(this.variableScanTimer);
 				}
+
+				if (this.rowFocusClearTimer) {
+					clearTimeout(this.rowFocusClearTimer);
+				}
 			}),
+
 			vscode.workspace.onDidChangeConfiguration((e) => {
 				if (e.affectsConfiguration("tailwind-sail")) {
 					this.postWebviewSettings();
@@ -110,6 +117,23 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 			this.variableScanTimer = undefined;
 			void this.postVariablesScan();
 		}, ms);
+	}
+
+	private handleClassRowFocus(tokenIndex: number | undefined): void {
+		if (this.rowFocusClearTimer !== undefined) {
+			clearTimeout(this.rowFocusClearTimer);
+			this.rowFocusClearTimer = undefined;
+		}
+
+		if (tokenIndex === undefined) {
+			this.rowFocusClearTimer = setTimeout(() => {
+				this.stringHighlighter?.setFocusedClassToken(undefined);
+				this.rowFocusClearTimer = undefined;
+			}, 0);
+			return;
+		}
+
+		this.stringHighlighter?.setFocusedClassToken(tokenIndex);
 	}
 
 	private async postVariablesScan(): Promise<void> {
@@ -187,6 +211,14 @@ export class ViewProvider implements vscode.WebviewViewProvider {
 				}
 				if (message.type === "tailwind-sail-add-theme-file") {
 					void executeAddThemeFile();
+					return;
+				}
+				if (message.type === "tailwind-sail-class-row-focus") {
+					this.handleClassRowFocus(
+						typeof message.tokenIndex === "number"
+							? message.tokenIndex
+							: undefined,
+					);
 					return;
 				}
 				if (message.type === "tailwind-sail-open-css-variable") {

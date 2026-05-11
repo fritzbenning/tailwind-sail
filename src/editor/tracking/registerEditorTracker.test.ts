@@ -34,6 +34,9 @@ suite("registerEditorTracker", () => {
 			refresh(snapshot: SailEditorSnapshot) {
 				last = snapshot;
 			},
+			setFocusedClassToken: () => {
+				// no-op mock for tracker tests
+			},
 		};
 
 		const extensionContext = {

@@ -46,8 +46,19 @@ export function ClassItem(props: {
 					spellcheck={false}
 					data-token-index={props.item.tokenIndex}
 					value={inputValue()}
-					onFocus={onFocus}
-					onBlur={onBlur}
+					onFocus={() => {
+						onFocus();
+						vscode.postMessage({
+							type: "tailwind-sail-class-row-focus",
+							tokenIndex: props.item.tokenIndex,
+						});
+					}}
+					onBlur={() => {
+						onBlur();
+						vscode.postMessage({
+							type: "tailwind-sail-class-row-focus",
+						});
+					}}
 					onInput={(event) => {
 						const value = event.currentTarget.value;
 						onUpdate(value);
