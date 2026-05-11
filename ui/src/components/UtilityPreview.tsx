@@ -40,7 +40,7 @@ export function UtilityPreview(props: {
 
 	return (
 		<Show when={props.showUtilityPreview()}>
-			<div class="flex min-w-8 shrink-0 items-center justify-end">
+			<div class="flex min-w-8 shrink-0 select-none items-center justify-end">
 				<Show when={bg()}>
 					{(bc) => <ColorSwatch backgroundColorClass={bc()} />}
 				</Show>

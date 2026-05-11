@@ -39,3 +39,21 @@ export const TYPOGRAPHY_NAMED_STEPS = [
 	"8xl",
 	"9xl",
 ] as const;
+
+/**
+ * **`border-radius`** scale for **global** `rounded-*` utilities (`rounded-sm`, theme default `rounded`, …).
+ * The empty string marks the bare `rounded` token (between `sm` and `md` in Tailwind’s default theme).
+ *
+ * @see https://tailwindcss.com/docs/border-radius
+ */
+export const ROUNDED_NAMED_STEPS = [
+	"none",
+	"sm",
+	"",
+	"md",
+	"lg",
+	"xl",
+	"2xl",
+	"3xl",
+	"full",
+] as const;

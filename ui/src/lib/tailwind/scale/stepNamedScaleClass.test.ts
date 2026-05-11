@@ -9,6 +9,16 @@ describe("stepNamedScaleClass", () => {
 		expect(stepNamedScaleClass("max-w-2xl", -1)).toBe("max-w-xl");
 	});
 
+	it("steps global rounded scale including bare rounded", () => {
+		expect(stepNamedScaleClass("rounded", 1)).toBe("rounded-md");
+		expect(stepNamedScaleClass("rounded", -1)).toBe("rounded-sm");
+		expect(stepNamedScaleClass("rounded-sm", 1)).toBe("rounded");
+		expect(stepNamedScaleClass("rounded-md", -1)).toBe("rounded");
+		expect(stepNamedScaleClass("rounded-none", -1)).toBeNull();
+		expect(stepNamedScaleClass("rounded-full", 1)).toBeNull();
+		expect(stepNamedScaleClass("rounded-tl", 1)).toBeNull();
+	});
+
 	it("steps typography scale for text-* (font-size keywords)", () => {
 		expect(stepNamedScaleClass("text-sm", 1)).toBe("text-base");
 		expect(stepNamedScaleClass("text-base", -1)).toBe("text-sm");

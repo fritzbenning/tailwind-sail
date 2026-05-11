@@ -1,5 +1,5 @@
+import { findNamedScaleTail } from "./findNamedScaleTail";
 import { getNamedSteps } from "./getNamedSteps";
-import { getScalePattern } from "./getScalePattern";
 
 /**
  * Steps the trailing **named breakpoint / size keyword** on one utility token (no variant prefixes), preserving a leading important `!`.
@@ -9,6 +9,7 @@ import { getScalePattern } from "./getScalePattern";
  * @returns Updated utility, or `null` when no matching named tail exists or the step is out of range.
  *
  * @example stepNamedScale("rounded-md", 1) => "rounded-lg"
+ * @example stepNamedScale("rounded", 1) => "rounded-md"
  * @example stepNamedScale("!text-sm", 1) => "!text-base"
  */
 export function stepNamedScale(
@@ -29,28 +30,23 @@ export function stepNamedScale(
 		return null;
 	}
 
-	const pattern = getScalePattern(steps);
-	const match = pattern.exec(rest);
+	const current = findNamedScaleTail(rest, steps);
 
-	if (!match?.[1]) {
+	if (!current) {
 		return null;
 	}
 
-	const token = match[1];
-	const index = steps.indexOf(token);
-
-	if (index === -1) {
-		return null;
-	}
-
-	const nextIndex = index + direction;
+	const nextIndex = current.index + direction;
 
 	if (nextIndex < 0 || nextIndex >= steps.length) {
 		return null;
 	}
 
 	const nextToken = steps[nextIndex];
-	const prefix = rest.slice(0, rest.length - token.length - 1);
+	const nextRest =
+		nextToken === ""
+			? current.prefix
+			: `${current.prefix}-${nextToken}`;
 
-	return `${importantPrefix}${prefix}-${nextToken}`;
+	return `${importantPrefix}${nextRest}`;
 }
