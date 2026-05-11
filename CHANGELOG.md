@@ -5,6 +5,8 @@
 ### New features
 
 - **CSS/SCSS `@apply`**: Sidebar, underlines, and edits work on Tailwind utilities inside `@apply` in stylesheets. Setting **`tailwind-sail.applyAtCaretScope`** chooses whether to merge the whole rule body or only the `@apply` that contains the caret. Command **Tailwind Sail: Set @apply Scope…** changes that from the Command Palette.
+- Setting **`tailwind-sail.saveDocumentAfterEdit`** (default **off**): saves the active editor after discrete Tailwind Sail edits (remove/add class, **Enter** in **Add** or a class field, named-scale steps), not while typing a token. Command **Tailwind Sail: Save Document After Edit (Toggle)** from the Command Palette, or enable it under **Tailwind Sail** in Settings.
+- **Named-scale stepping**: Sidebar **chevron buttons** on each class row move the utility’s **named size or breakpoint keyword** along Tailwind’s ordered scale—for example `text-sm` → `text-base`, `rounded-md` → `rounded-lg`, `max-w-md` → `max-w-lg`—while keeping variant prefixes and `!` intact. The buttons are omitted when the utility has no recognized keyword step (for example arbitrary values or numeric-only spacing).
 
 ## [0.1.7] - 2026-04-24
 
